@@ -183,18 +183,29 @@ class SummarizationPromptBuilder:
         authors = metadata.get('authors', [])
         year = metadata.get('year', '')
         source = metadata.get('source', '')
+        citation_key = metadata.get('citation_key', 'unknown')
         is_small = self._is_small_model(metadata)
         
         # Build prompt sections (optimized, ~50% shorter)
         sections = []
         
-        # Section 1: Paper Identity (concise)
-        sections.append(f"Title: {title}")
+        # CRITICAL: Paper isolation warnings at the start
+        sections.append("=== IMPORTANT: ISOLATE THIS PAPER ===")
+        sections.append("You are summarizing ONLY the paper below. Do NOT reference or use content from any other papers.")
+        sections.append("Do NOT mix information from different papers. Only use information from THIS specific paper.")
+        sections.append("")
+        sections.append(f"Paper Title: {title}")
+        sections.append(f"Citation Key: {citation_key}")
         if authors:
             sections.append(f"Authors: {', '.join(authors[:3])}")
+        sections.append("")
+        sections.append("REMEMBER: Extract quotes, claims, and findings ONLY from the paper text provided below.")
+        sections.append("")
+        
+        # Add year if not already included
         if year:
             sections.append(f"Year: {year}")
-        sections.append("")
+            sections.append("")
         
         # Section 2: Key Context (only for small models, skip for large)
         if is_small and context.abstract:
@@ -251,6 +262,16 @@ class SummarizationPromptBuilder:
         """
         is_small = self._is_small_model(metadata or {})
         sections = []
+        
+        # CRITICAL: Paper isolation warnings
+        title = context.title
+        citation_key = metadata.get('citation_key', 'unknown') if metadata else 'unknown'
+        sections.append("=== IMPORTANT: ISOLATE THIS PAPER ===")
+        sections.append("You are revising a summary for ONLY the paper below. Do NOT reference or use content from any other papers.")
+        sections.append(f"Paper Title: {title}")
+        sections.append(f"Citation Key: {citation_key}")
+        sections.append("REMEMBER: Extract quotes, claims, and findings ONLY from the paper text provided below.")
+        sections.append("")
         
         # Issues (concise)
         sections.append("Issues to fix:")
@@ -386,11 +407,21 @@ class SummarizationPromptBuilder:
         sections.append("")
         
         # Anti-repetition (CRITICAL)
-        sections.append("7. NO REPETITION:")
-        sections.append("   - Each sentence and paragraph must be UNIQUE")
-        sections.append("   - Do NOT repeat the same sentence, even with slight variations")
+        sections.append("7. NO REPETITION - CRITICAL REQUIREMENT:")
+        sections.append("   - Each sentence and paragraph must be COMPLETELY UNIQUE")
+        sections.append("   - Do NOT repeat the same sentence, even with slight variations or word changes")
         sections.append("   - Do NOT repeat paragraphs or sections")
-        sections.append("   - Each claim should appear only once")
+        sections.append("   - Each claim should appear only ONCE in the entire summary")
+        sections.append("   - Do NOT use the same phrase multiple times (e.g., 'The authors state' should not appear 5+ times)")
+        sections.append("   - If you find yourself repeating content, STOP and write something NEW")
+        sections.append("   - Vary your language: use synonyms, different sentence structures, different perspectives")
+        sections.append("")
+        sections.append("   EXAMPLES OF WHAT NOT TO DO:")
+        sections.append("   ❌ BAD: 'The authors state: \"X\". The authors state: \"Y\". The authors state: \"Z\".'")
+        sections.append("   ✅ GOOD: 'The authors state: \"X\". They further note: \"Y\". The paper argues: \"Z\".'")
+        sections.append("")
+        sections.append("   ❌ BAD: Repeating the same claim 3+ times with slight variations")
+        sections.append("   ✅ GOOD: State each claim once, then move to the next unique point")
         sections.append("")
         
         # Structure

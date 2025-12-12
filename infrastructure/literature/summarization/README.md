@@ -250,10 +250,10 @@ When `status == "in_progress"` and `metadata.get("streaming") == True`:
 |----------|---------|-------------|
 | `LLM_MAX_INPUT_LENGTH` | Model-aware | Maximum PDF characters (50K for <7B, 100K for 7-13B, 200K for >13B) |
 | `MAX_PARALLEL_SUMMARIES` | `1` | Maximum parallel summarization workers |
-| `LITERATURE_TWO_STAGE_ENABLED` | `true` | Enable two-stage mode for large texts (>50K chars) |
+| `LITERATURE_TWO_STAGE_ENABLED` | `true` | Enable two-stage mode for large texts (>200K chars) |
 | `LITERATURE_CHUNK_SIZE` | `15000` | Target chunk size for two-stage mode |
 | `LITERATURE_CHUNK_OVERLAP` | Model-aware | Chunk overlap (200 for <7B, 500 for >=7B) |
-| `LITERATURE_TWO_STAGE_THRESHOLD` | `50000` | Text size threshold to trigger two-stage mode |
+| `LITERATURE_TWO_STAGE_THRESHOLD` | `200000` | Text size threshold to trigger two-stage mode |
 
 ### Engine Configuration
 

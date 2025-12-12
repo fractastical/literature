@@ -146,6 +146,16 @@ class SummarizationEngine:
         citation_key = pdf_path.stem
         start_time = time.time()
         
+        # CRITICAL: Clear context before processing each paper to prevent cross-paper contamination
+        logger.info(
+            f"[{citation_key}] Clearing LLM context before summarization",
+            extra={
+                "messages_before": len(self.llm_client.context.messages),
+                "tokens_before": self.llm_client.context.estimated_tokens
+            }
+        )
+        self.llm_client.context.clear()
+        
         # Helper function to emit progress events
         def emit_progress(stage: str, status: str, message: Optional[str] = None, metadata: Optional[Dict[str, Any]] = None):
             if progress_callback:

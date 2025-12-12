@@ -26,7 +26,8 @@ def stream_with_progress(
     stage: str = "draft_generation",
     update_interval: float = 5.0,
     timeout: float = 300.0,
-    options: Optional["GenerationOptions"] = None
+    options: Optional["GenerationOptions"] = None,
+    reset_context: bool = False
 ) -> str:
     """Stream LLM response with periodic progress updates.
     
@@ -43,6 +44,8 @@ def stream_with_progress(
         update_interval: Interval in seconds between progress updates (default: 5.0).
         timeout: Maximum time to wait for response (default: 300.0).
         options: Optional generation options (temperature, max_tokens, etc.).
+        reset_context: Whether to clear LLM context before streaming (default: False).
+                      Note: Context is already cleared at the start of each paper.
         
     Returns:
         Complete accumulated response text.
@@ -58,6 +61,19 @@ def stream_with_progress(
         ...     client, prompt, on_progress, "paper123", "draft_generation"
         ... )
     """
+    # Clear context before streaming if requested
+    if reset_context:
+        messages_before = len(llm_client.context.messages)
+        tokens_before = llm_client.context.estimated_tokens
+        logger.debug(
+            f"[{citation_key}] Clearing context before streaming {stage}",
+            extra={
+                "messages_before": messages_before,
+                "tokens_before": tokens_before
+            }
+        )
+        llm_client.context.clear()
+    
     accumulated = []
     chars_received = 0
     words_received = 0

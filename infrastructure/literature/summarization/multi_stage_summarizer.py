@@ -107,7 +107,7 @@ class MultiStageSummarizer:
             two_stage_enabled: Enable two-stage mode (auto-detect from env if None).
             chunk_size: Target chunk size in chars (default: 15000).
             chunk_overlap: Overlap between chunks in chars (default: 500).
-            two_stage_threshold: Text size threshold to trigger two-stage mode (default: 50000).
+            two_stage_threshold: Text size threshold to trigger two-stage mode (default: 200000).
         """
         import os
         
@@ -134,7 +134,7 @@ class MultiStageSummarizer:
             logger.debug(f"Detected small model ({model_size}B), reducing chunk overlap to {default_overlap}")
         
         self.chunk_overlap = default_overlap
-        self.two_stage_threshold = two_stage_threshold or int(os.environ.get('LITERATURE_TWO_STAGE_THRESHOLD', '50000'))
+        self.two_stage_threshold = two_stage_threshold or int(os.environ.get('LITERATURE_TWO_STAGE_THRESHOLD', '200000'))
         
         self.chunker = PDFChunker(
             target_chunk_size=self.chunk_size,
@@ -174,6 +174,50 @@ class MultiStageSummarizer:
         available_tokens = self.llm_client.context.estimate_available_tokens(reserve_percent)
         fits = prompt_tokens <= available_tokens
         return fits, prompt_tokens, available_tokens
+    
+    def _fix_markdown_formatting(self, summary: str) -> str:
+        """Fix markdown formatting issues in summary.
+        
+        Ensures proper spacing between headers and content.
+        Fixes common issues like:
+        - Headers without newlines: "### HeaderText" -> "### Header\n\nText"
+        - Missing double newlines between sections
+        - Excessive consecutive newlines
+        
+        Args:
+            summary: Summary text that may have formatting issues.
+            
+        Returns:
+            Summary text with proper markdown formatting.
+        """
+        if not summary:
+            return summary
+        
+        # Fix headers without newlines after them: "### HeaderText" -> "### Header\n\nText"
+        # Match: header (### or ##) followed by text, then capital letter (start of content)
+        summary = re.sub(r'(###\s+[^\n]+)([A-Z][a-z])', r'\1\n\n\2', summary)
+        summary = re.sub(r'(##\s+[^\n]+)([A-Z][a-z])', r'\1\n\n\2', summary)
+        
+        # Ensure double newlines before section headers (but not if already present)
+        summary = re.sub(r'\n(###\s)', r'\n\n\1', summary)
+        summary = re.sub(r'\n(##\s)', r'\n\n\1', summary)
+        
+        # Fix single newline after headers that should have double newline
+        summary = re.sub(r'(###\s+[^\n]+)\n([A-Z])', r'\1\n\n\2', summary)
+        summary = re.sub(r'(##\s+[^\n]+)\n([A-Z])', r'\1\n\n\2', summary)
+        
+        # Remove excessive newlines (more than 2 consecutive)
+        summary = re.sub(r'\n{3,}', r'\n\n', summary)
+        
+        # Ensure proper spacing around section breaks
+        # Fix cases where content runs into headers: "text###Header" -> "text\n\n###Header"
+        summary = re.sub(r'([a-z])(###)', r'\1\n\n\2', summary)
+        summary = re.sub(r'([a-z])(##)', r'\1\n\n\2', summary)
+        
+        # Clean up any remaining formatting issues
+        summary = summary.strip()
+        
+        return summary
     
     def generate_draft(
         self,
@@ -946,6 +990,9 @@ class MultiStageSummarizer:
             min_content_preservation=0.7
         )
         
+        # Apply formatting fixes after deduplication
+        draft = self._fix_markdown_formatting(draft)
+        
         # Stage 2: Validate draft
         should_accept, validation_result = self.validate_and_accept(
             draft, context, pdf_text, paper_title, citation_key, progress_callback=progress_callback
@@ -1011,6 +1058,9 @@ class MultiStageSummarizer:
                 min_content_preservation=0.7
             )
             
+            # Apply formatting fixes after deduplication
+            refined = self._fix_markdown_formatting(refined)
+            
             # Validate refined summary
             should_accept, validation_result = self.validate_and_accept(
                 refined, context, pdf_text, paper_title, citation_key, progress_callback=progress_callback
@@ -1032,6 +1082,9 @@ class MultiStageSummarizer:
             current_summary = refined
         
         # Return best attempt even if not perfect
+        # Apply formatting fixes before returning
+        current_summary = self._fix_markdown_formatting(current_summary)
+        
         overall_time = time.time() - overall_start_time
         logger.warning(
             f"[{citation_key}] Summarization completed in {overall_time:.2f}s "

@@ -500,13 +500,12 @@ def generate_executive_summary(manuscript_text: str, model: str | None = None) -
         >>> summary = generate_executive_summary(manuscript_text, model="llama3")
         >>> print(f"Summary length: {len(summary)} characters")
     """
-    from infrastructure.llm import LLMClient
     from infrastructure.llm.templates import ManuscriptExecutiveSummary
     
     template = ManuscriptExecutiveSummary()
     prompt = template.render(text=manuscript_text[:50000])
     
-    client = LLMClient()
+    client = create_review_client()
     return client.query(prompt, model=model)
 
 
@@ -527,13 +526,12 @@ def generate_quality_review(manuscript_text: str, model: str | None = None) -> s
         >>> review = generate_quality_review(manuscript_text, model="llama3")
         >>> print(f"Review length: {len(review)} characters")
     """
-    from infrastructure.llm import LLMClient
     from infrastructure.llm.templates import ManuscriptQualityReview
     
     template = ManuscriptQualityReview()
     prompt = template.render(text=manuscript_text[:50000])
     
-    client = LLMClient()
+    client = create_review_client()
     return client.query(prompt, model=model)
 
 
@@ -554,13 +552,12 @@ def generate_methodology_review(manuscript_text: str, model: str | None = None) 
         >>> review = generate_methodology_review(manuscript_text, model="llama3")
         >>> print(f"Review length: {len(review)} characters")
     """
-    from infrastructure.llm import LLMClient
     from infrastructure.llm.templates import ManuscriptMethodologyReview
     
     template = ManuscriptMethodologyReview()
     prompt = template.render(text=manuscript_text[:50000])
     
-    client = LLMClient()
+    client = create_review_client()
     return client.query(prompt, model=model)
 
 
@@ -581,13 +578,12 @@ def generate_improvement_suggestions(manuscript_text: str, model: str | None = N
         >>> suggestions = generate_improvement_suggestions(manuscript_text, model="llama3")
         >>> print(f"Suggestions length: {len(suggestions)} characters")
     """
-    from infrastructure.llm import LLMClient
     from infrastructure.llm.templates import ManuscriptImprovementSuggestions
     
     template = ManuscriptImprovementSuggestions()
     prompt = template.render(text=manuscript_text[:50000])
     
-    client = LLMClient()
+    client = create_review_client()
     return client.query(prompt, model=model)
 
 

@@ -14,7 +14,7 @@
 - Discussion: 3475 chars
 
 ## Key Terms
-complex, responses, https, gtpase, rcarreceptors, biorxiv, regulation, negative, large, preprint, license, study, basis, signaling, structural
+rcarreceptors, basis, biorxiv, signaling, license, study, regulation, https, preprint, negative, complex, responses, large, gtpase, structural
 
 ## Equations Found
 5 equations extracted

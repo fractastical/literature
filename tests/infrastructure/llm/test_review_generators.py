@@ -287,6 +287,7 @@ class TestTemplateBasedGenerators:
 class TestReviewGeneratorsIntegration:
     """Integration tests for review generators (requires Ollama)."""
     
+    @pytest.mark.timeout(180)
     def test_generate_executive_summary_real_ollama(self):
         """Test generate_executive_summary with real Ollama."""
         from infrastructure.llm import LLMClient
@@ -301,6 +302,7 @@ class TestReviewGeneratorsIntegration:
         assert len(result) > 0
         assert isinstance(result, str)
     
+    @pytest.mark.timeout(180)
     def test_generate_review_with_metrics_real_ollama(self):
         """Test generate_review_with_metrics with real Ollama."""
         from infrastructure.llm import LLMClient
