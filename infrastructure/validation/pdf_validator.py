@@ -21,8 +21,8 @@ def extract_text_from_pdf(pdf_path: Path) -> str:
     """
     Extract all text content from a PDF file.
 
-    Suppresses harmless pypdf warnings (e.g., "Ignoring wrong pointing object")
-    that occur during PDF parsing of malformed objects.
+    Attempts to extract text using available PDF parsing libraries in order:
+    pdfplumber → pypdf → PyPDF2. Suppresses harmless pypdf warnings.
 
     Args:
         pdf_path: Path to the PDF file
@@ -38,6 +38,22 @@ def extract_text_from_pdf(pdf_path: Path) -> str:
 
     logger = get_logger(__name__)
 
+    # Try pdfplumber first (best quality)
+    try:
+        import pdfplumber
+        text_parts = []
+        with pdfplumber.open(pdf_path) as pdf:
+            for page in pdf.pages:
+                page_text = page.extract_text()
+                if page_text:
+                    text_parts.append(page_text)
+        return '\n'.join(text_parts)
+    except ImportError:
+        pass
+    except Exception as e:
+        logger.warning(f"pdfplumber extraction failed: {e}, trying alternatives...")
+
+    # Try pypdf (newer PyPDF2) with warning suppression
     try:
         from pypdf import PdfReader
 
@@ -50,7 +66,9 @@ def extract_text_from_pdf(pdf_path: Path) -> str:
                 text_parts = []
 
                 for page in pdf_reader.pages:
-                    text_parts.append(page.extract_text())
+                    page_text = page.extract_text()
+                    if page_text:
+                        text_parts.append(page_text)
 
             # Log suppressed warnings at DEBUG level for troubleshooting
             captured_warnings = stderr_capture.getvalue().strip()
@@ -58,7 +76,36 @@ def extract_text_from_pdf(pdf_path: Path) -> str:
                 logger.debug(f"Suppressed pypdf warnings for {pdf_path.name}: {captured_warnings}")
 
             return '\n'.join(text_parts)
-
+    except ImportError:
+        pass
     except Exception as e:
-        raise PDFValidationError(f"Failed to extract text from PDF: {e}")
+        logger.warning(f"pypdf extraction failed: {e}, trying PyPDF2...")
+
+    # Try PyPDF2 (legacy)
+    try:
+        import PyPDF2
+        text_parts = []
+        with open(pdf_path, 'rb') as f:
+            pdf_reader = PyPDF2.PdfReader(f)
+            for page in pdf_reader.pages:
+                page_text = page.extract_text()
+                if page_text:
+                    text_parts.append(page_text)
+        return '\n'.join(text_parts)
+    except ImportError:
+        pass
+    except Exception as e:
+        logger.warning(f"PyPDF2 extraction failed: {e}")
+
+    # No PDF library available
+    raise PDFValidationError(
+        "No PDF parsing library available. Install one of: pdfplumber, pypdf, or PyPDF2.\n"
+        "Installation commands:\n"
+        "  pip install pdfplumber  # Recommended: best quality extraction\n"
+        "  pip install pypdf        # Included in project dependencies\n"
+        "  pip install PyPDF2       # Legacy option\n"
+        "\n"
+        "Note: pypdf>=5.0 should be installed automatically with this project. "
+        "If you see this error, try: pip install -e . or pip install pypdf"
+    )
 

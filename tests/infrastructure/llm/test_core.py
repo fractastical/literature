@@ -251,6 +251,7 @@ class TestLLMClientWithOllama:
         assert response is not None
         assert len(response) < 1000  # Should be concise
 
+    @pytest.mark.timeout(120)
     def test_query_long(self, client, default_config):
         """Test long response mode.
         

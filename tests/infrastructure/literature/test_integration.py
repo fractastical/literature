@@ -6,6 +6,7 @@ from infrastructure.literature.pdf import PDFHandler
 
 
 @pytest.mark.requires_network
+@pytest.mark.timeout(60)
 def test_full_workflow(mock_config, sample_result, tmp_path):
     """Test full literature workflow with real PDF downloads.
     

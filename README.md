@@ -5,7 +5,8 @@ Standalone repository for academic literature search, PDF management, reference 
 ## Features
 
 - **Multi-Source Search**: Unified search across arXiv, Semantic Scholar, PubMed, CrossRef, OpenAlex, DBLP, and more
-- **PDF Management**: Automatic downloading with citation key naming and open access fallback
+- **PDF Management**: Automatic downloading with citation key naming, parallel downloads, and open access fallback
+- **Failed Download Tracking**: Automatic tracking of failed downloads with retry capability
 - **Reference Management**: BibTeX generation with deduplication and library indexing
 - **AI Summarization**: Local LLM-powered paper summarization with quality validation
 - **Meta-Analysis**: PCA, keyword analysis, temporal trends, and visualization tools
@@ -37,6 +38,9 @@ python3 scripts/07_literature_search.py --search --keywords "machine learning,de
 
 # Download PDFs for existing entries
 python3 scripts/07_literature_search.py --download-only
+
+# Retry previously failed downloads
+python3 scripts/07_literature_search.py --download-only --retry-failed
 
 # Generate summaries (requires Ollama)
 python3 scripts/07_literature_search.py --summarize
@@ -101,6 +105,7 @@ All outputs are saved to the `data/` directory:
 - **`data/library.json`** - JSON index with complete paper metadata
 - **`data/references.bib`** - BibTeX entries for citations
 - **`data/pdfs/`** - Downloaded PDFs (named by citation key)
+- **`data/failed_downloads.json`** - Failed download tracker (auto-generated)
 - **`data/summaries/`** - AI-generated paper summaries
 - **`data/extracted_text/`** - Extracted text from PDFs
 - **`data/output/`** - Meta-analysis visualizations and reports
@@ -124,8 +129,11 @@ export LITERATURE_SOURCES="arxiv,semanticscholar"
 export LITERATURE_USE_UNPAYWALL=true
 export UNPAYWALL_EMAIL=your@email.com
 
+# Parallel downloads (default: 4 workers)
+export LITERATURE_MAX_PARALLEL_DOWNLOADS=4
+
 # LLM settings
-export LLM_MODEL=llama3.2:3b
+export OLLAMA_MODEL=gemma3:4b
 export LLM_TIMEOUT=600
 ```
 

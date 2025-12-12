@@ -23,6 +23,7 @@ from infrastructure.literature.core.core import LiteratureSearch, DownloadResult
 from infrastructure.literature.summarization import SummarizationEngine, SummarizationResult
 from infrastructure.literature.summarization.models import SummarizationProgressEvent
 from infrastructure.literature.workflow.progress import ProgressTracker, SummarizationProgress
+from infrastructure.literature.pdf.failed_tracker import FailedDownloadTracker
 
 if TYPE_CHECKING:
     from infrastructure.llm.core.client import LLMClient
@@ -118,6 +119,8 @@ class LiteratureWorkflow:
         self.literature_search = literature_search
         self.summarizer = summarizer
         self.progress_tracker = progress_tracker
+        # Initialize failed download tracker
+        self.failed_tracker = FailedDownloadTracker(literature_search.config)
 
     def set_summarizer(self, summarizer: SummarizationEngine):
         """Set the summarizer for this workflow."""
@@ -145,7 +148,8 @@ class LiteratureWorkflow:
         max_parallel_summaries: int = 2,
         resume_existing: bool = True,
         interactive: bool = True,
-        sources: Optional[List[str]] = None
+        sources: Optional[List[str]] = None,
+        retry_failed: bool = False
     ) -> WorkflowResult:
         """Execute complete search and summarize workflow.
 
@@ -204,7 +208,7 @@ class LiteratureWorkflow:
 
             # Download papers
             log_header("DOWNLOADING PAPERS")
-            downloaded, download_results = self._download_papers(search_results)
+            downloaded, download_results = self._download_papers(search_results, retry_failed=retry_failed)
             result.papers_downloaded = len(downloaded)
             result.papers_failed_download = len([r for r in download_results if not r.success])
             result.papers_already_existed = len([r for r in download_results if r.success and r.already_existed])
@@ -409,8 +413,34 @@ class LiteratureWorkflow:
         logger.info("=" * 70)
         logger.info("")
 
-    def _download_papers(self, search_results: List[SearchResult]) -> Tuple[List[Tuple[SearchResult, Path]], List[DownloadResult]]:
-        """Download PDFs for search results."""
+    def _download_papers(
+        self, 
+        search_results: List[SearchResult],
+        retry_failed: bool = False
+    ) -> Tuple[List[Tuple[SearchResult, Path]], List[DownloadResult]]:
+        """Download PDFs for search results.
+        
+        Args:
+            search_results: List of search results to download.
+            retry_failed: If True, include previously failed downloads in queue.
+        
+        Returns:
+            Tuple of (downloaded papers, all download results).
+        """
+        max_workers = self.literature_search.config.max_parallel_downloads
+        
+        # Use parallel downloads if configured
+        if max_workers > 1:
+            return self._download_papers_parallel(search_results, max_workers, retry_failed)
+        else:
+            return self._download_papers_sequential(search_results, retry_failed)
+    
+    def _download_papers_sequential(
+        self, 
+        search_results: List[SearchResult],
+        retry_failed: bool = False
+    ) -> Tuple[List[Tuple[SearchResult, Path]], List[DownloadResult]]:
+        """Download PDFs sequentially (original implementation)."""
         downloaded = []
         all_results = []
         start_time = time.time()
@@ -429,6 +459,40 @@ class LiteratureWorkflow:
                 logger.error(f"[DOWNLOAD {i}/{len(search_results)}] Failed to add to library: {e}")
                 continue
 
+            # Check if this download previously failed (skip unless retry_failed=True)
+            if not retry_failed and self.failed_tracker.is_failed(citation_key):
+                # Check if PDF actually exists (might have been manually added)
+                expected_pdf = Path("data/pdfs") / f"{citation_key}.pdf"
+                if expected_pdf.exists():
+                    # PDF exists, remove from tracker
+                    self.failed_tracker.remove_successful(citation_key)
+                    logger.info(f"[DOWNLOAD {i}/{len(search_results)}] ✓ PDF exists (removed from failed tracker): {expected_pdf.name}")
+                    downloaded.append((result, expected_pdf))
+                    # Create a success result
+                    download_result = DownloadResult(
+                        citation_key=citation_key,
+                        success=True,
+                        pdf_path=expected_pdf,
+                        already_existed=True,
+                        result=result
+                    )
+                    all_results.append(download_result)
+                else:
+                    # Skip this download - it previously failed
+                    failure_data = self.failed_tracker.load_failed().get(citation_key, {})
+                    failure_reason = failure_data.get("failure_reason", "unknown")
+                    logger.info(f"[DOWNLOAD {i}/{len(search_results)}] ⊘ Skipping {citation_key}: previously failed ({failure_reason}). Use --retry-failed to retry.")
+                    # Create a skipped result
+                    download_result = DownloadResult(
+                        citation_key=citation_key,
+                        success=False,
+                        failure_reason="skipped_previous_failure",
+                        failure_message=f"Previously failed ({failure_reason}), skipped by default",
+                        result=result
+                    )
+                    all_results.append(download_result)
+                continue
+
             # Download PDF with detailed result tracking
             download_result = self.literature_search.download_paper_with_result(result)
             all_results.append(download_result)
@@ -436,6 +500,9 @@ class LiteratureWorkflow:
             paper_duration = time.time() - paper_start_time
 
             if download_result.success and download_result.pdf_path:
+                # Remove from failed tracker if it was there
+                self.failed_tracker.remove_successful(citation_key)
+                
                 # Enhanced success logging with absolute path, file size, and source
                 abs_path = download_result.pdf_path.resolve()
                 file_size = abs_path.stat().st_size if abs_path.exists() else 0
@@ -450,6 +517,12 @@ class LiteratureWorkflow:
                 source = result.source or "unknown"
                 logger.warning(f"[DOWNLOAD {i}/{len(search_results)}] ✗ No PDF URL available: {result.title[:50]}... [Source: {source}] - {paper_duration:.1f}s")
             else:
+                # Save to failed tracker
+                self.failed_tracker.save_failed(
+                    citation_key, download_result, 
+                    title=result.title, source=result.source
+                )
+                
                 # Enhanced failure logging with full context
                 source = result.source or "unknown"
                 error_msg = download_result.failure_message or "Unknown error"
@@ -470,15 +543,210 @@ class LiteratureWorkflow:
                         logger.error(f"    ... and {len(urls_attempted) - 3} more")
                 logger.error(f"  Duration: {paper_duration:.1f}s")
 
+        return self._finalize_download_stats(downloaded, all_results, start_time, len(search_results))
+    
+    def _download_papers_parallel(
+        self,
+        search_results: List[SearchResult],
+        max_workers: int,
+        retry_failed: bool = False
+    ) -> Tuple[List[Tuple[SearchResult, Path]], List[DownloadResult]]:
+        """Download PDFs using parallel processing."""
+        start_time = time.time()
+        logger.info(f"Starting parallel PDF download for {len(search_results)} papers...")
+
+        # Process papers in parallel
+        downloaded = []
+        all_results = []
+        completed_count = 0
+        total_papers = len(search_results)
+
+        processing_mode = "parallel" if max_workers > 1 else "sequential"
+        logger.info(
+            f"Processing {total_papers} paper(s) ({processing_mode} mode, "
+            f"{max_workers} worker(s))"
+        )
+
+        if max_workers > 1:
+            # Parallel processing
+            with ThreadPoolExecutor(max_workers=max_workers) as executor:
+                future_to_result = {
+                    executor.submit(self._download_single_paper, result, retry_failed): result
+                    for result in search_results
+                }
+
+                for future in as_completed(future_to_result):
+                    result = future_to_result[future]
+                    completed_count += 1
+                    progress_indicator = f"[{completed_count}/{total_papers}]"
+
+                    try:
+                        citation_key, download_result = future.result()
+                        all_results.append(download_result)
+
+                        if download_result.success and download_result.pdf_path:
+                            # Remove from failed tracker if it was there
+                            self.failed_tracker.remove_successful(citation_key)
+                            
+                            abs_path = download_result.pdf_path.resolve()
+                            file_size = abs_path.stat().st_size if abs_path.exists() else 0
+                            source = result.source or "unknown"
+                            
+                            if download_result.already_existed:
+                                logger.info(
+                                    f"{progress_indicator} ✓ Already exists: {abs_path.name} "
+                                    f"({file_size:,} bytes) [Source: {source}]"
+                                )
+                            else:
+                                log_success(
+                                    f"{progress_indicator} ✓ Downloaded: {abs_path.name} "
+                                    f"({file_size:,} bytes) [Source: {source}]"
+                                )
+                            downloaded.append((result, download_result.pdf_path))
+                        elif download_result.failure_reason == "skipped_previous_failure":
+                            # Skipped due to previous failure
+                            failure_data = self.failed_tracker.load_failed().get(citation_key, {})
+                            failure_reason = failure_data.get("failure_reason", "unknown")
+                            logger.info(
+                                f"{progress_indicator} ⊘ Skipping {citation_key}: previously failed ({failure_reason}). Use --retry-failed to retry."
+                            )
+                        elif download_result.failure_reason == "no_pdf_url":
+                            source = result.source or "unknown"
+                            logger.warning(
+                                f"{progress_indicator} ✗ No PDF URL: {result.title[:50]}... "
+                                f"[Source: {source}]"
+                            )
+                        else:
+                            # Save to failed tracker
+                            self.failed_tracker.save_failed(
+                                citation_key, download_result,
+                                title=result.title, source=result.source
+                            )
+                            
+                            source = result.source or "unknown"
+                            error_msg = download_result.failure_message or "Unknown error"
+                            logger.error(
+                                f"{progress_indicator} ✗ Failed: {citation_key} "
+                                f"({download_result.failure_reason or 'unknown'}) - {error_msg[:60]}..."
+                            )
+
+                    except Exception as e:
+                        completed_count += 1
+                        logger.error(f"{progress_indicator} Error processing {result.title[:50]}...: {e}")
+                        # Create a failed result
+                        try:
+                            citation_key = self.literature_search.library_index.generate_citation_key(
+                                result.title, result.authors, result.year
+                            )
+                        except Exception:
+                            citation_key = "unknown"
+                        
+                        failed_result = DownloadResult(
+                            citation_key=citation_key,
+                            success=False,
+                            failure_reason="exception",
+                            failure_message=str(e),
+                            result=result
+                        )
+                        all_results.append(failed_result)
+                        self.failed_tracker.save_failed(
+                            citation_key, failed_result,
+                            title=result.title, source=result.source
+                        )
+        else:
+            # Sequential fallback
+            return self._download_papers_sequential(search_results, retry_failed)
+
+        return self._finalize_download_stats(downloaded, all_results, start_time, total_papers)
+    
+    def _download_single_paper(self, result: SearchResult, retry_failed: bool = False) -> Tuple[str, DownloadResult]:
+        """Download a single paper (for parallel processing).
+        
+        Args:
+            result: Search result to download.
+            retry_failed: If True, retry previously failed downloads.
+        
+        Returns:
+            Tuple of (citation_key, download_result).
+        """
+        # Add to library (BibTeX + JSON index)
+        try:
+            citation_key = self.literature_search.add_to_library(result)
+            logger.debug(f"Added to library: {citation_key}")
+        except Exception as e:
+            logger.error(f"Failed to add to library: {e}")
+            # Create a failed result
+            citation_key = self.literature_search.library_index.generate_citation_key(
+                result.title, result.authors, result.year
+            )
+            return citation_key, DownloadResult(
+                citation_key=citation_key,
+                success=False,
+                failure_reason="library_error",
+                failure_message=str(e),
+                result=result
+            )
+
+        # Check if this download previously failed (skip unless retry_failed=True)
+        if not retry_failed and self.failed_tracker.is_failed(citation_key):
+            # Check if PDF actually exists (might have been manually added)
+            expected_pdf = Path("data/pdfs") / f"{citation_key}.pdf"
+            if expected_pdf.exists():
+                # PDF exists, remove from tracker
+                self.failed_tracker.remove_successful(citation_key)
+                logger.debug(f"PDF exists (removed from failed tracker): {expected_pdf.name}")
+                return citation_key, DownloadResult(
+                    citation_key=citation_key,
+                    success=True,
+                    pdf_path=expected_pdf,
+                    already_existed=True,
+                    result=result
+                )
+            else:
+                # Skip this download - it previously failed
+                failure_data = self.failed_tracker.load_failed().get(citation_key, {})
+                failure_reason = failure_data.get("failure_reason", "unknown")
+                logger.debug(f"Skipping {citation_key}: previously failed ({failure_reason})")
+                return citation_key, DownloadResult(
+                    citation_key=citation_key,
+                    success=False,
+                    failure_reason="skipped_previous_failure",
+                    failure_message=f"Previously failed ({failure_reason}), skipped by default",
+                    result=result
+                )
+
+        # Download PDF with detailed result tracking
+        download_result = self.literature_search.download_paper_with_result(result)
+        return citation_key, download_result
+    
+    def _finalize_download_stats(
+        self,
+        downloaded: List[Tuple[SearchResult, Path]],
+        all_results: List[DownloadResult],
+        start_time: float,
+        total_papers: int
+    ) -> Tuple[List[Tuple[SearchResult, Path]], List[DownloadResult]]:
+        """Finalize download statistics and logging.
+        
+        Args:
+            downloaded: List of successfully downloaded papers.
+            all_results: All download results.
+            start_time: Start time of download operation.
+            total_papers: Total number of papers processed.
+        
+        Returns:
+            Tuple of (downloaded papers, all download results).
+        """
         # Calculate comprehensive download statistics
         total_duration = time.time() - start_time
         successful = len([r for r in all_results if r.success])
         already_existed = len([r for r in all_results if r.success and r.already_existed])
         newly_downloaded = len([r for r in all_results if r.success and not r.already_existed])
-        failed = len([r for r in all_results if not r.success])
+        skipped = len([r for r in all_results if r.failure_reason == "skipped_previous_failure"])
+        failed = len([r for r in all_results if not r.success and r.failure_reason != "skipped_previous_failure"])
 
         # Log detailed failure breakdown
-        failures = [r for r in all_results if not r.success]
+        failures = [r for r in all_results if not r.success and r.failure_reason != "skipped_previous_failure"]
         if failures:
             failure_counts: Dict[str, int] = {}
             for r in failures:
@@ -490,18 +758,20 @@ class LiteratureWorkflow:
                 logger.info(f"  • {reason}: {count}")
 
         # Calculate performance metrics
-        avg_time_per_paper = total_duration / len(search_results) if search_results else 0
-        success_rate = (successful / len(search_results)) * 100 if search_results else 0
+        avg_time_per_paper = total_duration / total_papers if total_papers > 0 else 0
+        success_rate = (successful / total_papers) * 100 if total_papers > 0 else 0
 
         # Display comprehensive download summary
         logger.info("")
         logger.info("=" * 70)
         logger.info("PDF DOWNLOAD SUMMARY")
         logger.info("=" * 70)
-        logger.info(f"  Total papers processed: {len(search_results)}")
+        logger.info(f"  Total papers processed: {total_papers}")
         logger.info(f"  ✓ Successfully downloaded: {successful} ({success_rate:.1f}%)")
         logger.info(f"    • Already existed: {already_existed}")
         logger.info(f"    • Newly downloaded: {newly_downloaded}")
+        if skipped > 0:
+            logger.info(f"  ⊘ Skipped (previously failed): {skipped} (use --retry-failed to retry)")
         logger.info(f"  ✗ Failed downloads: {failed}")
         logger.info(f"  ⏱️  Total time: {total_duration:.1f}s")
         logger.info(f"  📊 Average time per paper: {avg_time_per_paper:.1f}s")

@@ -190,7 +190,11 @@ class PDFDownloader:
         if timeout is None:
             timeout = getattr(self.config, 'pdf_download_timeout', self.config.timeout)
         
-        logger.debug(f"Downloading from {url} with timeout {timeout}s")
+        # Get retry limits from config
+        max_url_attempts = getattr(self.config, 'max_url_attempts_per_pdf', 8)
+        max_fallback_strategies = getattr(self.config, 'max_fallback_strategies', 3)
+        
+        logger.debug(f"Downloading from {url} with timeout {timeout}s (max attempts: {max_url_attempts})")
         
         last_error: Optional[Exception] = None
         last_failure_reason: Optional[str] = None
@@ -208,6 +212,11 @@ class PDFDownloader:
 
         last_error = result[1]
         last_failure_reason = result[2]
+        
+        # Early exit for clearly unavailable URLs
+        if last_failure_reason == "not_found":
+            logger.debug(f"404 Not Found for {url}, skipping retries")
+            return (False, last_error, last_failure_reason, attempted_urls)
 
         # If HTML received or access denied, try fallback strategies
         if last_failure_reason in ["html_response", "html_no_pdf_link", "access_denied"]:
@@ -219,7 +228,12 @@ class PDFDownloader:
             # Strategy 0: Try transformed URLs (for HTML responses)
             if last_failure_reason in ["html_response", "html_no_pdf_link"]:
                 transformed_urls = transform_pdf_url(url)
-                for i, transformed_url in enumerate(transformed_urls[:3]):  # Try up to 3 transformed URLs
+                # Limit to 2 most promising variants
+                max_transformed = min(2, len(transformed_urls))
+                for i, transformed_url in enumerate(transformed_urls[:max_transformed]):
+                    if len(attempted_urls) >= max_url_attempts:
+                        logger.debug(f"Reached max URL attempts limit ({max_url_attempts}), stopping")
+                        break
                     logger.debug(f"Trying transformed URL {i+1}: {transformed_url}")
                     result = self._download_single_attempt(
                         transformed_url, output_path, attempt_type=f"transformed_{i+1}", 
@@ -231,99 +245,107 @@ class PDFDownloader:
                         logger.info(f"Success with transformed URL")
                         return (True, None, None, attempted_urls)
 
-            # Strategy 1: Try different User-Agents
-            for user_agent in BROWSER_USER_AGENTS[:3]:  # Try first 3 different User-Agents
-                logger.debug(f"Trying with User-Agent: {user_agent[:50]}...")
+            # Strategy 1: Try different User-Agents (limit to 2 attempts)
+            if len(attempted_urls) < max_url_attempts:
+                for user_agent in BROWSER_USER_AGENTS[:2]:  # Try first 2 different User-Agents
+                    if len(attempted_urls) >= max_url_attempts:
+                        break
+                    logger.debug(f"Trying with User-Agent: {user_agent[:50]}...")
+                    result = self._download_single_attempt(
+                        url, output_path, attempt_type="user_agent",
+                        custom_headers={"User-Agent": user_agent},
+                        parse_html_callback=parse_html_callback, timeout=timeout
+                    )
+                    attempted_urls.append(f"{url} (User-Agent: {user_agent[:20]}...)")
+
+                    if result[0]:
+                        return (True, None, None, attempted_urls)
+
+            # Strategy 2: Try with minimal headers (no Accept-Language, etc.)
+            if len(attempted_urls) < max_url_attempts:
+                logger.debug(f"Trying minimal headers")
                 result = self._download_single_attempt(
-                    url, output_path, attempt_type="user_agent",
-                    custom_headers={"User-Agent": user_agent},
+                    url, output_path, attempt_type="minimal",
+                    custom_headers={
+                        "User-Agent": random.choice(BROWSER_USER_AGENTS),
+                        "Accept": "application/pdf,*/*"
+                    },
                     parse_html_callback=parse_html_callback, timeout=timeout
                 )
-                attempted_urls.append(f"{url} (User-Agent: {user_agent[:20]}...)")
+                attempted_urls.append(f"{url} (minimal)")
 
                 if result[0]:
                     return (True, None, None, attempted_urls)
 
-            # Strategy 2: Try with minimal headers (no Accept-Language, etc.)
-            logger.debug(f"Trying minimal headers")
-            result = self._download_single_attempt(
-                url, output_path, attempt_type="minimal",
-                custom_headers={
-                    "User-Agent": random.choice(BROWSER_USER_AGENTS),
-                    "Accept": "application/pdf,*/*"
-                },
-                parse_html_callback=parse_html_callback, timeout=timeout
-            )
-            attempted_urls.append(f"{url} (minimal)")
-
-            if result[0]:
-                return (True, None, None, attempted_urls)
-
             # Strategy 3: Try HEAD request first to check if URL is accessible
-            try:
-                logger.debug(f"Trying HEAD request")
-                head_response = requests.head(
-                    url,
-                    timeout=timeout,
-                    headers={"User-Agent": random.choice(BROWSER_USER_AGENTS)},
-                    allow_redirects=True
-                )
-                if head_response.status_code == 200:
-                    # HEAD succeeded, try GET again with same User-Agent
-                    result = self._download_single_attempt(
-                        url, output_path, attempt_type="head_ok",
-                        custom_headers={"User-Agent": head_response.request.headers.get("User-Agent", "")},
-                        parse_html_callback=parse_html_callback, timeout=timeout
+            # Skip if 403 is persistent (already tried multiple User-Agents)
+            if len(attempted_urls) < max_url_attempts and last_failure_reason != "access_denied":
+                try:
+                    logger.debug(f"Trying HEAD request")
+                    head_response = requests.head(
+                        url,
+                        timeout=timeout,
+                        headers={"User-Agent": random.choice(BROWSER_USER_AGENTS)},
+                        allow_redirects=True
                     )
-                    attempted_urls.append(f"{url} (head_ok)")
+                    if head_response.status_code == 200:
+                        # HEAD succeeded, try GET again with same User-Agent
+                        result = self._download_single_attempt(
+                            url, output_path, attempt_type="head_ok",
+                            custom_headers={"User-Agent": head_response.request.headers.get("User-Agent", "")},
+                            parse_html_callback=parse_html_callback, timeout=timeout
+                        )
+                        attempted_urls.append(f"{url} (head_ok)")
 
-                    if result[0]:
-                        return (True, None, None, attempted_urls)
-            except Exception as e:
-                logger.debug(f"HEAD failed: {e}")
+                        if result[0]:
+                            return (True, None, None, attempted_urls)
+                except Exception as e:
+                    logger.debug(f"HEAD failed: {e}")
 
             # Strategy 4: Try with referer spoofing (pretend we're coming from Google)
-            logger.debug(f"Trying referer spoofing")
-            result = self._download_single_attempt(
-                url, output_path, attempt_type="referer",
-                custom_headers={
-                    "User-Agent": random.choice(BROWSER_USER_AGENTS),
-                    "Accept": "application/pdf,*/*",
-                    "Accept-Language": "en-US,en;q=0.9",
-                    "Referer": "https://www.google.com/"
-                },
-                parse_html_callback=parse_html_callback, timeout=timeout
-            )
-            attempted_urls.append(f"{url} (referer)")
-
-            if result[0]:
-                return (True, None, None, attempted_urls)
-
-            # Strategy 5: Try academic referers (pretend we're coming from university sites)
-            academic_referers = [
-                "https://scholar.google.com/",
-                "https://www.semanticscholar.org/",
-                "https://www.researchgate.net/",
-                "https://arxiv.org/",
-                "https://www.academia.edu/"
-            ]
-
-            for referer in academic_referers[:2]:  # Try first 2 academic referers
-                logger.debug(f"Trying academic referer: {referer}")
+            if len(attempted_urls) < max_url_attempts:
+                logger.debug(f"Trying referer spoofing")
                 result = self._download_single_attempt(
-                    url, output_path, attempt_type="academic_referer",
+                    url, output_path, attempt_type="referer",
                     custom_headers={
                         "User-Agent": random.choice(BROWSER_USER_AGENTS),
                         "Accept": "application/pdf,*/*",
                         "Accept-Language": "en-US,en;q=0.9",
-                        "Referer": referer
+                        "Referer": "https://www.google.com/"
                     },
                     parse_html_callback=parse_html_callback, timeout=timeout
                 )
-                attempted_urls.append(f"{url} (academic_referer: {referer.split('//')[1].split('/')[0]})")
+                attempted_urls.append(f"{url} (referer)")
 
                 if result[0]:
                     return (True, None, None, attempted_urls)
+
+            # Strategy 5: Try academic referers (pretend we're coming from university sites)
+            # Limit to 1 most promising academic referer
+            if len(attempted_urls) < max_url_attempts:
+                academic_referers = [
+                    "https://scholar.google.com/",
+                    "https://www.semanticscholar.org/",
+                ]
+
+                for referer in academic_referers[:1]:  # Try first 1 academic referer
+                    if len(attempted_urls) >= max_url_attempts:
+                        break
+                    logger.debug(f"Trying academic referer: {referer}")
+                    result = self._download_single_attempt(
+                        url, output_path, attempt_type="academic_referer",
+                        custom_headers={
+                            "User-Agent": random.choice(BROWSER_USER_AGENTS),
+                            "Accept": "application/pdf,*/*",
+                            "Accept-Language": "en-US,en;q=0.9",
+                            "Referer": referer
+                        },
+                        parse_html_callback=parse_html_callback, timeout=timeout
+                    )
+                    attempted_urls.append(f"{url} (academic_referer: {referer.split('//')[1].split('/')[0]})")
+
+                    if result[0]:
+                        return (True, None, None, attempted_urls)
 
         # If not 403 or all recovery strategies failed, try standard retries
         else:
@@ -331,6 +353,11 @@ class PDFDownloader:
             max_retries = self.config.download_retry_attempts
 
             for attempt in range(1, max_retries + 1):
+                # Check if we've exceeded max URL attempts
+                if len(attempted_urls) >= max_url_attempts:
+                    logger.debug(f"Reached max URL attempts limit ({max_url_attempts}), stopping retries")
+                    break
+                    
                 delay = self.config.download_retry_delay * (2 ** (attempt - 1))
 
                 # For 403 errors, try different strategies on retry

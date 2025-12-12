@@ -621,8 +621,8 @@ class TestPaperSelector:
             LibraryEntry(citation_key="p2", title="P2", authors=[], year=2024, abstract="")
         ]
         
-        # Create real summary directory structure
-        summary_dir = tmp_path / "literature" / "summaries"
+        # Create real summary directory structure in data/summaries (as expected by selector)
+        summary_dir = tmp_path / "data" / "summaries"
         summary_dir.mkdir(parents=True)
         
         # Create summary for p1 only

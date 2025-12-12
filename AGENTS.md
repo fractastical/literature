@@ -149,7 +149,7 @@ Local LLM-powered paper summarization:
 
 **Requirements:**
 - Ollama server running (`ollama serve`)
-- Model installed (e.g., `ollama pull llama3.2:3b`)
+- Model installed (e.g., `ollama pull gemma3:4b`)
 
 **Usage:**
 ```bash
@@ -215,7 +215,7 @@ export LITERATURE_USE_UNPAYWALL=true
 export UNPAYWALL_EMAIL=your@email.com
 
 # LLM settings
-export LLM_MODEL=llama3.2:3b
+export OLLAMA_MODEL=gemma3:4b
 export LLM_TIMEOUT=600
 export MAX_PARALLEL_SUMMARIES=1
 
@@ -232,7 +232,7 @@ LITERATURE_DEFAULT_LIMIT=25
 LITERATURE_SOURCES=arxiv,semanticscholar
 LITERATURE_USE_UNPAYWALL=true
 UNPAYWALL_EMAIL=your@email.com
-LLM_MODEL=llama3.2:3b
+OLLAMA_MODEL=gemma3:4b
 ```
 
 ## Testing
@@ -342,10 +342,10 @@ python3 scripts/07_literature_search.py --download-only
 ollama ps
 
 # Test model
-ollama run llama3.2:3b "Hello"
+ollama run gemma3:4b "Hello"
 
 # Install model
-ollama pull llama3.2:3b
+ollama pull gemma3:4b
 ```
 
 ### Library Corruption
@@ -360,6 +360,7 @@ python3 -m infrastructure.literature.cli library validate
 
 ## See Also
 
+- [README.md](README.md) - Quick start guide and repository overview
 - [infrastructure/literature/AGENTS.md](infrastructure/literature/AGENTS.md) - Module documentation
 - [infrastructure/literature/README.md](infrastructure/literature/README.md) - CLI reference
 - [infrastructure/core/AGENTS.md](infrastructure/core/AGENTS.md) - Core utilities

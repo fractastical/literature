@@ -24,7 +24,7 @@ Usage:
     python3 scripts/07_literature_search.py --search --summarize
 
 Output Structure:
-    literature/
+    data/
     ├── references.bib        # BibTeX entries
     ├── library.json          # JSON index
     ├── summarization_progress.json  # Progress tracking
@@ -263,7 +263,7 @@ Examples:
     parser.add_argument(
         "--paper-config",
         type=str,
-        help="Path to YAML config file for paper selection (default: literature/paper_selection.yaml)"
+        help="Path to YAML config file for paper selection (default: data/paper_selection.yaml)"
     )
     parser.add_argument(
         "--keywords",
@@ -290,6 +290,11 @@ Examples:
         "--clear-library",
         action="store_true",
         help="Clear library index before operations (requires confirmation, default: False)"
+    )
+    parser.add_argument(
+        "--retry-failed",
+        action="store_true",
+        help="Retry previously failed downloads (default: False, prompts interactively if failures exist)"
     )
     
     args = parser.parse_args()
@@ -349,7 +354,7 @@ Examples:
         if args.search_only:
             exit_code = run_search_only(workflow, keywords=keywords, limit=args.limit)
         elif args.download_only:
-            exit_code = run_download_only(workflow)
+            exit_code = run_download_only(workflow, retry_failed=args.retry_failed)
         elif args.extract_text:
             exit_code = run_extract_text(workflow)
         elif args.search:
@@ -361,7 +366,7 @@ Examples:
                 clear_pdfs=args.clear_pdfs,
                 clear_summaries=args.clear_summaries,
                 clear_library=args.clear_library,
-                interactive=True
+                retry_failed=args.retry_failed
             )
         elif args.meta_analysis:
             exit_code = run_meta_analysis(
@@ -370,7 +375,8 @@ Examples:
                 limit=args.limit,
                 clear_pdfs=args.clear_pdfs,
                 clear_library=args.clear_library,
-                interactive=True
+                interactive=True,
+                retry_failed=args.retry_failed
             )
         elif args.summarize:
             exit_code = run_summarize(workflow)

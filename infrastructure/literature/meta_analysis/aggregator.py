@@ -61,30 +61,99 @@ class TextCorpus:
 class DataAggregator:
     """Aggregates library data for meta-analysis."""
     
-    def __init__(self, config: Optional[LiteratureConfig] = None):
+    def __init__(self, config: Optional[LiteratureConfig] = None, default_entries: Optional[List[LibraryEntry]] = None):
         """Initialize aggregator.
         
         Args:
             config: Optional literature config (uses default if not provided).
+            default_entries: Optional list of entries to use as default when entries=None.
         """
         if config is None:
             config = LiteratureConfig.from_env()
         self.config = config
         self.library_index = LibraryIndex(config)
+        self._default_entries = default_entries
+    
+    def validate_data_quality(self, entries: Optional[List[LibraryEntry]] = None) -> Dict[str, Any]:
+        """Validate data quality and return metrics.
+        
+        Args:
+            entries: Optional list of entries (uses default or all if not provided).
+            
+        Returns:
+            Dictionary with data quality metrics.
+        """
+        if entries is None:
+            entries = self.aggregate_library_data()
+        
+        total = len(entries)
+        if total == 0:
+            return {
+                'total': 0,
+                'has_year': 0,
+                'has_authors': 0,
+                'has_abstract': 0,
+                'has_doi': 0,
+                'has_pdf': 0,
+                'has_extracted_text': 0,
+                'year_coverage': 0.0,
+                'author_coverage': 0.0,
+                'abstract_coverage': 0.0,
+                'doi_coverage': 0.0,
+                'pdf_coverage': 0.0,
+                'extracted_text_coverage': 0.0,
+                'sufficient_for_pca': False,
+                'sufficient_for_keywords': False,
+                'sufficient_for_temporal': False,
+            }
+        
+        has_year = sum(1 for e in entries if e.year)
+        has_authors = sum(1 for e in entries if e.authors)
+        has_abstract = sum(1 for e in entries if hasattr(e, 'abstract') and e.abstract)
+        has_doi = sum(1 for e in entries if e.doi)
+        has_pdf = sum(1 for e in entries if e.pdf_path)
+        
+        # Check for extracted text
+        extracted_text_dir = Path("data/extracted_text")
+        has_extracted_text = sum(
+            1 for e in entries 
+            if (extracted_text_dir / f"{e.citation_key}.txt").exists()
+        )
+        
+        return {
+            'total': total,
+            'has_year': has_year,
+            'has_authors': has_authors,
+            'has_abstract': has_abstract,
+            'has_doi': has_doi,
+            'has_pdf': has_pdf,
+            'has_extracted_text': has_extracted_text,
+            'year_coverage': (has_year / total * 100) if total > 0 else 0.0,
+            'author_coverage': (has_authors / total * 100) if total > 0 else 0.0,
+            'abstract_coverage': (has_abstract / total * 100) if total > 0 else 0.0,
+            'doi_coverage': (has_doi / total * 100) if total > 0 else 0.0,
+            'pdf_coverage': (has_pdf / total * 100) if total > 0 else 0.0,
+            'extracted_text_coverage': (has_extracted_text / total * 100) if total > 0 else 0.0,
+            'sufficient_for_pca': has_extracted_text >= 2,  # Need at least 2 papers for PCA
+            'sufficient_for_keywords': has_abstract >= 1,  # Need at least 1 abstract
+            'sufficient_for_temporal': has_year >= 1,  # Need at least 1 year
+        }
     
     def aggregate_library_data(self) -> List[LibraryEntry]:
         """Collect all library entries.
         
         Returns:
-            List of all library entries.
+            List of all library entries (or default entries if set).
         """
+        if self._default_entries is not None:
+            return self._default_entries
         return self.library_index.list_entries()
     
     def prepare_temporal_data(self, entries: Optional[List[LibraryEntry]] = None) -> TemporalData:
         """Prepare temporal data for year-based analysis.
         
         Args:
-            entries: Optional list of entries (uses all if not provided).
+            entries: Optional list of entries (uses default or all if not provided).
             
         Returns:
             TemporalData with year-based aggregations.
@@ -119,11 +188,11 @@ class DataAggregator:
         """Prepare keyword data for analysis.
         
         Args:
-            entries: Optional list of entries (uses all if not provided).
+            entries: Optional list of entries (uses default or all if not provided).
             extract_from_abstracts: Whether to extract keywords from abstracts.
             
         Returns:
-            KeywordData with keyword aggregations.
+            KeywordData with keyword information.
         """
         if entries is None:
             entries = self.aggregate_library_data()
@@ -201,7 +270,7 @@ class DataAggregator:
         """Prepare metadata for visualization.
         
         Args:
-            entries: Optional list of entries (uses all if not provided).
+            entries: Optional list of entries (uses default or all if not provided).
             
         Returns:
             MetadataData with metadata aggregations.
@@ -255,7 +324,7 @@ class DataAggregator:
         """Prepare text corpus for PCA analysis.
         
         Args:
-            entries: Optional list of entries (uses all if not provided).
+            entries: Optional list of entries (uses default or all if not provided).
             extracted_text_dir: Directory containing extracted text files.
             
         Returns:

@@ -79,7 +79,7 @@ from infrastructure.literature import (
 
 ## Configuration
 
-All modules support environment variable configuration. See [Configuration Guide](guides/configuration.md) for details.
+All modules support environment variable configuration. See [Configuration Guide](../guides/configuration.md) for details.
 
 ## See Also
 

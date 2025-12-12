@@ -463,6 +463,7 @@ class TestPaperSummarizer:
         assert summary_result.attempts >= 1  # Should attempt at least once
 
     @pytest.mark.requires_ollama
+    @pytest.mark.timeout(120)
     def test_generate_summary_prompt(self):
         """Test summary generation with real LLM (compatibility method)."""
         from infrastructure.llm import LLMClient

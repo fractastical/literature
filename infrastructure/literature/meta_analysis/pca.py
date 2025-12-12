@@ -49,9 +49,19 @@ def extract_text_features(
         
     Returns:
         Tuple of (feature_matrix, feature_names).
+        
+    Raises:
+        ValueError: If corpus is empty or has insufficient data.
     """
     if not SKLEARN_AVAILABLE:
         raise ImportError("scikit-learn is required for text feature extraction")
+    
+    # Validate corpus
+    if not corpus.texts and not corpus.abstracts:
+        raise ValueError("Corpus is empty: no texts or abstracts available")
+    
+    if len(corpus.texts) + len(corpus.abstracts) < 2:
+        raise ValueError(f"Insufficient documents for feature extraction: need at least 2, got {len(corpus.texts) + len(corpus.abstracts)}")
     
     # Combine titles and abstracts for better representation
     texts = [
@@ -59,18 +69,36 @@ def extract_text_features(
         for title, abstract in zip(corpus.titles, corpus.abstracts)
     ]
     
-    vectorizer = TfidfVectorizer(
-        max_features=max_features,
-        min_df=min_df,
-        max_df=max_df,
-        stop_words='english',
-        ngram_range=(1, 2)  # Include unigrams and bigrams
-    )
+    # Filter out empty texts
+    texts = [t for t in texts if t.strip()]
     
-    feature_matrix = vectorizer.fit_transform(texts).toarray()
-    feature_names = vectorizer.get_feature_names_out().tolist()
+    if len(texts) < 2:
+        raise ValueError(f"Insufficient non-empty texts for feature extraction: need at least 2, got {len(texts)}")
     
-    return feature_matrix, feature_names
+    # Adjust min_df if we have very few documents
+    adjusted_min_df = min(min_df, max(1, len(texts) - 1))
+    
+    try:
+        vectorizer = TfidfVectorizer(
+            max_features=max_features,
+            min_df=adjusted_min_df,
+            max_df=max_df,
+            stop_words='english',
+            ngram_range=(1, 2)  # Include unigrams and bigrams
+        )
+        
+        feature_matrix = vectorizer.fit_transform(texts).toarray()
+        feature_names = vectorizer.get_feature_names_out().tolist()
+        
+        if feature_matrix.shape[0] == 0 or feature_matrix.shape[1] == 0:
+            raise ValueError("Feature extraction produced empty matrix")
+        
+        logger.debug(f"Extracted {feature_matrix.shape[1]} features from {len(texts)} documents")
+        
+        return feature_matrix, feature_names
+    except Exception as e:
+        logger.error(f"Feature extraction failed: {e}")
+        raise ValueError(f"Failed to extract features: {e}") from e
 
 
 def compute_pca(
@@ -85,12 +113,41 @@ def compute_pca(
         
     Returns:
         Tuple of (transformed_data, pca_model).
+        
+    Raises:
+        ValueError: If feature matrix is empty or has insufficient dimensions.
     """
     if not SKLEARN_AVAILABLE:
         raise ImportError("scikit-learn is required for PCA")
     
-    pca = PCA(n_components=n_components)
-    transformed = pca.fit_transform(feature_matrix)
+    # Validate input
+    if feature_matrix.size == 0:
+        raise ValueError("Feature matrix is empty")
+    
+    n_samples, n_features = feature_matrix.shape
+    
+    if n_samples < 2:
+        raise ValueError(f"Insufficient samples for PCA: need at least 2, got {n_samples}")
+    
+    if n_features < n_components:
+        logger.warning(
+            f"Number of features ({n_features}) is less than requested components ({n_components}). "
+            f"Reducing components to {n_features}."
+        )
+        n_components = min(n_components, n_features)
+    
+    # Suppress numpy warnings for empty slices
+    import warnings
+    with warnings.catch_warnings():
+        warnings.filterwarnings('ignore', category=RuntimeWarning, message='Mean of empty slice')
+        warnings.filterwarnings('ignore', category=RuntimeWarning, message='invalid value encountered')
+        warnings.filterwarnings('ignore', category=RuntimeWarning, message='Degrees of freedom')
+        
+        pca = PCA(n_components=n_components)
+        transformed = pca.fit_transform(feature_matrix)
+    
+    logger.debug(f"PCA computed: {n_samples} samples, {n_components} components, "
+                f"explained variance: {pca.explained_variance_ratio_.sum():.2%}")
     
     return transformed, pca
 
@@ -137,6 +194,9 @@ def create_pca_2d_plot(
         
     Returns:
         Path to saved plot.
+        
+    Raises:
+        ValueError: If insufficient data for PCA.
     """
     if not SKLEARN_AVAILABLE:
         raise ImportError("scikit-learn is required for PCA visualization")
@@ -147,32 +207,49 @@ def create_pca_2d_plot(
     if corpus is None:
         corpus = aggregator.prepare_text_corpus()
     
-    # Extract features
-    feature_matrix, feature_names = extract_text_features(corpus)
+    # Validate corpus
+    if not corpus.texts and not corpus.abstracts:
+        raise ValueError("Cannot create PCA plot: corpus is empty (no texts or abstracts)")
     
-    # Compute PCA
-    pca_data, pca_model = compute_pca(feature_matrix, n_components=2)
+    total_docs = len([t for t in corpus.texts if t.strip()]) + len([a for a in corpus.abstracts if a.strip()])
+    if total_docs < 2:
+        raise ValueError(f"Cannot create PCA plot: need at least 2 documents, got {total_docs}")
     
-    # Optional clustering
-    cluster_labels = None
-    if n_clusters is not None:
-        cluster_labels = cluster_papers(pca_data, n_clusters=n_clusters)
-    
-    if output_path is None:
-        output_path = Path("data/output/pca_2d." + format)
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-    
-    # Create plot
-    fig = plot_pca_2d(
-        pca_data=pca_data,
-        titles=corpus.titles,
-        years=corpus.years,
-        cluster_labels=cluster_labels,
-        explained_variance=pca_model.explained_variance_ratio_,
-        title="PCA Analysis of Papers (2D)"
-    )
-    
-    return save_plot(fig, output_path)
+    try:
+        # Extract features
+        feature_matrix, feature_names = extract_text_features(corpus)
+        
+        # Compute PCA
+        pca_data, pca_model = compute_pca(feature_matrix, n_components=2)
+        
+        # Optional clustering
+        cluster_labels = None
+        if n_clusters is not None and len(pca_data) >= n_clusters:
+            cluster_labels = cluster_papers(pca_data, n_clusters=n_clusters)
+        elif n_clusters is not None:
+            logger.warning(f"Cannot cluster: need at least {n_clusters} samples, got {len(pca_data)}")
+        
+        if output_path is None:
+            output_path = Path("data/output/pca_2d." + format)
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+        
+        # Create plot
+        fig = plot_pca_2d(
+            pca_data=pca_data,
+            titles=corpus.titles,
+            years=corpus.years,
+            cluster_labels=cluster_labels,
+            explained_variance=pca_model.explained_variance_ratio_,
+            title="PCA Analysis of Papers (2D)"
+        )
+        
+        return save_plot(fig, output_path)
+    except ValueError as e:
+        logger.error(f"PCA 2D plot creation failed: {e}")
+        raise
+    except Exception as e:
+        logger.error(f"Unexpected error creating PCA 2D plot: {e}")
+        raise ValueError(f"Failed to create PCA 2D plot: {e}") from e
 
 
 def create_pca_3d_plot(
@@ -193,6 +270,9 @@ def create_pca_3d_plot(
         
     Returns:
         Path to saved plot.
+        
+    Raises:
+        ValueError: If insufficient data for PCA.
     """
     if not SKLEARN_AVAILABLE:
         raise ImportError("scikit-learn is required for PCA visualization")
@@ -203,32 +283,49 @@ def create_pca_3d_plot(
     if corpus is None:
         corpus = aggregator.prepare_text_corpus()
     
-    # Extract features
-    feature_matrix, feature_names = extract_text_features(corpus)
+    # Validate corpus
+    if not corpus.texts and not corpus.abstracts:
+        raise ValueError("Cannot create PCA plot: corpus is empty (no texts or abstracts)")
     
-    # Compute PCA
-    pca_data, pca_model = compute_pca(feature_matrix, n_components=3)
+    total_docs = len([t for t in corpus.texts if t.strip()]) + len([a for a in corpus.abstracts if a.strip()])
+    if total_docs < 2:
+        raise ValueError(f"Cannot create PCA plot: need at least 2 documents, got {total_docs}")
     
-    # Optional clustering
-    cluster_labels = None
-    if n_clusters is not None:
-        cluster_labels = cluster_papers(pca_data, n_clusters=n_clusters)
-    
-    if output_path is None:
-        output_path = Path("data/output/pca_3d." + format)
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-    
-    # Create plot
-    fig = plot_pca_3d(
-        pca_data=pca_data,
-        titles=corpus.titles,
-        years=corpus.years,
-        cluster_labels=cluster_labels,
-        explained_variance=pca_model.explained_variance_ratio_,
-        title="PCA Analysis of Papers (3D)"
-    )
-    
-    return save_plot(fig, output_path)
+    try:
+        # Extract features
+        feature_matrix, feature_names = extract_text_features(corpus)
+        
+        # Compute PCA (3D requires at least 3 features, but we'll handle gracefully)
+        pca_data, pca_model = compute_pca(feature_matrix, n_components=3)
+        
+        # Optional clustering
+        cluster_labels = None
+        if n_clusters is not None and len(pca_data) >= n_clusters:
+            cluster_labels = cluster_papers(pca_data, n_clusters=n_clusters)
+        elif n_clusters is not None:
+            logger.warning(f"Cannot cluster: need at least {n_clusters} samples, got {len(pca_data)}")
+        
+        if output_path is None:
+            output_path = Path("data/output/pca_3d." + format)
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+        
+        # Create plot
+        fig = plot_pca_3d(
+            pca_data=pca_data,
+            titles=corpus.titles,
+            years=corpus.years,
+            cluster_labels=cluster_labels,
+            explained_variance=pca_model.explained_variance_ratio_,
+            title="PCA Analysis of Papers (3D)"
+        )
+        
+        return save_plot(fig, output_path)
+    except ValueError as e:
+        logger.error(f"PCA 3D plot creation failed: {e}")
+        raise
+    except Exception as e:
+        logger.error(f"Unexpected error creating PCA 3D plot: {e}")
+        raise ValueError(f"Failed to create PCA 3D plot: {e}") from e
 
 
 def export_pca_loadings(

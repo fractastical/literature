@@ -140,6 +140,7 @@ class TestHealthStatus:
         # Unpaywall should be marked as healthy (lookup-only, no search)
         assert health_status["unpaywall"] is True
 
+    @pytest.mark.timeout(60)
     def test_check_all_sources_health_with_unpaywall(self, mock_config):
         """Test check_all_sources_health() handles Unpaywall correctly."""
         config = mock_config

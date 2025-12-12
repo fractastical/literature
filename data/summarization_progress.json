@@ -1,0 +1,97 @@
+{
+  "run_id": "run_1765567237",
+  "keywords": [],
+  "total_papers": 8,
+  "start_time": 1765567237.368434,
+  "last_update": 1765567630.3057332,
+  "entries": {
+    "thomas2022knowledge": {
+      "citation_key": "thomas2022knowledge",
+      "pdf_path": "data/pdfs/thomas2022knowledge.pdf",
+      "status": "summarized",
+      "download_attempts": 0,
+      "summary_attempts": 2,
+      "last_error": null,
+      "summary_path": "data/summaries/thomas2022knowledge_summary.md",
+      "download_time": null,
+      "summary_time": 392.92717599868774
+    },
+    "friston2020some": {
+      "citation_key": "friston2020some",
+      "pdf_path": "data/pdfs/friston2020some.pdf",
+      "status": "processing",
+      "download_attempts": 0,
+      "summary_attempts": 0,
+      "last_error": null,
+      "summary_path": null,
+      "download_time": null,
+      "summary_time": null
+    },
+    "biehl2020technical": {
+      "citation_key": "biehl2020technical",
+      "pdf_path": "data/pdfs/biehl2020technical.pdf",
+      "status": "downloaded",
+      "download_attempts": 0,
+      "summary_attempts": 0,
+      "last_error": null,
+      "summary_path": null,
+      "download_time": null,
+      "summary_time": null
+    },
+    "mazzaglia2022free": {
+      "citation_key": "mazzaglia2022free",
+      "pdf_path": "data/pdfs/mazzaglia2022free.pdf",
+      "status": "downloaded",
+      "download_attempts": 0,
+      "summary_attempts": 0,
+      "last_error": null,
+      "summary_path": null,
+      "download_time": null,
+      "summary_time": null
+    },
+    "friston2010freeenergy": {
+      "citation_key": "friston2010freeenergy",
+      "pdf_path": "data/pdfs/friston2010freeenergy.pdf",
+      "status": "downloaded",
+      "download_attempts": 0,
+      "summary_attempts": 0,
+      "last_error": null,
+      "summary_path": null,
+      "download_time": null,
+      "summary_time": null
+    },
+    "wright2025minimization": {
+      "citation_key": "wright2025minimization",
+      "pdf_path": "data/pdfs/wright2025minimization.pdf",
+      "status": "downloaded",
+      "download_attempts": 0,
+      "summary_attempts": 0,
+      "last_error": null,
+      "summary_path": null,
+      "download_time": null,
+      "summary_time": null
+    },
+    "t2024repeated": {
+      "citation_key": "t2024repeated",
+      "pdf_path": "data/pdfs/t2024repeated.pdf",
+      "status": "downloaded",
+      "download_attempts": 0,
+      "summary_attempts": 0,
+      "last_error": null,
+      "summary_path": null,
+      "download_time": null,
+      "summary_time": null
+    },
+    "miyagi2025characteristics": {
+      "citation_key": "miyagi2025characteristics",
+      "pdf_path": "data/pdfs/miyagi2025characteristics.pdf",
+      "status": "downloaded",
+      "download_attempts": 0,
+      "summary_attempts": 0,
+      "last_error": null,
+      "summary_path": null,
+      "download_time": null,
+      "summary_time": null
+    }
+  }
+}

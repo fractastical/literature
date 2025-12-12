@@ -6,187 +6,187 @@ loadings, showing which words contribute most to each principal component.
 ## Overview
 
 - **Total Components Analyzed**: 5
-- **Total Variance Explained**: 29.03%
+- **Total Variance Explained**: 18.10%
 
 ## Component Analysis
 
 ### Principal Component 1 (PC1)
 
-- **Variance Explained**: 11.99%
+- **Variance Explained**: 4.42%
 
 #### Top Contributing Words
 
 | Rank | Word | Loading |
 |------|------|---------|
-| 1 | active | 0.3574 |
-| 2 | free energy | -0.3542 |
-| 3 | free | -0.3437 |
-| 4 | energy | -0.3361 |
-| 5 | active inference | 0.3082 |
-| 6 | principle | -0.2970 |
-| 7 | energy principle | -0.2890 |
-| 8 | inference | 0.2675 |
-| 9 | brain | -0.1703 |
-| 10 | time | 0.1101 |
-| 11 | control | 0.1064 |
-| 12 | guide | -0.0777 |
-| 13 | network | 0.0765 |
-| 14 | high | 0.0733 |
-| 15 | discrete | 0.0708 |
-| 16 | continuous | 0.0655 |
-| 17 | inference learning | 0.0635 |
-| 18 | unified | -0.0578 |
-| 19 | learning | 0.0553 |
-| 20 | inference free | -0.0517 |
+| 1 | learning | 0.2172 |
+| 2 | markov | -0.2125 |
+| 3 | aguilera | -0.1653 |
+| 4 | brain | 0.1546 |
+| 5 | particular | -0.1517 |
+| 6 | synaptic | 0.1463 |
+| 7 | comment | -0.1398 |
+| 8 | blankets | -0.1333 |
+| 9 | particular physics | -0.1263 |
+| 10 | markov blankets | -0.1253 |
+| 11 | blanket | -0.1226 |
+| 12 | principle aguilera | -0.1224 |
+| 13 | physics free | -0.1212 |
+| 14 | markov blanket | -0.1170 |
+| 15 | physics | -0.1144 |
+| 16 | tschantz | -0.1130 |
+| 17 | aguilera millidge | -0.1130 |
+| 18 | tschantz buckley | -0.1130 |
+| 19 | buckley | -0.1130 |
+| 20 | millidge tschantz | -0.1130 |
 
 #### Interpretation
 
-**Positive contributors** (high loading): active, active inference, inference, time, control
-**Negative contributors** (low loading): free energy, free, energy, principle, energy principle
+**Positive contributors** (high loading): learning, brain, synaptic
+**Negative contributors** (low loading): markov, aguilera, particular, comment, blankets
 
 ---
 
 ### Principal Component 2 (PC2)
 
-- **Variance Explained**: 5.80%
+- **Variance Explained**: 3.87%
 
 #### Top Contributing Words
 
 | Rank | Word | Loading |
 |------|------|---------|
-| 1 | active | 0.3686 |
-| 2 | active inference | 0.3280 |
-| 3 | inference | 0.2850 |
-| 4 | energy principle | 0.2257 |
-| 5 | model | -0.2032 |
-| 6 | free energy | 0.1786 |
-| 7 | principle | 0.1746 |
-| 8 | free | 0.1708 |
-| 9 | energy | 0.1590 |
-| 10 | brain | 0.1474 |
-| 11 | synaptic | -0.1459 |
-| 12 | inference free | 0.1192 |
-| 13 | food | -0.1069 |
-| 14 | intake | -0.1004 |
-| 15 | prediction | -0.0919 |
-| 16 | time | 0.0868 |
-| 17 | high | 0.0865 |
-| 18 | models | -0.0864 |
-| 19 | growth | -0.0849 |
-| 20 | principles | 0.0807 |
+| 1 | fep | 0.3745 |
+| 2 | 2025 | -0.2671 |
+| 3 | entropy | -0.1859 |
+| 4 | systems | 0.1380 |
+| 5 | brain | 0.1353 |
+| 6 | learning | 0.1290 |
+| 7 | control | -0.1269 |
+| 8 | synaptic | 0.1250 |
+| 9 | theory | 0.1196 |
+| 10 | changes | -0.1088 |
+| 11 | university | -0.1066 |
+| 12 | mathematical | 0.0960 |
+| 13 | machine | 0.0908 |
+| 14 | november | -0.0890 |
+| 15 | november 2025 | -0.0890 |
+| 16 | press | -0.0878 |
+| 17 | principle | 0.0874 |
+| 18 | friston | -0.0842 |
+| 19 | free energy | 0.0830 |
+| 20 | using | -0.0828 |
 
 #### Interpretation
 
-**Positive contributors** (high loading): active, active inference, inference, energy principle, free energy
-**Negative contributors** (low loading): model, synaptic, food, intake, prediction
+**Positive contributors** (high loading): fep, systems, brain, learning, synaptic
+**Negative contributors** (low loading): 2025, entropy, control, changes, university
 
 ---
 
 ### Principal Component 3 (PC3)
 
-- **Variance Explained**: 4.06%
+- **Variance Explained**: 3.37%
 
 #### Top Contributing Words
 
 | Rank | Word | Loading |
 |------|------|---------|
-| 1 | ligand | 0.3673 |
-| 2 | energy variational | 0.2471 |
-| 3 | relative binding | 0.2471 |
-| 4 | binding free | 0.2471 |
-| 5 | variational principle | 0.2471 |
-| 6 | fkbp ligand | 0.2471 |
-| 7 | binding | 0.2471 |
-| 8 | fkbp | 0.2471 |
-| 9 | relative | 0.2471 |
-| 10 | brain | -0.1919 |
-| 11 | energy principle | -0.1880 |
-| 12 | variational | 0.1861 |
-| 13 | new | 0.1589 |
-| 14 | energy based | 0.1230 |
-| 15 | method | 0.1176 |
-| 16 | based free | 0.1173 |
-| 17 | control | -0.1162 |
-| 18 | model | -0.0989 |
-| 19 | inference free | -0.0826 |
-| 20 | systems | 0.0654 |
+| 1 | 2025 | 0.3021 |
+| 2 | fep | 0.1787 |
+| 3 | active | -0.1691 |
+| 4 | active inference | -0.1647 |
+| 5 | entropy | -0.1542 |
+| 6 | estimation | -0.1446 |
+| 7 | university | 0.1319 |
+| 8 | inference | -0.1306 |
+| 9 | noise | -0.1190 |
+| 10 | brain | 0.1165 |
+| 11 | changes | 0.1147 |
+| 12 | synaptic | 0.1122 |
+| 13 | article | 0.1121 |
+| 14 | information | -0.1119 |
+| 15 | press | 0.1056 |
+| 16 | states | -0.1046 |
+| 17 | november 2025 | 0.1007 |
+| 18 | november | 0.1007 |
+| 19 | energy | -0.0991 |
+| 20 | study | 0.0951 |
 
 #### Interpretation
 
-**Positive contributors** (high loading): ligand, energy variational, relative binding, binding free, variational principle
-**Negative contributors** (low loading): brain, energy principle, control, model, inference free
+**Positive contributors** (high loading): 2025, fep, university, brain, changes
+**Negative contributors** (low loading): active, active inference, entropy, estimation, inference
 
 ---
 
 ### Principal Component 4 (PC4)
 
-- **Variance Explained**: 3.74%
+- **Variance Explained**: 3.25%
 
 #### Top Contributing Words
 
 | Rank | Word | Loading |
 |------|------|---------|
-| 1 | control | 0.3977 |
-| 2 | food | 0.2219 |
-| 3 | intake | 0.2008 |
-| 4 | learning | -0.1914 |
-| 5 | models | -0.1605 |
-| 6 | consciousness | 0.1451 |
-| 7 | ai | 0.1288 |
-| 8 | systems | -0.1228 |
-| 9 | inference learning | -0.1213 |
-| 10 | discrete | -0.1134 |
-| 11 | synaptic | -0.1122 |
-| 12 | generative | -0.1047 |
-| 13 | information | -0.1022 |
-| 14 | bayesian | -0.1018 |
-| 15 | functional | 0.0996 |
-| 16 | deep | -0.0995 |
-| 17 | memory | -0.0981 |
-| 18 | 2024 | 0.0961 |
-| 19 | caloric | 0.0956 |
-| 20 | inhibitory | 0.0937 |
+| 1 | estimation | 0.3268 |
+| 2 | control | 0.2802 |
+| 3 | state | 0.2137 |
+| 4 | noise | 0.1943 |
+| 5 | 2025 | -0.1587 |
+| 6 | network | 0.1250 |
+| 7 | input | 0.1090 |
+| 8 | repeated | 0.1077 |
+| 9 | states | -0.1037 |
+| 10 | colored noise | 0.1019 |
+| 11 | inference | -0.1014 |
+| 12 | aguilera | 0.0984 |
+| 13 | performance | 0.0982 |
+| 14 | colored | 0.0978 |
+| 15 | estimation control | 0.0959 |
+| 16 | active | -0.0949 |
+| 17 | self | -0.0902 |
+| 18 | agents | 0.0889 |
+| 19 | theory | -0.0883 |
+| 20 | wind | 0.0864 |
 
 #### Interpretation
 
-**Positive contributors** (high loading): control, food, intake, consciousness, ai
-**Negative contributors** (low loading): learning, models, systems, inference learning, discrete
+**Positive contributors** (high loading): estimation, control, state, noise, network
+**Negative contributors** (low loading): 2025, states, inference, active, self
 
 ---
 
 ### Principal Component 5 (PC5)
 
-- **Variance Explained**: 3.45%
+- **Variance Explained**: 3.20%
 
 #### Top Contributing Words
 
 | Rank | Word | Loading |
 |------|------|---------|
-| 1 | information | 0.2778 |
-| 2 | mechanics | 0.1969 |
-| 3 | model | -0.1758 |
-| 4 | ai | -0.1715 |
-| 5 | minimum | 0.1684 |
-| 6 | brain | -0.1611 |
-| 7 | learning | -0.1514 |
-| 8 | minimum free | 0.1468 |
-| 9 | information efficiency | 0.1468 |
-| 10 | maximum information | 0.1468 |
-| 11 | maximum | 0.1468 |
-| 12 | improving | 0.1253 |
-| 13 | improving minimum | 0.1253 |
-| 14 | principle maximum | 0.1253 |
-| 15 | efficiency principle | 0.1253 |
-| 16 | efficiency | 0.1240 |
-| 17 | new | -0.1153 |
-| 18 | systems | 0.1127 |
-| 19 | neuronal | -0.1119 |
-| 20 | models | -0.1103 |
+| 1 | entropy | 0.2261 |
+| 2 | 2025 | -0.1973 |
+| 3 | principles | 0.1958 |
+| 4 | local | 0.1918 |
+| 5 | estimation | -0.1652 |
+| 6 | synaptic | 0.1528 |
+| 7 | active inference | -0.1487 |
+| 8 | max entropy | 0.1486 |
+| 9 | max | 0.1486 |
+| 10 | belief | 0.1452 |
+| 11 | active | -0.1436 |
+| 12 | control | -0.1236 |
+| 13 | brain | 0.1218 |
+| 14 | kikuchi | 0.1139 |
+| 15 | bethe kikuchi | 0.1139 |
+| 16 | bethe | 0.1139 |
+| 17 | energy | 0.1091 |
+| 18 | legendre | 0.1091 |
+| 19 | variational principles | 0.1091 |
+| 20 | belief propagation | 0.1091 |
 
 #### Interpretation
 
-**Positive contributors** (high loading): information, mechanics, minimum, minimum free, information efficiency
-**Negative contributors** (low loading): model, ai, brain, learning, new
+**Positive contributors** (high loading): entropy, principles, local, synaptic, max entropy
+**Negative contributors** (low loading): 2025, estimation, active inference, active, control
 
 ---
 

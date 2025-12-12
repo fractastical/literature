@@ -256,8 +256,13 @@ class PDFChunker:
             # Identify sections
             sections = self.identify_sections(text)
             
-            # Build chunks preserving section boundaries
-            chunks = self._chunk_with_sections(text, sections)
+            # If sections found, use section-aware chunking
+            # Otherwise fall back to simple chunking
+            if sections:
+                chunks = self._chunk_with_sections(text, sections)
+            else:
+                # No sections found - fall back to simple chunking
+                chunks = self._chunk_simple(text)
         else:
             # Simple chunking without section awareness
             chunks = self._chunk_simple(text)
@@ -341,8 +346,20 @@ class PDFChunker:
         else:
             last_processed = 0
         
-        # Chunk remaining text
-        current_pos = max(last_processed, first_chunk_parts[-1][1] if first_chunk_parts else 0)
+        # Determine starting position for remaining chunks
+        if first_chunk_parts:
+            # Start after the last prioritized section
+            current_pos = max(last_processed, first_chunk_parts[-1][1])
+        elif sorted_sections:
+            # No prioritized sections found, but we have other sections - start after last section
+            current_pos = last_processed
+        else:
+            # No sections found at all - fall back to simple chunking from start
+            # If we already created a chunk, start after it, otherwise start from beginning
+            if chunks:
+                current_pos = chunks[-1].end_pos
+            else:
+                current_pos = 0
         
         while current_pos < len(text):
             chunk_end = min(current_pos + self.target_chunk_size, len(text))
@@ -377,11 +394,21 @@ class PDFChunker:
                 chunk_index += 1
             
             # Move to next chunk position (with overlap)
-            current_pos = chunk_end - self.chunk_overlap if self.chunk_overlap > 0 else chunk_end
+            next_pos = chunk_end - self.chunk_overlap if self.chunk_overlap > 0 else chunk_end
             
-            # Avoid infinite loop
-            if current_pos <= chunks[-1].start_pos if chunks else 0:
-                current_pos = chunk_end
+            # Avoid infinite loop: ensure we always advance by at least 1
+            if next_pos <= current_pos:
+                next_pos = current_pos + 1
+            
+            # Also ensure we don't go backwards beyond previous chunk
+            if chunks and next_pos <= chunks[-1].start_pos:
+                next_pos = chunk_end
+            
+            current_pos = next_pos
+            
+            # Final safety check: if we haven't advanced, force advancement
+            if current_pos >= len(text):
+                break
         
         return chunks
     
@@ -397,8 +424,16 @@ class PDFChunker:
         chunks: List[TextChunk] = []
         chunk_index = 0
         current_pos = 0
+        last_pos = -1  # Track last position to detect infinite loops
         
         while current_pos < len(text):
+            # Safety check: if we haven't advanced, force advancement
+            if current_pos <= last_pos:
+                current_pos = last_pos + 1
+                if current_pos >= len(text):
+                    break
+            
+            last_pos = current_pos
             chunk_end = min(current_pos + self.target_chunk_size, len(text))
             
             # Try to end at sentence boundary
@@ -429,11 +464,22 @@ class PDFChunker:
                 ))
                 chunk_index += 1
             
-            current_pos = chunk_end - self.chunk_overlap if self.chunk_overlap > 0 else chunk_end
+            # Move to next chunk position (with overlap)
+            next_pos = chunk_end - self.chunk_overlap if self.chunk_overlap > 0 else chunk_end
             
-            # Avoid infinite loop
-            if current_pos <= chunks[-1].start_pos if chunks else 0:
-                current_pos = chunk_end
+            # Ensure we always advance by at least 1 character
+            if next_pos <= current_pos:
+                next_pos = current_pos + 1
+            
+            # Also ensure we don't go backwards beyond previous chunk
+            if chunks and next_pos <= chunks[-1].start_pos:
+                next_pos = chunk_end
+            
+            # Final safety: ensure we advance
+            if next_pos <= current_pos:
+                next_pos = current_pos + 1
+            
+            current_pos = next_pos
         
         return chunks
     

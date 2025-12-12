@@ -81,6 +81,7 @@ class TestRealLLMOperations:
         assert result.tokens_estimated > 0
         assert len(result.citation_keys) == len(sample_papers)
 
+    @pytest.mark.timeout(120)
     def test_real_science_communication(self, llm_operations, sample_papers):
         """Test real science communication generation."""
         result = llm_operations.generate_science_communication(
@@ -95,6 +96,7 @@ class TestRealLLMOperations:
         assert len(result.output_text) > 50
         assert result.generation_time > 0
 
+    @pytest.mark.timeout(120)
     def test_real_comparative_analysis(self, llm_operations, sample_papers):
         """Test real comparative analysis."""
         result = llm_operations.generate_comparative_analysis(
@@ -109,6 +111,7 @@ class TestRealLLMOperations:
         assert len(result.output_text) > 50
         assert "method" in result.output_text.lower() or "approach" in result.output_text.lower()
 
+    @pytest.mark.timeout(120)
     def test_real_research_gaps(self, llm_operations, sample_papers):
         """Test real research gap identification."""
         result = llm_operations.identify_research_gaps(
@@ -123,6 +126,7 @@ class TestRealLLMOperations:
         assert len(result.output_text) > 50
         assert result.generation_time > 0
 
+    @pytest.mark.timeout(120)
     def test_real_citation_network(self, llm_operations, sample_papers):
         """Test real citation network analysis."""
         result = llm_operations.analyze_citation_network(
@@ -147,10 +151,9 @@ class TestRealLLMOperations:
         )
         
         # Save result
-        saved_path = llm_operations._save_result(
+        saved_path = llm_operations.save_result(
             result,
-            output_dir=output_dir,
-            subdirectory="literature_reviews"
+            output_dir=output_dir
         )
         
         assert saved_path.exists()
@@ -223,6 +226,7 @@ class TestRealComparativeAnalysis:
         """Create LLM operations with real Ollama client."""
         return LiteratureLLMOperations(ensure_ollama_available)
 
+    @pytest.mark.timeout(120)
     def test_real_compare_methods(self, llm_operations):
         """Test real comparison of methods."""
         papers = [

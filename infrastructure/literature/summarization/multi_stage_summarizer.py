@@ -162,22 +162,9 @@ class MultiStageSummarizer:
             logger.warning("citation_key missing from metadata, using fallback 'unknown'")
             citation_key = 'unknown'
         
-        # Check if two-stage mode should be used
-        full_text_size = len(context.full_text)
-        use_two_stage = (
-            self.two_stage_enabled and 
-            full_text_size > self.two_stage_threshold
-        )
-        
-        if use_two_stage:
-            logger.info(
-                f"[{citation_key}] Stage 1: Generating draft summary using TWO-STAGE mode "
-                f"(text size: {full_text_size:,} chars > threshold: {self.two_stage_threshold:,} chars)..."
-            )
-            return self._generate_draft_two_stage(context, metadata, progress_callback)
-        else:
-            logger.info(f"[{citation_key}] Stage 1: Generating draft summary (single-stage mode)...")
-            return self._generate_draft_single_stage(context, metadata, progress_callback)
+        # Always use single-stage mode with full paper context
+        logger.info(f"[{citation_key}] Generating draft summary (single-stage mode, full paper context)...")
+        return self._generate_draft_single_stage(context, metadata, progress_callback)
     
     def _generate_draft_single_stage(
         self,

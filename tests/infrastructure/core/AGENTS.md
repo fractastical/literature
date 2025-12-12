@@ -14,6 +14,7 @@ Comprehensive test suite for infrastructure core utilities, covering all foundat
 - `test_logging_utils.py` - Logging utilities
 - `test_logging_helpers.py` - Logging helper functions
 - `test_logging_progress.py` - Progress logging
+- `test_logging_formatters.py` - Logging formatters (JSONFormatter, TemplateFormatter)
 
 ### Exception Tests
 - `test_exceptions.py` - Exception hierarchy
@@ -45,7 +46,7 @@ pytest tests/infrastructure/core/ --cov=infrastructure.core
 
 Comprehensive coverage of:
 - Configuration management
-- Logging system
+- Logging system (including formatters)
 - Exception handling
 - Progress tracking
 - Checkpoint management
@@ -54,6 +55,10 @@ Comprehensive coverage of:
 - Environment validation
 - Script discovery
 - File operations
+
+## Test Infrastructure
+
+- `conftest.py` - Core module shared fixtures (config files, log files)
 
 ## See Also
 

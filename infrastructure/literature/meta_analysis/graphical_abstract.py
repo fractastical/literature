@@ -33,6 +33,7 @@ from infrastructure.literature.meta_analysis.visualizations import (
     save_plot,
     FONT_SIZE_TITLE,
 )
+from infrastructure.literature.meta_analysis.metadata import create_citation_distribution_plot
 
 logger = get_logger(__name__)
 
@@ -356,7 +357,8 @@ def create_multi_page_abstract(
             plt.close(pdf_fig)
             
             # Keyword frequency
-            keyword_path = create_keyword_frequency_plot(aggregator=aggregator, format="png")
+            keyword_data = aggregator.prepare_keyword_data()
+            keyword_path = create_keyword_frequency_plot(keyword_data, format="png")
             img = Image.open(keyword_path)
             pdf_fig = plt.figure(figsize=(11, 8.5))
             plt.imshow(img)

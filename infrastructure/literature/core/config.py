@@ -39,6 +39,9 @@ class LiteratureConfig:
         download_retry_attempts: Retry attempts for PDF downloads (default: 2).
         download_retry_delay: Base delay for download retry in seconds (default: 2.0).
         use_browser_user_agent: Use browser-like User-Agent for downloads (default: True).
+        max_parallel_downloads: Maximum parallel download workers (default: 4).
+        max_url_attempts_per_pdf: Maximum total URL attempts per PDF (default: 8).
+        max_fallback_strategies: Maximum fallback strategy attempts (default: 3).
     
     Environment Variables:
         LITERATURE_DEFAULT_LIMIT: Override default_limit.
@@ -60,6 +63,9 @@ class LiteratureConfig:
         LITERATURE_DOWNLOAD_RETRY_ATTEMPTS: Override download_retry_attempts.
         LITERATURE_DOWNLOAD_RETRY_DELAY: Override download_retry_delay.
         LITERATURE_USE_BROWSER_USER_AGENT: Use browser User-Agent (true/false).
+        LITERATURE_MAX_PARALLEL_DOWNLOADS: Override max_parallel_downloads.
+        LITERATURE_MAX_URL_ATTEMPTS_PER_PDF: Override max_url_attempts_per_pdf.
+        LITERATURE_MAX_FALLBACK_STRATEGIES: Override max_fallback_strategies.
     """
     
     # Search settings
@@ -161,6 +167,13 @@ class LiteratureConfig:
     
     # Use browser-like User-Agent for PDF downloads (helps avoid 403 errors)
     use_browser_user_agent: bool = True
+    
+    # Parallel download settings
+    max_parallel_downloads: int = 4  # Maximum parallel download workers
+    
+    # PDF download attempt limits (to prevent excessive retries)
+    max_url_attempts_per_pdf: int = 8  # Maximum total URL attempts per PDF
+    max_fallback_strategies: int = 3  # Maximum fallback strategy attempts
 
     @classmethod
     def from_env(cls) -> LiteratureConfig:
@@ -219,5 +232,8 @@ class LiteratureConfig:
             download_retry_attempts=int(os.environ.get("LITERATURE_DOWNLOAD_RETRY_ATTEMPTS", "2")),
             download_retry_delay=float(os.environ.get("LITERATURE_DOWNLOAD_RETRY_DELAY", "2.0")),
             use_browser_user_agent=use_browser_user_agent,
+            max_parallel_downloads=int(os.environ.get("LITERATURE_MAX_PARALLEL_DOWNLOADS", "4")),
+            max_url_attempts_per_pdf=int(os.environ.get("LITERATURE_MAX_URL_ATTEMPTS_PER_PDF", "8")),
+            max_fallback_strategies=int(os.environ.get("LITERATURE_MAX_FALLBACK_STRATEGIES", "3")),
         )
 

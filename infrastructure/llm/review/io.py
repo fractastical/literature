@@ -20,19 +20,25 @@ from infrastructure.llm.review.generator import (
 logger = get_logger(__name__)
 
 
-def extract_action_items(reviews: Dict[str, str]) -> str:
+def extract_action_items(reviews: Dict[str, str] | str) -> str:
     """Extract actionable items from reviews into a TODO checklist.
     
     Args:
-        reviews: Dictionary of review name -> content
+        reviews: Dictionary of review name -> content, or review text as string
         
     Returns:
         Markdown formatted TODO checklist
     """
     todos = []
     
-    # Extract from improvement suggestions
-    suggestions = reviews.get("improvement_suggestions", "")
+    # Handle string input (treat as improvement_suggestions)
+    if isinstance(reviews, str):
+        suggestions = reviews
+        quality = ""
+    else:
+        # Extract from improvement suggestions
+        suggestions = reviews.get("improvement_suggestions", "")
+        quality = reviews.get("quality_review", "")
     
     # Look for checklist items (already formatted as [ ])
     for line in suggestions.split("\n"):
@@ -63,7 +69,6 @@ def extract_action_items(reviews: Dict[str, str]) -> str:
                 todos.append(f"[ ] {item[:100]}..." if len(item) > 100 else f"[ ] {item}")
     
     # Extract from quality review - low scores
-    quality = reviews.get("quality_review", "")
     for line in quality.split("\n"):
         if "score:" in line.lower() and any(s in line for s in ["1", "2"]):
             # Low score found - next few lines might have the issue

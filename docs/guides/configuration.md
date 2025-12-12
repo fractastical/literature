@@ -34,6 +34,17 @@ export LITERATURE_SEMANTICSCHOLAR_DELAY=1.5
 # Download directory
 export LITERATURE_DOWNLOAD_DIR="data/pdfs"
 
+# Parallel downloads (default: 4 workers)
+export LITERATURE_MAX_PARALLEL_DOWNLOADS=4
+
+# PDF download retry settings
+export LITERATURE_DOWNLOAD_RETRY_ATTEMPTS=2
+export LITERATURE_DOWNLOAD_RETRY_DELAY=2.0
+
+# PDF download attempt limits (to prevent excessive retries)
+export LITERATURE_MAX_URL_ATTEMPTS_PER_PDF=8
+export LITERATURE_MAX_FALLBACK_STRATEGIES=3
+
 # Use Unpaywall for open access
 export LITERATURE_USE_UNPAYWALL=true
 export UNPAYWALL_EMAIL=your@email.com

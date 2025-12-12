@@ -8,6 +8,14 @@ from infrastructure.literature.workflow import LiteratureWorkflow, WorkflowResul
 from infrastructure.literature.summarization import SummarizationResult
 
 
+def create_mock_literature_search():
+    """Create a mock literature search with proper config."""
+    from infrastructure.literature.core import LiteratureConfig
+    mock_search = Mock()
+    mock_search.config = LiteratureConfig(download_dir="data/pdfs")
+    return mock_search
+
+
 class TestWorkflowResult:
     """Test WorkflowResult dataclass."""
 
@@ -63,7 +71,7 @@ class TestLiteratureWorkflow:
 
     def test_creation(self):
         """Test workflow creation."""
-        literature_search = Mock()
+        literature_search = create_mock_literature_search()
         workflow = LiteratureWorkflow(literature_search)
 
         assert workflow.literature_search is literature_search
@@ -72,7 +80,7 @@ class TestLiteratureWorkflow:
 
     def test_set_summarizer(self):
         """Test setting summarizer."""
-        literature_search = Mock()
+        literature_search = create_mock_literature_search()
         workflow = LiteratureWorkflow(literature_search)
         summarizer = Mock()
 
@@ -81,7 +89,7 @@ class TestLiteratureWorkflow:
 
     def test_set_progress_tracker(self):
         """Test setting progress tracker."""
-        literature_search = Mock()
+        literature_search = create_mock_literature_search()
         workflow = LiteratureWorkflow(literature_search)
         tracker = Mock()
 
@@ -211,7 +219,7 @@ class TestLiteratureWorkflow:
 
     def test_search_papers(self):
         """Test paper search functionality."""
-        literature_search = Mock()
+        literature_search = create_mock_literature_search()
         workflow = LiteratureWorkflow(literature_search)
 
         # Setup mock responses - search now returns tuple (results, stats) when return_stats=True
@@ -232,7 +240,7 @@ class TestLiteratureWorkflow:
 
     def test_download_papers(self):
         """Test paper download functionality."""
-        literature_search = Mock()
+        literature_search = create_mock_literature_search()
         workflow = LiteratureWorkflow(literature_search)
 
         # Setup test data
@@ -256,10 +264,97 @@ class TestLiteratureWorkflow:
         assert downloaded[0][0] == results[0]
         assert downloaded[0][1] == Path("paper1.pdf")
 
+    def test_download_papers_skips_failed_downloads(self, tmp_path):
+        """Test that previously failed downloads are skipped by default."""
+        literature_search = create_mock_literature_search()
+        workflow = LiteratureWorkflow(literature_search)
+
+        # Setup test data
+        results = [
+            SearchResult("Paper 1", ["Author"], 2024, "Abstract", "url1", source="arxiv", pdf_url="pdf1"),
+            SearchResult("Paper 2", ["Author"], 2024, "Abstract", "url2", source="arxiv", pdf_url="pdf2")
+        ]
+
+        # Mock add_to_library to return citation keys
+        literature_search.add_to_library.side_effect = ["paper1", "paper2"]
+
+        # Add paper2 to failed tracker
+        from infrastructure.literature.core.core import DownloadResult
+        failed_result = DownloadResult(
+            citation_key="paper2",
+            success=False,
+            failure_reason="access_denied",
+            failure_message="403 Forbidden",
+            result=results[1]
+        )
+        workflow.failed_tracker.save_failed("paper2", failed_result, title="Paper 2", source="arxiv")
+
+        # Mock download result for paper1 (only paper1 should be downloaded)
+        download_result = Mock(success=True, pdf_path=Path("paper1.pdf"), citation_key="paper1", already_existed=False)
+        literature_search.download_paper_with_result.return_value = download_result
+
+        # Download with retry_failed=False (default)
+        downloaded, download_result_list = workflow._download_papers(results, retry_failed=False)
+
+        # Only paper1 should be downloaded, paper2 should be skipped
+        assert len(downloaded) == 1
+        assert len(download_result_list) == 2  # Both results are in the list
+        assert downloaded[0][0] == results[0]
+        
+        # Check that paper2 was skipped
+        skipped_result = [r for r in download_result_list if r.citation_key == "paper2"][0]
+        assert not skipped_result.success
+        assert skipped_result.failure_reason == "skipped_previous_failure"
+        
+        # Verify download_paper_with_result was only called once (for paper1)
+        assert literature_search.download_paper_with_result.call_count == 1
+
+    def test_download_papers_retries_failed_when_requested(self, tmp_path):
+        """Test that failed downloads are retried when retry_failed=True."""
+        literature_search = create_mock_literature_search()
+        workflow = LiteratureWorkflow(literature_search)
+
+        # Setup test data
+        results = [
+            SearchResult("Paper 1", ["Author"], 2024, "Abstract", "url1", source="arxiv", pdf_url="pdf1"),
+            SearchResult("Paper 2", ["Author"], 2024, "Abstract", "url2", source="arxiv", pdf_url="pdf2")
+        ]
+
+        # Mock add_to_library to return citation keys
+        literature_search.add_to_library.side_effect = ["paper1", "paper2"]
+
+        # Add paper2 to failed tracker
+        from infrastructure.literature.core.core import DownloadResult
+        failed_result = DownloadResult(
+            citation_key="paper2",
+            success=False,
+            failure_reason="network_error",
+            failure_message="Connection timeout",
+            result=results[1]
+        )
+        workflow.failed_tracker.save_failed("paper2", failed_result, title="Paper 2", source="arxiv")
+
+        # Mock download results for both papers
+        download_results = [
+            Mock(success=True, pdf_path=Path("paper1.pdf"), citation_key="paper1", already_existed=False),
+            Mock(success=True, pdf_path=Path("paper2.pdf"), citation_key="paper2", already_existed=False)
+        ]
+        literature_search.download_paper_with_result.side_effect = download_results
+
+        # Download with retry_failed=True
+        downloaded, download_result_list = workflow._download_papers(results, retry_failed=True)
+
+        # Both papers should be downloaded
+        assert len(downloaded) == 2
+        assert len(download_result_list) == 2
+        
+        # Verify download_paper_with_result was called twice (for both papers)
+        assert literature_search.download_paper_with_result.call_count == 2
+
     @patch.object(LiteratureWorkflow, '_summarize_single_paper')
     def test_summarize_papers_parallel_single_worker(self, mock_summarize_single, tmp_path):
         """Test parallel summarization with single worker."""
-        literature_search = Mock()
+        literature_search = create_mock_literature_search()
         summarizer = Mock()
         progress_tracker = Mock()
 
@@ -301,7 +396,7 @@ class TestLiteratureWorkflow:
     @patch.object(LiteratureWorkflow, '_summarize_single_paper')
     def test_summarize_papers_parallel_multiple_workers(self, mock_summarize_single, tmp_path):
         """Test parallel summarization with multiple workers."""
-        literature_search = Mock()
+        literature_search = create_mock_literature_search()
         summarizer = Mock()
         progress_tracker = Mock()
 
@@ -337,7 +432,7 @@ class TestLiteratureWorkflow:
 
     def test_summarize_single_paper(self, tmp_path):
         """Test single paper summarization."""
-        literature_search = Mock()
+        literature_search = create_mock_literature_search()
         summarizer = Mock()
         progress_tracker = Mock()
 
@@ -370,7 +465,7 @@ class TestLiteratureWorkflow:
 
     def test_save_summaries(self):
         """Test summary saving functionality."""
-        literature_search = Mock()
+        literature_search = create_mock_literature_search()
         summarizer = Mock()
 
         workflow = LiteratureWorkflow(literature_search)
@@ -400,7 +495,7 @@ class TestLiteratureWorkflow:
 
     def test_get_workflow_stats(self):
         """Test workflow statistics generation."""
-        literature_search = Mock()
+        literature_search = create_mock_literature_search()
         workflow = LiteratureWorkflow(literature_search)
 
         result = WorkflowResult(["test", "keywords"])
@@ -423,7 +518,7 @@ class TestLiteratureWorkflow:
 
     def test_workflow_without_summarizer(self):
         """Test workflow execution without summarizer set."""
-        literature_search = Mock()
+        literature_search = create_mock_literature_search()
         workflow = LiteratureWorkflow(literature_search)
 
         with pytest.raises(ValueError, match="Summarizer not configured"):
@@ -435,7 +530,7 @@ class TestLiteratureWorkflow:
         mock_time.return_value = 1000.0
 
         # Setup mocks
-        literature_search = Mock()
+        literature_search = create_mock_literature_search()
         progress_tracker = Mock()
         progress_tracker.current_progress = Mock()
 
@@ -503,7 +598,7 @@ class TestLiteratureWorkflow:
         mock_time.return_value = 1000.0
 
         # Setup mocks
-        literature_search = Mock()
+        literature_search = create_mock_literature_search()
         progress_tracker = Mock()
         progress_tracker.current_progress = Mock()
 
@@ -564,7 +659,7 @@ class TestLiteratureWorkflow:
         mock_time.return_value = 1000.0
 
         # Setup mocks
-        literature_search = Mock()
+        literature_search = create_mock_literature_search()
         progress_tracker = Mock()
         progress_tracker.current_progress = Mock()
 

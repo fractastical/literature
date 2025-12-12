@@ -29,7 +29,8 @@ class TestArxivSource:
         assert len(results) == 1
         assert results[0].title == "Test Paper"
         assert results[0].year == 2021
-        assert results[0].pdf_url == "http://arxiv.org/pdf/2101.00001"
+        # URL is normalized to https with .pdf extension
+        assert results[0].pdf_url == "https://arxiv.org/pdf/2101.00001.pdf"
         assert results[0].source == "arxiv"
 
     def test_search_error_handling(self, mock_config):

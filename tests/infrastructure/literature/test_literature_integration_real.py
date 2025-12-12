@@ -256,6 +256,7 @@ class TestRealWorkflowEndToEnd:
         config.arxiv_delay = 1.0
         return config
 
+    @pytest.mark.timeout(60)
     def test_real_complete_workflow(self, real_config):
         """Test complete real workflow: search -> add -> download."""
         searcher = LiteratureSearch(real_config)

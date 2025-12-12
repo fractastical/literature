@@ -55,20 +55,20 @@ def get_review_timeout() -> float:
     return DEFAULT_REVIEW_TIMEOUT
 
 
-def get_review_max_tokens() -> tuple[int, str]:
+def get_review_max_tokens() -> int:
     """Get maximum tokens for review generation.
     
     Reads from LLM_LONG_MAX_TOKENS environment variable if set,
     otherwise uses DEFAULT_REVIEW_MAX_TOKENS.
     
     Returns:
-        Tuple of (max_tokens, source_description)
+        Maximum tokens as integer
     """
     import os
     env_tokens = os.environ.get('LLM_LONG_MAX_TOKENS')
     if env_tokens:
         try:
-            return (int(env_tokens), "LLM_LONG_MAX_TOKENS environment variable")
+            return int(env_tokens)
         except ValueError:
             pass
     
@@ -76,11 +76,11 @@ def get_review_max_tokens() -> tuple[int, str]:
     env_review_tokens = os.environ.get('LLM_REVIEW_MAX_TOKENS')
     if env_review_tokens:
         try:
-            return (int(env_review_tokens), "LLM_REVIEW_MAX_TOKENS environment variable")
+            return int(env_review_tokens)
         except ValueError:
             pass
     
-    return (DEFAULT_REVIEW_MAX_TOKENS, "default_config")
+    return DEFAULT_REVIEW_MAX_TOKENS
 
 
 def validate_review_quality(
@@ -336,6 +336,10 @@ def extract_manuscript_text(pdf_path: str) -> str:
     pdf_file = Path(pdf_path)
     if not pdf_file.exists():
         raise FileNotFoundError(f"PDF file not found: {pdf_path}")
+    
+    # Handle text files directly
+    if pdf_file.suffix.lower() == '.txt':
+        return pdf_file.read_text(encoding='utf-8')
     
     # Try pdfplumber first (best quality)
     try:

@@ -18,6 +18,13 @@ from infrastructure.literature.core import LiteratureSearch
 from infrastructure.literature.core import LiteratureConfig
 
 
+def create_mock_literature_search():
+    """Create a mock literature search with proper config."""
+    mock_search = Mock()
+    mock_search.config = LiteratureConfig(download_dir="data/pdfs")
+    return mock_search
+
+
 class TestSkipExistingSummaries:
     """Test skip-existing-summaries functionality."""
 
@@ -89,7 +96,7 @@ class TestSkipExistingSummaries:
     def test_summarize_papers_parallel_filters_existing_files(self, tmp_path):
         """Test that _summarize_papers_parallel filters out existing summaries."""
         # Setup
-        literature_search = Mock()
+        literature_search = create_mock_literature_search()
         summarizer = Mock()
         progress_tracker = Mock()
         progress_tracker.current_progress = Mock()
@@ -155,7 +162,7 @@ class TestSkipExistingSummaries:
     def test_summarize_papers_parallel_checks_file_before_progress_tracker(self, tmp_path):
         """Test that file existence is checked even if progress tracker doesn't know about it."""
         # Setup
-        literature_search = Mock()
+        literature_search = create_mock_literature_search()
         summarizer = Mock()
         progress_tracker = Mock()
         progress_tracker.current_progress = Mock()
@@ -196,7 +203,7 @@ class TestSkipExistingSummaries:
     def test_summarize_papers_parallel_all_existing_returns_skipped_results(self, tmp_path):
         """Test that all existing summaries return skipped results."""
         # Setup
-        literature_search = Mock()
+        literature_search = create_mock_literature_search()
         summarizer = Mock()
         progress_tracker = Mock()
         progress_tracker.current_progress = Mock()
@@ -250,7 +257,7 @@ class TestSkipExistingSummaries:
         """Test that get_workflow_stats includes skipped summaries."""
         from infrastructure.literature.workflow import LiteratureWorkflow, WorkflowResult
 
-        literature_search = Mock()
+        literature_search = create_mock_literature_search()
         workflow = LiteratureWorkflow(literature_search)
 
         result = WorkflowResult(keywords=["test"])
@@ -267,7 +274,7 @@ class TestSkipExistingSummaries:
     def test_skip_existing_without_progress_tracker(self, tmp_path):
         """Test that file existence check works even without progress tracker."""
         # Setup
-        literature_search = Mock()
+        literature_search = create_mock_literature_search()
         summarizer = Mock()
 
         workflow = LiteratureWorkflow(literature_search)
@@ -304,7 +311,7 @@ class TestSkipExistingSummaries:
     def test_mixed_existing_and_new_summaries(self, tmp_path):
         """Test workflow with mix of existing and new summaries."""
         # Setup
-        literature_search = Mock()
+        literature_search = create_mock_literature_search()
         summarizer = Mock()
         progress_tracker = Mock()
         progress_tracker.current_progress = Mock()

@@ -96,5 +96,10 @@ class TemplateFormatter(logging.Formatter):
         level_name = record.levelname
         message = record.getMessage()
         
-        return f"{emoji_str}[{timestamp}] [{level_name}] {message}"
+        # Add exception info if present
+        formatted_message = f"{emoji_str}[{timestamp}] [{level_name}] {message}"
+        if record.exc_info:
+            formatted_message += "\n" + self.formatException(record.exc_info)
+        
+        return formatted_message
 

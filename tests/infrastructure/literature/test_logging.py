@@ -8,7 +8,7 @@ from unittest.mock import patch, MagicMock
 from pathlib import Path
 
 from infrastructure.literature.workflow import LiteratureWorkflow
-from infrastructure.literature.core import LiteratureSearch
+from infrastructure.literature.core import LiteratureSearch, DownloadResult
 from infrastructure.literature.core import LiteratureConfig
 from infrastructure.literature.sources import SearchResult
 from infrastructure.literature.summarization import SummarizationResult
@@ -169,12 +169,14 @@ class TestWorkflowLogging:
 
         # Mock failed download
         with patch.object(literature_search, 'download_paper_with_result') as mock_download:
-            mock_download.return_value = MagicMock(
+            mock_download.return_value = DownloadResult(
+                citation_key="failing_paper",
                 success=False,
                 failure_reason="network_error",
                 failure_message="Connection timeout",
                 attempted_urls=["https://example.com/fail.pdf"],
-                pdf_path=None
+                pdf_path=None,
+                result=results[0]
             )
 
             # Mock add_to_library

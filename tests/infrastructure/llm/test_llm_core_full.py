@@ -340,6 +340,7 @@ class TestLLMQueryModesIntegration:
         if len(result) == 0:
             pytest.skip("Model returned empty response (transient issue)")
     
+    @pytest.mark.timeout(120)
     def test_query_long(self):
         """Test long query mode."""
         client = LLMClient()

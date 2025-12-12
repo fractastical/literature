@@ -371,13 +371,17 @@ class TestPCAAnalysis:
         if len(corpus.texts) > 0 and any(len(t) > 0 for t in corpus.texts):
             try:
                 features, _ = extract_text_features(corpus)
-                if features.shape[0] > 0:
+                if features.shape[0] > 0 and features.shape[1] >= 2:
                     pca_data, pca_model = compute_pca(features, n_components=2)
-                    assert pca_data.shape[1] == 2
-                    assert pca_model.n_components == 2
-            except ValueError:
-                # Skip if not enough features
-                pytest.skip("Not enough features for PCA")
+                    # PCA may reduce components if fewer features available
+                    expected_components = min(2, features.shape[1])
+                    assert pca_data.shape[1] == expected_components
+                    assert pca_model.n_components == expected_components
+                else:
+                    pytest.skip(f"Not enough features for PCA: {features.shape[1]} features, need at least 2")
+            except (ValueError, ImportError):
+                # Skip if not enough features or sklearn not available
+                pytest.skip("Not enough features for PCA or sklearn not available")
 
     def test_cluster_papers(self, aggregator):
         """Test paper clustering."""

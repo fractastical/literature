@@ -209,40 +209,68 @@ class SummarizationPromptBuilder:
         return "\n".join(sections)
     
     def _build_instructions_section(self, context: SummarizationContext, is_small: bool = False) -> str:
-        """Build instructions section (consolidated, ~50% shorter)."""
+        """Build strong, explicit instructions section requesting specific elements."""
         sections = []
         
         sections.append("=== INSTRUCTIONS ===")
+        sections.append("")
         
-        # Title matching (critical, always include)
+        # Title (critical)
         sections.append(f"1. Start with exact title: \"{context.title}\"")
         sections.append("")
         
-        # Key terms (concise)
-        if context.key_terms:
-            sections.append(f"2. Discuss key terms: {', '.join(context.key_terms[:8])}")
-            sections.append("")
-        
-        # Evidence (consolidated)
-        sections.append("3. Include 10-15 quotes from paper text with format: 'The authors state: \"quote\"'")
-        sections.append("   - All claims must be supported by evidence from the paper")
-        sections.append("   - Search the full text to find relevant quotes")
+        # Extract Quotes - explicit request
+        sections.append("2. EXTRACT QUOTES:")
+        sections.append("   - Extract 10-15 direct quotes from the paper that support key claims")
+        sections.append("   - Format each quote as: 'The authors state: \"[exact quote from paper]\"'")
+        sections.append("   - Search the full paper text to find relevant quotes")
+        sections.append("   - Each quote must be verbatim from the paper text")
         sections.append("")
         
-        # Anti-repetition (CRITICAL - emphasized)
-        sections.append("4. NO REPETITION: Each sentence and paragraph must be UNIQUE.")
+        # Identify Claims - explicit request
+        sections.append("3. IDENTIFY CLAIMS:")
+        sections.append("   - Identify the main claims and arguments made by the authors")
+        sections.append("   - State each claim clearly and support it with quotes from the paper")
+        sections.append("   - Distinguish between primary claims and supporting arguments")
+        sections.append("")
+        
+        # Summarize Key Findings - explicit request
+        sections.append("4. SUMMARIZE KEY FINDINGS:")
+        sections.append("   - Summarize the key findings with specific numbers, metrics, and results")
+        sections.append("   - Include quantitative data: percentages, statistics, measurements")
+        sections.append("   - Extract numerical results from the results section")
+        sections.append("   - Present findings with supporting evidence from the paper")
+        sections.append("")
+        
+        # Describe Methods - explicit request
+        sections.append("5. DESCRIBE METHODS:")
+        sections.append("   - Describe the methodology, experimental setup, and approach used")
+        sections.append("   - Include details about: algorithms, procedures, experimental design")
+        sections.append("   - Explain how the research was conducted")
+        sections.append("   - Extract specific methodological details from the methods section")
+        sections.append("")
+        
+        # Present Results - explicit request
+        sections.append("6. PRESENT RESULTS:")
+        sections.append("   - Present the results with quantitative data and statistical significance")
+        sections.append("   - Include specific numbers, tables, figures mentioned in the paper")
+        sections.append("   - Extract results from the results section with exact values")
+        sections.append("   - Support results with quotes or data from the paper")
+        sections.append("")
+        
+        # Anti-repetition (CRITICAL)
+        sections.append("7. NO REPETITION:")
+        sections.append("   - Each sentence and paragraph must be UNIQUE")
         sections.append("   - Do NOT repeat the same sentence, even with slight variations")
         sections.append("   - Do NOT repeat paragraphs or sections")
         sections.append("   - Each claim should appear only once")
         sections.append("")
         
-        # Content focus (consolidated)
-        if not is_small:
-            sections.append("5. Extract from full text: methodology, results with numbers, key quotes")
-            sections.append("")
-        
-        # Structure (simplified)
-        sections.append("6. Structure: ### Overview, ### Methodology, ### Results, ### Discussion (1000-1500 words)")
+        # Structure
+        sections.append("8. STRUCTURE:")
+        sections.append("   - Use markdown headers: ### Overview, ### Methodology, ### Results, ### Discussion")
+        sections.append("   - Target length: 1000-1500 words")
+        sections.append("   - Ensure all requested elements (quotes, claims, findings, methods, results) are included")
         sections.append("")
         
         return "\n".join(sections)

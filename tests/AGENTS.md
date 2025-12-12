@@ -67,27 +67,50 @@ pytest -m requires_ollama
 ## Test Coverage
 
 ### Core Module
-- 15 test files
+- 16 test files (added test_logging_formatters.py)
 - Comprehensive coverage of all utilities
 - Exception handling tests
 - Configuration tests
+- Logging formatter tests
 
 ### LLM Module
-- 22 test files
+- 24 test files (added test_review_components.py, test_templates_comprehensive.py)
 - 88%+ coverage
 - Pure logic and integration tests
 - Template and validation tests
+- Review component tests
+- Template module comprehensive tests
 
 ### Literature Module
-- 32 test files
+- 35 test files (added test_html_parsers.py, test_sources_comprehensive.py, test_summarization_components.py)
 - Comprehensive coverage
 - Integration tests with real APIs
 - Workflow and orchestration tests
+- HTML parser tests
+- Source adapter comprehensive tests
+- Summarization component tests
+
+### Validation Module
+- 1 test file (test_pdf_validator.py)
+- PDF validation and text extraction tests
+
+## Test Infrastructure
+
+### Shared Fixtures
+- `tests/conftest.py` - Root-level shared fixtures
+- `tests/infrastructure/core/conftest.py` - Core module fixtures
+- `tests/infrastructure/literature/conftest.py` - Literature module fixtures
+- `tests/infrastructure/llm/conftest.py` - LLM module fixtures
+
+### Test Utilities
+- `tests/utils.py` - Shared test utilities (PDF creation, data generators, assertion helpers)
 
 ## Test Documentation
 
 - `tests/infrastructure/llm/AGENTS.md` - LLM test documentation
 - `tests/infrastructure/llm/README.md` - LLM test quick reference
+- `tests/infrastructure/core/AGENTS.md` - Core test documentation
+- `tests/infrastructure/literature/AGENTS.md` - Literature test documentation
 
 ## See Also
 

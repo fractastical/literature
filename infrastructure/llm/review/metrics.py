@@ -26,6 +26,7 @@ class ManuscriptMetrics:
     total_tokens_est: int = 0
     truncated: bool = False
     truncated_chars: int = 0  # Chars after truncation (if any)
+    estimated_review_time_seconds: float = 0.0  # Estimated time to review manuscript
 
 
 @dataclass
@@ -37,6 +38,7 @@ class SessionMetrics:
     model_name: str = ""
     max_input_length: int = 0
     warmup_tokens_per_sec: float = 0.0  # Performance from warmup step
+    total_reviews: int = 0  # Total number of reviews generated
 
 
 @dataclass
@@ -52,17 +54,30 @@ class StreamingMetrics:
     partial_response_saved: bool = False
     first_chunk_time: float = 0.0  # Time to first chunk
     last_chunk_time: float = 0.0  # Time of last chunk
+    
+    def update(self, text_chunk: str, chunk_size: int) -> None:
+        """Update metrics with a new text chunk.
+        
+        Args:
+            text_chunk: The text chunk received.
+            chunk_size: Size of the chunk in bytes.
+        """
+        self.chunk_count += 1
+        self.total_chars += len(text_chunk)
+        self.total_tokens_est = estimate_tokens(self.total_chars)
 
 
-def estimate_tokens(text: str) -> int:
+def estimate_tokens(text: str | int) -> int:
     """Estimate token count from text (approximately 4 characters per token).
     
     Args:
-        text: Input text
+        text: Input text (string) or character count (int)
         
     Returns:
         Estimated token count
     """
+    if isinstance(text, int):
+        return text // 4
     return len(text) // 4
 
 

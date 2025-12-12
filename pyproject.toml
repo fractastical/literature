@@ -37,6 +37,9 @@ dev = [
     "pytest>=7.0",
     "pytest-cov>=4.0",
 ]
+pdf = [
+    "pdfplumber>=0.11.0",  # Optional: Best quality PDF text extraction
+]
 
 [tool.uv]
 
@@ -46,7 +49,7 @@ testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
-addopts = "-v --tb=short --strict-markers --disable-warnings"
+addopts = "-v --tb=short --strict-markers --disable-warnings --durations=10 --timeout=10"
 markers = [
     "requires_ollama: mark test as requiring running Ollama server (skip with -m 'not requires_ollama')",
     "requires_network: mark test as requiring network access",
@@ -100,5 +103,6 @@ dev = [
     "pytest>=8.4.1",
     "pytest-cov>=4.0",
     "pytest-mock>=3.10",
+    "pytest-timeout>=2.1.0",
 ]
 

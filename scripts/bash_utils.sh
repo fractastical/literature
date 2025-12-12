@@ -115,6 +115,17 @@ log_warning() {
     echo -e "${YELLOW}⚠${NC} ${message}"
 }
 
+log_debug() {
+    # Log debug message if LOG_LEVEL is 0 (DEBUG)
+    # LOG_LEVEL: 0=DEBUG, 1=INFO, 2=WARN, 3=ERROR
+    local message="$1"
+    local log_level="${LOG_LEVEL:-1}"
+    
+    if [[ "$log_level" == "0" ]]; then
+        echo -e "${CYAN}[DEBUG]${NC} ${message}"
+    fi
+}
+
 # ============================================================================
 # File Logging Functions
 # ============================================================================

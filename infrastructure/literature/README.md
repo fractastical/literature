@@ -16,7 +16,7 @@ Tools for searching papers, downloading PDFs, and managing citations.
 ## Output Files
 
 ```
-literature/
+data/
 ├── references.bib    # BibTeX entries
 ├── library.json      # JSON index with full metadata
 └── pdfs/             # Downloaded PDFs
@@ -54,22 +54,22 @@ print(f"Total papers: {stats['total_entries']}")
 
 ```bash
 # Basic search (adds to library automatically)
-python3 -m infrastructure.literature.cli search "deep learning"
+python3 -m infrastructure.literature.core.cli search "deep learning"
 
 # Search with options
-python3 -m infrastructure.literature.cli search "transformers" \
+python3 -m infrastructure.literature.core.cli search "transformers" \
     --limit 20 \
     --sources arxiv,semanticscholar \
     --download
 
 # List papers in library
-python3 -m infrastructure.literature.cli library list
+python3 -m infrastructure.literature.core.cli library list
 
 # Show library statistics
-python3 -m infrastructure.literature.cli library stats
+python3 -m infrastructure.literature.core.cli library stats
 
 # Export library
-python3 -m infrastructure.literature.cli library export --output export.json
+python3 -m infrastructure.literature.core.cli library export --output export.json
 
 # NEW: Clean up library
 python3 scripts/07_literature_search.py --cleanup

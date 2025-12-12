@@ -370,17 +370,34 @@ class PDFHandler:
                     last_error = download_result[1]
                     last_failure_reason = download_result[2]
 
-        # All attempts failed
-        error_msg = f"Failed to download PDF after trying {len(urls_to_try)} URL(s) plus fallbacks"
+        # All attempts failed - provide detailed error message
+        error_msg = f"Failed to download PDF after trying {len(attempted_urls)} URL attempt(s)"
         if last_error:
             error_msg = f"{error_msg}: {last_error}"
+        
+        # Add helpful context based on failure reason
+        if last_failure_reason == "access_denied":
+            error_msg += "\n403 Forbidden: The server is blocking access. This may indicate:\n"
+            error_msg += "  - The PDF requires authentication or subscription\n"
+            error_msg += "  - The server is blocking automated requests\n"
+            error_msg += "  - Try accessing the URL manually in a browser"
+        elif last_failure_reason == "html_response":
+            error_msg += "\nHTML received instead of PDF: The URL points to a web page, not a direct PDF link.\n"
+            error_msg += "  - The PDF may require clicking a download button\n"
+            error_msg += "  - The URL may need to be transformed (already attempted)"
+        elif last_failure_reason == "not_found":
+            error_msg += "\n404 Not Found: The PDF URL does not exist or has been moved."
+        
+        logger.error(f"PDF download failed: {error_msg}")
+        logger.debug(f"Attempted URLs: {attempted_urls[:5]}..." if len(attempted_urls) > 5 else f"Attempted URLs: {attempted_urls}")
 
         raise LiteratureSearchError(
             error_msg,
             context={
                 "attempted_urls": attempted_urls,
                 "output_path": str(output_path),
-                "failure_reason": last_failure_reason
+                "failure_reason": last_failure_reason,
+                "total_attempts": len(attempted_urls)
             }
         )
 

@@ -14,6 +14,18 @@ text = extract_text_from_pdf(Path("paper.pdf"))
 
 - `extract_text_from_pdf()` - Extract text from PDF files
 
+## Dependencies
+
+- **pdfplumber** (optional, recommended): Best quality extraction
+- **pypdf** (required): Included in project dependencies
+- **PyPDF2** (optional, legacy): Fallback option
+
+Install optional dependencies:
+```bash
+uv pip install pdfplumber
+# Or: uv pip install -e ".[pdf]"
+```
+
 ## See Also
 
 - [`AGENTS.md`](AGENTS.md) - Complete documentation
