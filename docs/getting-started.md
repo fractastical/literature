@@ -148,11 +148,41 @@ ollama ps
 
 ### PDF Download Failures
 
-Check `data/failed_downloads.json` for failed downloads and retry:
+The system automatically tracks failed PDF downloads in `data/failed_downloads.json`. **By default, previously failed downloads are skipped** to avoid wasting time on papers that are likely to fail again (e.g., access-restricted papers).
+
+**Default Behavior:**
+- Failed downloads are automatically skipped in subsequent runs
+- Skip messages indicate: `⊘ Skipping {citation_key}: previously failed ({reason}). Use --retry-failed to retry.`
+- This prevents repeated attempts on papers that require authentication or are behind paywalls
+
+**Retrying Failed Downloads:**
+
+To retry previously failed downloads, use the `--retry-failed` flag:
 
 ```bash
-python3 scripts/07_literature_search.py --download-only
+# Retry failed downloads when downloading
+python3 scripts/07_literature_search.py --download-only --retry-failed
+
+# Retry failed downloads in full search workflow
+python3 scripts/07_literature_search.py --search --retry-failed --keywords "machine learning"
 ```
+
+**Checking Failed Downloads:**
+
+```bash
+# View failed downloads file
+cat data/failed_downloads.json
+
+# Or use the library CLI
+python3 -m infrastructure.literature.core.cli library stats
+```
+
+The failed downloads tracker includes:
+- Citation key and title
+- Failure reason (access_denied, network_error, timeout, etc.)
+- Attempted URLs
+- Timestamp of failure
+- Retriable status (network errors are retriable, access denied typically is not)
 
 ### Library Issues
 

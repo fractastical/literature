@@ -83,6 +83,18 @@ TITLE MATCHING REQUIREMENT:
 
 EVIDENCE REQUIREMENTS:
 - Include at least 3-5 direct quotes or closely paraphrased quotes from the paper
+   - QUOTE EXTRACTION AND FORMATTING:
+     * Extract quotes VERBATIM from the paper text - do NOT modify or "correct" them
+     * Extract quotes exactly as they appear in the source text
+     * Preserve all aspects of the quote exactly as written, including spacing
+     * Use proper quotation marks: "quote text" (double quotes)
+     * CRITICAL: Only extract quotes that actually appear in the paper text - do NOT generate or invent quotes
+   - QUOTE FORMATTING STANDARD:
+  * Attribution format: "The authors state: \"quote text\"" OR "According to the paper: \"quote text\""
+  * Vary attribution phrases to avoid repetition (use: "The authors state", "They note", 
+    "The paper argues", "According to the research", "The study demonstrates")
+  * Include section context when available: "In the Introduction, the authors state: \"quote text\""
+  * Ensure proper spacing around quotes and punctuation
 - Format quotes as: "quote text" or use brackets for paraphrases: [paraphrased claim from paper]
 - Every major claim must reference specific text from the paper
 - Include section/page references when possible (e.g., "As stated in the Introduction: ..." or "The abstract notes: ...")
@@ -96,6 +108,14 @@ TOPIC VALIDATION:
 - Verify that the topics discussed in your summary align with the topics in the paper text
 - If you find yourself writing about topics not present in the paper (e.g., writing about "adversarial attacks" when the paper is about "psychoanalysis"), 
   STOP - you are hallucinating content
+
+PROFESSIONAL TONE REQUIREMENTS:
+- Begin directly with the paper title or content - NO conversational openings
+- Do NOT use phrases like: "Okay, here's...", "Here's a summary...", 
+  "Let me summarize...", "I'll extract...", or similar conversational language
+- Start immediately with substantive content in formal academic tone
+- Example BAD: "Okay, here's a summary of the paper..."
+- Example GOOD: "This paper investigates [topic]..."
 
 CRITICAL INSTRUCTIONS:
 You are summarizing a scientific research paper. You MUST follow ALL rules below:
@@ -111,16 +131,20 @@ You are summarizing a scientific research paper. You MUST follow ALL rules below
 
 3. Word count: Aim for 600-1000 words of comprehensive, technically detailed content. Prioritize comprehensiveness and technical depth over brevity. Longer, more detailed summaries are preferred.
 
-4. CRITICAL ANTI-REPETITION RULES - STRICTLY ENFORCED:
+4. CRITICAL ANTI-REPETITION RULES - STRICTLY ENFORCED (ENHANCED):
+   - Each sentence must be UNIQUE - check before writing if you've already said this
+   - Each claim appears ONCE - if you've stated it, move to the next unique point
    - Each section must contain UNIQUE information. Do NOT repeat the same content across different sections.
    - Do NOT create multiple sections with the same title (e.g., multiple "Summary" sections).
    - Each paragraph must be UNIQUE. Do NOT repeat the same paragraph, even with slight variations.
    - Each sentence must be UNIQUE. Do NOT repeat the same sentence multiple times.
    - Do NOT repeat the same claim, finding, or explanation multiple times in different words.
+   - Vary attribution phrases: use "The authors state", "They note", "The paper argues", 
+     "According to the research", "The study demonstrates" - do NOT repeat the same phrase
    - If you find yourself writing similar content, STOP and write something completely different.
    - Use each section header only ONCE. Never create duplicate sections.
    - If you notice you're repeating yourself, delete the repetition and write new unique content instead.
-   - CRITICAL: Before writing each sentence, check if you've already said this - if yes, write something different.
+   - CRITICAL: Before writing each sentence, ask: "Have I already said this?" If yes, write something new.
 
 5. CONTENT FOCUS - EXTRACT SPECIFIC CLAIMS AND TECHNICAL DETAILS:
    - Extract SPECIFIC claims: What exactly does the paper claim to show or prove? Be concrete, not generic.
@@ -433,6 +457,12 @@ REQUIREMENTS:
 
 2. IMPORTANT DIRECT QUOTES:
    - Extract 5-10 of the most important direct quotes from the paper
+   - QUOTE EXTRACTION AND FORMATTING:
+     * Extract quotes VERBATIM from the paper text - do NOT modify or "correct" them
+     * Extract quotes exactly as they appear in the source text
+     * Preserve all aspects of the quote exactly as written, including spacing
+     * Use proper quotation marks: "quote text" (double quotes)
+     * CRITICAL: Only extract quotes that actually appear in the paper text - do NOT generate or invent quotes
    - Include quotes that:
      * State key findings or results
      * Express main hypotheses or claims
@@ -440,9 +470,15 @@ REQUIREMENTS:
      * Summarize key contributions
      * Present important conclusions
    - For each quote, provide:
-     * The exact quote text in quotation marks
+     * The exact quote text in quotation marks (extracted verbatim from source)
      * Context about where it appears (section name if available)
      * Brief explanation of why it's important
+   - QUOTE FORMATTING STANDARD:
+     * Use double quotation marks: "exact quote text"
+     * Attribution format: "The authors state: \"quote text\"" OR "According to the paper: \"quote text\""
+     * Vary attribution phrases to avoid repetition
+     * Include section context when available: "In the Introduction, the authors state: \"quote text\""
+     * Ensure proper spacing around quotes and punctuation
 
 3. STRUCTURE YOUR OUTPUT AS:
    ## Key Claims and Hypotheses
@@ -456,22 +492,30 @@ REQUIREMENTS:
 
 4. ACCURACY REQUIREMENTS:
    - ONLY extract quotes that appear verbatim in the paper text
-   - Do NOT paraphrase or modify quotes
+   - Do NOT paraphrase or modify quotes - extract them exactly as written
    - Do NOT invent claims not present in the paper
    - Include section references when possible (e.g., "Introduction", "Results", "Discussion")
    - If you cannot find a specific claim or quote, do not include it
 
-5. COMPREHENSIVENESS:
+5. DEDUPLICATION REQUIREMENTS:
+   - Each quote appears only ONCE in your output
+   - Each claim appears only ONCE in your output
+   - Before adding a quote, check if you've already included it
+   - If a quote appears in multiple sections, include it once with the most relevant context
+   - Remove any duplicate quotes or claims before finalizing your output
+
+6. COMPREHENSIVENESS:
    - Aim to extract 5-15 key claims
    - Include 5-10 important quotes
    - Cover all major aspects: methodology, results, conclusions, contributions
    - Prioritize claims and quotes that are central to the paper's contribution
 
-6. FORMATTING:
+7. FORMATTING:
    - Use clear markdown structure
    - Use quotation marks for all direct quotes
    - Use bullet points or numbered lists for claims
    - Maintain academic tone
+   - Follow the QUOTE FORMATTING STANDARD above for consistent formatting
 
 Begin extracting claims and quotes now:"""
 
@@ -521,6 +565,14 @@ PAPER TEXT:
 ${text}
 
 === END PAPER CONTENT ===
+
+PROFESSIONAL TONE REQUIREMENTS:
+- Begin directly with the analysis - NO conversational openings
+- Do NOT use phrases like: "Okay, here's...", "Here's the analysis...", 
+  "Let me analyze...", "I'll extract...", "Okay, let's begin...", or similar conversational language
+- Start immediately with substantive content in formal academic tone
+- Example BAD: "Okay, here's the analysis of methods and tools..."
+- Example GOOD: "## Algorithms and Methodologies\n\n*   Free Energy Principle (exact quote from paper) – \"quote text\""
 
 TASK: Analyze and extract detailed information about the methods, algorithms, frameworks, datasets, evaluation metrics, and software tools used in this research paper.
 
@@ -577,23 +629,31 @@ REQUIREMENTS:
    ## Software Tools and Platforms
    [List of tools, platforms, and computational resources]
 
-7. CRITICAL ACCURACY REQUIREMENTS - NO SPECULATION ALLOWED:
-   - ONLY include information EXPLICITLY STATED in the paper text
+7. CRITICAL ACCURACY REQUIREMENTS - NO SPECULATION ALLOWED (ENHANCED):
+   - ONLY list items EXPLICITLY NAMED in the paper text
+   - DO NOT list items that are NOT found in the paper - this is CRITICAL
+   - DO NOT create entries for common items (Accuracy, F1-score, Precision, Recall, MSE, Google Colab, AWS, MATLAB, R, etc.) if they are not explicitly mentioned
+   - For each item you list, provide the EXACT QUOTE or specific text from the paper that mentions it
+   - Format: "Item Name (exact quote from paper) – \"quote text\"" or "Item Name (exact quote from paper) – mentioned in [section]"
+   - NEVER infer tools based on methodology (e.g., don't assume PyTorch for deep learning)
+   - Verification: Before listing any item, search the paper text for its explicit mention
    - NEVER use words like: "implied", "likely", "potentially", "not explicitly mentioned but", "probably", "may have been used", "suggested", "inferred", "assumed"
    - NEVER guess or infer tools, frameworks, datasets, or methods based on context or prior knowledge
-   - If a tool/framework/dataset is not EXPLICITLY NAMED in the paper, DO NOT include it
-   - For each item you list, provide the EXACT QUOTE or specific text from the paper that mentions it
-   - Example format: "PyTorch (version 1.8.0)" - ONLY if the paper explicitly states "PyTorch version 1.8.0"
-   - If you cannot find explicit mention, write: "Not specified in paper" rather than guessing
+   - If a tool/framework/dataset is not EXPLICITLY NAMED in the paper, DO NOT include it in your list
+   - Example format: "PyTorch (exact quote from paper) – \"PyTorch version 1.8.0\"" - ONLY if the paper explicitly states "PyTorch version 1.8.0"
    - Include specific names, versions, and details ONLY when explicitly stated in the paper
    - Be precise with technical terminology - use exact terms from the paper
 
-8. COMPREHENSIVENESS:
+8. COMPREHENSIVENESS AND SECTION-LEVEL REPORTING:
    - Extract ALL relevant tools, frameworks, datasets, and methods that are EXPLICITLY MENTIONED
    - Include both standard and custom solutions that are EXPLICITLY NAMED
    - Cover all aspects: algorithms, software, data, evaluation, hardware - but ONLY if explicitly stated
    - Prioritize items that are central to reproducing the research
-   - If a section has no explicit mentions, state "Not specified in paper" for that section
+   - CRITICAL: If a section has no items found, write "Not specified in paper" at the SECTION LEVEL, not for individual items
+   - DO NOT list individual items with "Not specified in paper" - this is incorrect
+   - CORRECT format for empty section: "## Evaluation Metrics\n\nNot specified in paper"
+   - INCORRECT format: "*   Accuracy (exact quote from paper) – \"Not specified in paper\""
+   - If you find items, list them with quotes. If you find no items, state "Not specified in paper" for the entire section
 
 9. FORMATTING:
    - Use clear markdown structure with sections
@@ -601,14 +661,48 @@ REQUIREMENTS:
    - Include specific details (versions, sizes, names) ONLY when explicitly stated in the paper
    - Maintain technical accuracy - quote exact text from the paper when possible
    - Format: For each item, include the exact quote or specific text that mentions it
+   - Format: "Item Name (exact quote from paper)" or "Item Name - mentioned in [section]"
 
-10. VERIFICATION:
+10. VERIFICATION (CRITICAL):
     - Before listing any item, verify it appears explicitly in the paper text
+    - Search the paper text for the explicit mention of each item before including it
     - If you're unsure whether something is explicitly stated, DO NOT include it
     - When in doubt, exclude rather than speculate
     - Every item must have a clear, explicit mention in the paper text
+    - Do NOT list items that are "commonly used" or "typically associated" - only list what is explicitly named
 
-Begin analyzing methods and tools now. Remember: ONLY explicit mentions, NO speculation, NO implied information:"""
+11. FORMATTING EXAMPLES - CORRECT vs INCORRECT:
+
+CORRECT FORMAT (items found):
+## Evaluation Metrics
+
+*   t-tests (exact quote from paper) – "statistical tests (t-tests, ANOVA, etc.) and significance levels"
+*   ANOVA (exact quote from paper) – "statistical tests (t-tests, ANOVA, etc.) and significance levels"
+
+## Software Frameworks and Libraries
+
+*   PyTorch (exact quote from paper) – "PyTorch version 1.8.0"
+
+INCORRECT FORMAT (DO NOT DO THIS):
+## Evaluation Metrics
+
+*   Accuracy (exact quote from paper) – "Not specified in paper"
+*   F1-score (exact quote from paper) – "Not specified in paper"
+*   Precision (exact quote from paper) – "Not specified in paper"
+*   Recall (exact quote from paper) – "Not specified in paper"
+*   Mean Squared Error (MSE) (exact quote from paper) – "Not specified in paper"
+*   t-tests (exact quote from paper) – "statistical tests (t-tests, ANOVA, etc.) and significance levels"
+
+CORRECT FORMAT (no items found):
+## Evaluation Metrics
+
+Not specified in paper
+
+## Software Tools and Platforms
+
+Not specified in paper
+
+Begin analyzing methods and tools now. Remember: ONLY list items that ARE found, DO NOT list items that are NOT found, and use section-level "Not specified in paper" when no items are found:"""
 
     def render(
         self,

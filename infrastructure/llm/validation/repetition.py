@@ -248,13 +248,89 @@ def detect_repetition(
     return has_repetition, duplicates, unique_ratio
 
 
+def _deduplicate_sentences(
+    text: str,
+    max_repetitions: int = 1,
+    similarity_threshold: float = 0.85
+) -> str:
+    """Deduplicate at sentence level first - removes exact duplicate sentences.
+    
+    This is more aggressive and should be applied before paragraph-level deduplication.
+    
+    Args:
+        text: Text to deduplicate
+        max_repetitions: Maximum times a sentence can appear
+        similarity_threshold: Similarity threshold for sentence matching
+        
+    Returns:
+        Text with duplicate sentences removed
+    """
+    if not text:
+        return text
+    
+    # Split into sentences (handle multiple delimiters)
+    sentences = re.split(r'[.!?]+\s+', text)
+    if len(sentences) < 3:
+        return text
+    
+    original_length = len(text)
+    seen_sentences: Dict[str, int] = {}
+    result_sentences = []
+    removed_count = 0
+    
+    for sent in sentences:
+        if not sent.strip() or len(sent.strip()) < 15:  # Skip very short fragments
+            result_sentences.append(sent)
+            continue
+        
+        normalized = _normalize_for_comparison(sent)
+        # Use first 200 chars as key for comparison
+        key = normalized[:200] if len(normalized) > 200 else normalized
+        
+        # Check for exact or near-exact matches
+        is_duplicate = False
+        for existing_key, count in seen_sentences.items():
+            similarity = _calculate_similarity(key, existing_key, method="hybrid")
+            if similarity >= similarity_threshold:
+                seen_sentences[existing_key] = count + 1
+                if count + 1 > max_repetitions:
+                    is_duplicate = True
+                    removed_count += 1
+                    logger.debug(
+                        f"Duplicate sentence removed (similarity: {similarity:.2f})"
+                    )
+                break
+        
+        if not is_duplicate:
+            if key not in seen_sentences:
+                seen_sentences[key] = 1
+            result_sentences.append(sent)
+    
+    # Reconstruct text (approximate - sentence splitting may not be perfect)
+    result = '. '.join(result_sentences)
+    
+    if removed_count > 0:
+        logger.info(
+            f"Sentence deduplication removed {removed_count} duplicate sentences "
+            f"({original_length} → {len(result)} chars)"
+        )
+    
+    return result
+
+
 def _deduplicate_paragraphs(
     text: str,
     max_repetitions: int,
     similarity_threshold: float,
     min_content_preservation: float
 ) -> str:
-    """Deduplicate at paragraph level with semantic similarity."""
+    """Deduplicate at paragraph level with semantic similarity.
+    
+    Note: This should be applied AFTER sentence-level deduplication.
+    """
+    # First apply sentence-level deduplication
+    text = _deduplicate_sentences(text, max_repetitions=1, similarity_threshold=0.85)
+    
     paragraphs = text.split('\n\n')
     if len(paragraphs) < 3:
         return text
@@ -322,6 +398,8 @@ def deduplicate_sections(
 
     Uses configurable similarity thresholds and preservation rules to avoid
     removing valid content that happens to be conceptually similar.
+    
+    Applies sentence-level deduplication first, then paragraph-level, then section-level.
 
     Args:
         text: The text to deduplicate
@@ -337,6 +415,9 @@ def deduplicate_sections(
         return text
 
     original_length = len(text)
+    
+    # First apply sentence-level deduplication (most aggressive)
+    text = _deduplicate_sentences(text, max_repetitions=1, similarity_threshold=0.85)
 
     # Configure thresholds based on mode
     if mode == "conservative":

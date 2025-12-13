@@ -286,26 +286,67 @@ class DataAggregator:
         pdfs_available = 0
         
         for entry in entries:
-            # Venues
-            if entry.venue:
-                venues[entry.venue] += 1
-            
-            # Authors
-            for author in entry.authors:
-                authors[author] += 1
-            
-            # Sources
-            sources[entry.source] += 1
-            
-            # Citations
-            if entry.citation_count is not None:
-                citation_counts.append(entry.citation_count)
-            
-            # DOIs and PDFs
-            if entry.doi:
-                dois_available += 1
-            if entry.pdf_path:
-                pdfs_available += 1
+            try:
+                # Venues - normalize to string if needed (defensive check)
+                if entry.venue:
+                    venue_str = None
+                    if isinstance(entry.venue, str):
+                        venue_str = entry.venue
+                    elif isinstance(entry.venue, list):
+                        if len(entry.venue) > 0:
+                            # Join multiple venues or take first
+                            venue_str = ", ".join(str(v) for v in entry.venue if v) if len(entry.venue) > 1 else str(entry.venue[0]) if entry.venue[0] else None
+                        else:
+                            venue_str = None
+                    else:
+                        # Convert other types to string
+                        venue_str = str(entry.venue) if entry.venue else None
+                    
+                    if venue_str:
+                        venues[venue_str] += 1
+                
+                # Authors - ensure it's iterable
+                if entry.authors:
+                    if isinstance(entry.authors, list):
+                        for author in entry.authors:
+                            if author:  # Skip empty authors
+                                authors[str(author)] += 1
+                    elif isinstance(entry.authors, str):
+                        # Single author as string
+                        authors[entry.authors] += 1
+                    else:
+                        logger.warning(
+                            f"[{entry.citation_key}] Unexpected authors type {type(entry.authors).__name__}, "
+                            f"skipping author aggregation"
+                        )
+                
+                # Sources - normalize to string
+                source_str = str(entry.source) if entry.source else "unknown"
+                sources[source_str] += 1
+                
+                # Citations
+                if entry.citation_count is not None:
+                    try:
+                        citation_counts.append(int(entry.citation_count))
+                    except (ValueError, TypeError):
+                        logger.debug(
+                            f"[{entry.citation_key}] Invalid citation_count type: {type(entry.citation_count).__name__}, "
+                            f"skipping"
+                        )
+                
+                # DOIs and PDFs
+                if entry.doi:
+                    dois_available += 1
+                if entry.pdf_path:
+                    pdfs_available += 1
+                    
+            except Exception as e:
+                logger.warning(
+                    f"[{entry.citation_key}] Error processing metadata for entry '{entry.title[:50]}...': {e}. "
+                    f"Skipping this entry's metadata."
+                )
+                logger.debug(f"Full error details for {entry.citation_key}:", exc_info=True)
+                continue
         
         return MetadataData(
             venues=dict(venues),

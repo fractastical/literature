@@ -34,7 +34,8 @@ logger = get_logger(__name__)
 def get_model_aware_generation_options(
     llm_client: "LLMClient",
     metadata: dict,
-    stage: str = "draft"
+    stage: str = "draft",
+    has_repetition_issue: bool = False
 ) -> "GenerationOptions":
     """Get model-aware generation options.
     
@@ -42,6 +43,7 @@ def get_model_aware_generation_options(
         llm_client: LLM client for model detection.
         metadata: Paper metadata.
         stage: Generation stage ("draft" or "refinement").
+        has_repetition_issue: Whether repetition was detected (lowers temperature).
         
     Returns:
         GenerationOptions with model-appropriate settings.
@@ -51,18 +53,28 @@ def get_model_aware_generation_options(
     # Detect model size using shared utility
     model_size = detect_model_size(llm_client, metadata)
     
-    # Model-aware temperature
+    # Model-aware temperature with repetition handling
     if model_size < 7:
         # Small models: lower temperature for more focused output
-        temperature = 0.3
+        # Even lower if repetition detected
+        if has_repetition_issue:
+            temperature = 0.1  # Very low for repetition issues
+        else:
+            temperature = 0.3
         max_tokens = 2000 if stage == "draft" else 2500
     elif model_size <= 13:
         # Medium models
-        temperature = 0.4
+        if has_repetition_issue:
+            temperature = 0.2  # Lower for repetition issues
+        else:
+            temperature = 0.4
         max_tokens = 2000 if stage == "draft" else 2500
     else:
         # Large models: slightly higher temperature
-        temperature = 0.5
+        if has_repetition_issue:
+            temperature = 0.3  # Lower for repetition issues
+        else:
+            temperature = 0.5
         max_tokens = 2500 if stage == "draft" else 3000
     
     return GenerationOptions(
@@ -285,7 +297,8 @@ class MultiStageSummarizer:
         self,
         context: SummarizationContext,
         metadata: dict,
-        progress_callback: Optional[Callable[[SummarizationProgressEvent], None]] = None
+        progress_callback: Optional[Callable[[SummarizationProgressEvent], None]] = None,
+        has_repetition_issue: bool = False
     ) -> str:
         """Generate draft summary using single-stage mode (original method).
         
@@ -359,9 +372,9 @@ class MultiStageSummarizer:
             logger.error(f"[{citation_key}] LLM connection check failed: {conn_error}")
             raise
         
-        # Get model-aware generation options
+        # Get model-aware generation options (with repetition handling)
         gen_options = get_model_aware_generation_options(
-            self.llm_client, metadata, stage="draft"
+            self.llm_client, metadata, stage="draft", has_repetition_issue=has_repetition_issue
         )
         
         # Generate summary using streaming with progress updates
@@ -557,7 +570,7 @@ class MultiStageSummarizer:
             # Get generation options for chunk
             chunk_metadata = metadata.copy()
             chunk_gen_options = get_model_aware_generation_options(
-                self.llm_client, chunk_metadata, stage="draft"
+                self.llm_client, chunk_metadata, stage="draft", has_repetition_issue=False
             )
             
             # Summarize chunk
@@ -640,7 +653,7 @@ class MultiStageSummarizer:
         
         # Get generation options for final summary
         final_gen_options = get_model_aware_generation_options(
-            self.llm_client, metadata, stage="draft"
+            self.llm_client, metadata, stage="draft", has_repetition_issue=False
         )
         
         # Generate final summary
@@ -750,14 +763,19 @@ class MultiStageSummarizer:
             raise
         
         # Get model-aware generation options for refinement
-        # Use lower temperature for refinement to reduce repetition
+        # Check if repetition is an issue - use lower temperature
+        has_repetition_issue = any(
+            "repetition" in issue.lower() 
+            for issue in issues
+        )
+        
         refine_metadata = {'citation_key': citation_key}
         gen_options = get_model_aware_generation_options(
-            self.llm_client, refine_metadata, stage="refinement"
+            self.llm_client, refine_metadata, stage="refinement", has_repetition_issue=has_repetition_issue
         )
-        # Lower temperature further for refinement to reduce repetition
-        if gen_options.temperature > 0.3:
-            gen_options.temperature = max(0.3, gen_options.temperature - 0.1)
+        
+        if has_repetition_issue:
+            logger.debug(f"[{citation_key}] Using reduced temperature {gen_options.temperature:.2f} for repetition issues")
         
         # Generate refined summary using streaming with progress updates
         try:
@@ -1010,6 +1028,93 @@ class MultiStageSummarizer:
         current_summary = draft
         refinement_attempts = 0
         
+        # Check if we have severe repetition - if so, skip refinement and try regeneration
+        has_severe_repetition = any(
+            "severe repetition" in error.lower() 
+            for error in validation_result.errors
+        )
+        
+        if has_severe_repetition:
+            logger.warning(
+                f"[{citation_key}] Severe repetition detected in draft. "
+                f"Attempting regeneration with lower temperature instead of refinement."
+            )
+            # Apply more aggressive deduplication first
+            from infrastructure.llm.validation.repetition import deduplicate_sections
+            current_summary = deduplicate_sections(
+                current_summary,
+                max_repetitions=1,
+                mode="aggressive",
+                similarity_threshold=0.75,  # More aggressive threshold
+                min_content_preservation=0.5  # Allow more content removal to eliminate repetition
+            )
+            current_summary = self._fix_markdown_formatting(current_summary)
+            
+            # Re-validate after deduplication
+            should_accept, validation_result = self.validate_and_accept(
+                current_summary, context, pdf_text, paper_title, citation_key, 
+                progress_callback=progress_callback
+            )
+            
+            if should_accept:
+                overall_time = time.time() - overall_start_time
+                logger.info(
+                    f"[{citation_key}] Summarization completed in {overall_time:.2f}s "
+                    f"(draft accepted after aggressive deduplication, {total_attempts} attempt(s))"
+                )
+                return current_summary, validation_result, total_attempts
+            
+            # If deduplication didn't work, try regeneration with lower temperature
+            logger.info(
+                f"[{citation_key}] Aggressive deduplication did not resolve issues. "
+                f"Attempting regeneration with lower temperature (0.1-0.2)..."
+            )
+            try:
+                # Regenerate draft with lower temperature for repetition issues
+                regenerated = self._generate_draft_single_stage(
+                    context, 
+                    metadata, 
+                    progress_callback=progress_callback,
+                    has_repetition_issue=True
+                )
+                total_attempts += 1
+                
+                # Apply deduplication to regenerated draft
+                regenerated = deduplicate_sections(
+                    regenerated,
+                    max_repetitions=1,
+                    mode="aggressive",
+                    similarity_threshold=0.75,
+                    min_content_preservation=0.5
+                )
+                regenerated = self._fix_markdown_formatting(regenerated)
+                
+                # Validate regenerated summary
+                should_accept, validation_result = self.validate_and_accept(
+                    regenerated, context, pdf_text, paper_title, citation_key,
+                    progress_callback=progress_callback
+                )
+                
+                if should_accept:
+                    overall_time = time.time() - overall_start_time
+                    logger.info(
+                        f"[{citation_key}] Summarization completed in {overall_time:.2f}s "
+                        f"(accepted after regeneration with lower temperature, {total_attempts} attempt(s))"
+                    )
+                    return regenerated, validation_result, total_attempts
+                
+                # If regeneration also failed, use regenerated version for refinement
+                current_summary = regenerated
+                logger.info(
+                    f"[{citation_key}] Regeneration improved but still has issues. "
+                    f"Proceeding with refinement (will use repetition-specific prompts)..."
+                )
+            except Exception as regen_error:
+                logger.warning(
+                    f"[{citation_key}] Regeneration failed: {regen_error}. "
+                    f"Proceeding with refinement..."
+                )
+        
         logger.info(
             f"[{citation_key}] Draft not accepted (score: {validation_result.score:.2f}), "
             f"starting refinement (max {self.max_refinement_attempts} attempts)..."
@@ -1025,6 +1130,24 @@ class MultiStageSummarizer:
             
             # Get issues for refinement
             issues = validation_result.errors + validation_result.warnings
+            
+            # Check if repetition is the main issue
+            has_repetition_issue = any(
+                "repetition" in issue.lower() 
+                for issue in issues
+            )
+            
+            # For repetition issues, add explicit instructions
+            if has_repetition_issue:
+                repetition_instructions = (
+                    "CRITICAL: The current summary has severe repetition issues. "
+                    "You MUST eliminate all repeated sentences, phrases, and paragraphs. "
+                    "Each idea should be expressed only once. "
+                    "If you find yourself repeating content, remove the duplicates entirely. "
+                    "Focus on variety and uniqueness in your wording."
+                )
+                # Prepend repetition instructions to issues
+                issues = [repetition_instructions] + issues
             
             # Use simple prompt for later attempts (fallback strategy)
             use_simple = refinement_attempts > 1
@@ -1049,14 +1172,31 @@ class MultiStageSummarizer:
                     break  # Give up
             
             # Apply post-generation deduplication before validation
+            # Use more aggressive settings if repetition was an issue
             from infrastructure.llm.validation.repetition import deduplicate_sections
-            refined = deduplicate_sections(
-                refined,
-                max_repetitions=1,
-                mode="aggressive",
-                similarity_threshold=0.85,
-                min_content_preservation=0.7
+            has_repetition_issue = any(
+                "repetition" in issue.lower() 
+                for issue in issues
             )
+            
+            if has_repetition_issue:
+                # More aggressive deduplication for repetition issues
+                refined = deduplicate_sections(
+                    refined,
+                    max_repetitions=1,
+                    mode="aggressive",
+                    similarity_threshold=0.75,  # Lower threshold to catch more duplicates
+                    min_content_preservation=0.5  # Allow more content removal
+                )
+            else:
+                # Standard deduplication
+                refined = deduplicate_sections(
+                    refined,
+                    max_repetitions=1,
+                    mode="aggressive",
+                    similarity_threshold=0.85,
+                    min_content_preservation=0.7
+                )
             
             # Apply formatting fixes after deduplication
             refined = self._fix_markdown_formatting(refined)

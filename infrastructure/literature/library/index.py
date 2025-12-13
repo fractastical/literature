@@ -60,6 +60,7 @@ class LibraryEntry:
         """Create entry from dictionary.
         
         Handles missing fields gracefully by providing defaults for required fields.
+        Normalizes data types to ensure consistency (e.g., converts list venues to strings).
         """
         # Provide defaults for required fields if missing
         defaults = {
@@ -69,6 +70,40 @@ class LibraryEntry:
         }
         # Merge defaults with provided data (data takes precedence)
         merged_data = {**defaults, **data}
+        
+        # Normalize data types to prevent type errors downstream
+        # Venue: convert list to string if needed
+        if "venue" in merged_data and merged_data["venue"] is not None:
+            venue = merged_data["venue"]
+            if isinstance(venue, list):
+                if len(venue) == 0:
+                    merged_data["venue"] = None
+                elif len(venue) == 1:
+                    merged_data["venue"] = str(venue[0]) if venue[0] else None
+                else:
+                    # Multiple venues: join with ", "
+                    merged_data["venue"] = ", ".join(str(v) for v in venue if v)
+                    logger.debug(f"Normalized venue from list to string: {merged_data['venue']}")
+            elif not isinstance(venue, str):
+                # Convert other types to string
+                merged_data["venue"] = str(venue) if venue else None
+                logger.debug(f"Normalized venue from {type(venue).__name__} to string")
+        
+        # Authors: ensure it's always a list
+        if "authors" in merged_data:
+            authors = merged_data["authors"]
+            if not isinstance(authors, list):
+                if authors is None:
+                    merged_data["authors"] = []
+                elif isinstance(authors, str):
+                    # Single author as string: convert to list
+                    merged_data["authors"] = [authors]
+                    logger.debug(f"Normalized authors from string to list")
+                else:
+                    # Other types: try to convert
+                    merged_data["authors"] = [str(authors)]
+                    logger.warning(f"Unexpected authors type {type(authors).__name__}, converted to list")
+        
         return cls(**merged_data)
 
 

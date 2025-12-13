@@ -47,18 +47,6 @@ python3 -m infrastructure.literature.core.cli library stats
 python3 -m infrastructure.literature.core.cli library export [--output FILE]
 ```
 
-#### Validate
-
-```bash
-python3 -m infrastructure.literature.core.cli library validate
-```
-
-#### Cleanup
-
-```bash
-python3 -m infrastructure.literature.core.cli library cleanup [--no-pdf]
-```
-
 ## LLM CLI
 
 ### Query Command
@@ -122,7 +110,7 @@ python3 scripts/07_literature_search.py [options]
 ```
 
 **Modes:**
-- `--search` - Search for papers
+- `--search` - Search for papers (orchestrated pipeline: search → download → summarize)
 - `--search-only` - Search without downloading
 - `--download-only` - Download PDFs only
 - `--extract-text` - Extract text from PDFs
@@ -135,6 +123,23 @@ python3 scripts/07_literature_search.py [options]
 - `--keywords KEYWORDS` - Comma-separated keywords
 - `--limit N` - Limit per keyword
 - `--sources SOURCES` - Source list
+- `--retry-failed` - Retry previously failed downloads (default: False - failed downloads are skipped)
+- `--clear-pdfs` - Clear all PDFs before download
+- `--clear-summaries` - Clear all summaries before generation
+- `--clear-library` - Clear library index before operations (requires confirmation)
+- `--paper-config PATH` - Path to YAML config file for paper selection
+
+**Failed Download Behavior:**
+
+By default, papers with previously failed downloads are **automatically skipped** to avoid wasting time on access-restricted or unavailable papers. The system tracks failures in `data/failed_downloads.json`.
+
+- **Default (no flag)**: Failed downloads are skipped with a message: `⊘ Skipping {citation_key}: previously failed ({reason}). Use --retry-failed to retry.`
+- **With `--retry-failed`**: Previously failed downloads are retried, useful for network errors or temporary issues
+
+This flag works with:
+- `--search` - Full search and download workflow
+- `--download-only` - Download existing bibliography entries
+- `--meta-analysis` - Meta-analysis workflow
 
 **Examples:**
 ```bash

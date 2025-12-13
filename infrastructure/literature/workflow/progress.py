@@ -240,7 +240,8 @@ class ProgressTracker:
         if self.enable_progress_bars:
             self.progress_bars["summarization"] = ProgressBar(
                 total=total_papers,
-                task="Summarizing papers"
+                task="Summarizing papers",
+                track_success_failure=True
             )
         
         self.save_progress()
@@ -336,7 +337,18 @@ class ProgressTracker:
             if self.enable_progress_bars and "summarization" in self.progress_bars:
                 completed = self.current_progress.completed_summaries
                 total = self.current_progress.total_papers
-                self.progress_bars["summarization"].update(completed)
+                
+                # Determine success/failure for progress tracking
+                is_success = status == "summarized"
+                is_failure = status == "failed"
+                item_time = kwargs.get("summary_time")
+                
+                # Update progress bar with success/failure info
+                self.progress_bars["summarization"].update(
+                    completed,
+                    success=is_success if (is_success or is_failure) else None,
+                    item_time=item_time
+                )
                 
                 # Log progress percentage
                 if total > 0:

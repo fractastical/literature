@@ -167,6 +167,64 @@ Summaries are saved to `data/summaries/{citation_key}_summary.md` with:
 - Verify context extraction is finding all sections
 - Increase `max_pdf_chars` if truncation is occurring
 
+### Repetition Issues
+
+**Symptoms**: Validation errors like "Severe repetition detected: Same sentence appears X times"
+
+**Automatic Handling**:
+- System detects severe repetition and applies aggressive deduplication
+- Lower temperature (0.2) used during refinement for repetition issues
+- More aggressive similarity thresholds (0.75) for deduplication
+
+**Manual Solutions**:
+- Check PDF text quality - some PDFs may have duplicate content
+- Try a different LLM model
+- Review failed summaries (saved with quality score 0.00) for patterns
+- Consider manual editing of problematic summaries
+
+### Failure Analysis
+
+At the end of each summarization run, the system provides:
+
+1. **Failure Summary**: Count of failures by category
+   - Repetition Issues
+   - LLM Connection Error
+   - Context Limit Exceeded
+   - PDF Extraction Error
+   - Title Mismatch
+   - Other Errors
+
+2. **Examples**: Sample failed papers with error messages
+
+3. **Suggestions**: Specific recommendations based on failure patterns
+
+**Example Output**:
+```
+FAILURE ANALYSIS
+------------------------------------------------------------
+Total failures: 5
+
+Failures by category:
+  Repetition Issues: 3 (60.0%)
+    - paper1: Severe repetition detected: Same sentence appears 4 times
+    - paper2: Severe repetition detected: Same phrase appears 6 times
+    ... and 1 more
+  LLM Connection Error: 2 (40.0%)
+    - paper3: LLM connection unavailable after 2 attempts
+    - paper4: LLM connection error after 1 attempts
+
+Suggestions:
+  • Repetition issues: Consider using lower temperature or different model
+  • Connection errors: Check Ollama is running and accessible
+```
+
+### Progress Tracking
+
+The progress bar now shows:
+- Success/failure counts: `[████████░░░░] 281/513 (54%) ✓:275 ✗:6`
+- ETA calculation that accounts for success vs failure rates
+- More accurate time estimates for remaining work
+
 ## See Also
 
 - **[Summarization Module Documentation](../infrastructure/literature/summarization/AGENTS.md)** - Complete documentation

@@ -22,7 +22,10 @@ class SummarizationPromptBuilder:
     Features:
     - Model-size awareness (shorter prompts for small models <7B)
     - Consolidated instructions (removed redundant sections)
-    - Explicit anti-repetition guidance
+    - Explicit anti-repetition guidance with enhanced rules
+    - Professional tone requirements (prohibiting conversational openings)
+    - Quote spacing fix instructions (for PDF extraction issues)
+    - Quote formatting standard with varied attribution phrases
     - Structured output format requirements
     - Fallback simple prompts for refinement failures
     """
@@ -300,9 +303,15 @@ class SummarizationPromptBuilder:
         
         # Refinement instructions (consolidated)
         sections.append("=== REVISE TO ===")
+        sections.append("PROFESSIONAL TONE: Begin directly with content - NO conversational openings like 'Okay, here's...'")
+        sections.append("")
         sections.append(f"1. Fix all issues above")
         sections.append(f"2. Title: \"{context.title}\"")
         sections.append("3. Include 10-15 quotes from paper text")
+        sections.append("   - Extract quotes VERBATIM from the paper text - do NOT modify or \"correct\" them")
+        sections.append("   - Use consistent quote formatting: 'The authors state: \"quote\"' or vary attribution phrases")
+        sections.append("   - Vary attribution phrases to avoid repetition")
+        sections.append("   - CRITICAL: Only extract quotes that actually appear in the paper text")
         
         # Add specific guidance based on issues
         has_missing_quotes = any("quote" in issue.lower() or "quotes" in issue.lower() for issue in issues)
@@ -317,6 +326,8 @@ class SummarizationPromptBuilder:
             sections.append("   - Describe the approach and implementation details")
         
         sections.append("4. ELIMINATE ALL REPETITION - each sentence must be unique")
+        sections.append("   - Check before each sentence: 'Have I already said this?' If yes, write something new")
+        sections.append("   - Vary attribution phrases - do NOT repeat 'The authors state' multiple times")
         sections.append("5. Extract methodology, results with numbers, key quotes")
         sections.append("6. 1000-1500 words, structured with ### headers")
         sections.append("")
@@ -352,27 +363,66 @@ class SummarizationPromptBuilder:
         sections.append(context.full_text[:30000] if len(context.full_text) > 30000 else context.full_text)
         sections.append("")
         sections.append("Rewrite the summary fixing the issues. Use exact title: " + context.title)
-        sections.append("NO REPETITION. Each sentence must be unique.")
+        sections.append("PROFESSIONAL TONE: Begin directly with content - NO conversational openings.")
+        sections.append("NO REPETITION. Each sentence must be unique. Vary attribution phrases.")
+        sections.append("Extract quotes VERBATIM from paper text - do NOT modify or \"correct\" them.")
         
         return "\n".join(sections)
     
     def _build_instructions_section(self, context: SummarizationContext, is_small: bool = False) -> str:
-        """Build strong, explicit instructions section requesting specific elements."""
+        """Build strong, explicit instructions section requesting specific elements.
+        
+        Includes:
+        - Professional tone requirements (prohibiting conversational openings)
+        - Quote extraction with spacing fix instructions
+        - Quote formatting standard with varied attribution phrases
+        - Enhanced anti-repetition rules with check-before-writing guidance
+        - Structured output format requirements
+        
+        Args:
+            context: Structured context from paper.
+            is_small: Whether using a small model (<7B parameters).
+            
+        Returns:
+            Complete instructions section string.
+        """
         sections = []
         
         sections.append("=== INSTRUCTIONS ===")
+        sections.append("")
+        
+        # Professional tone requirements
+        sections.append("0. PROFESSIONAL TONE REQUIREMENTS:")
+        sections.append("   - Begin directly with the paper title or content - NO conversational openings")
+        sections.append("   - Do NOT use phrases like: 'Okay, here's...', 'Here's a summary...',")
+        sections.append("     'Let me summarize...', 'I'll extract...', or similar conversational language")
+        sections.append("   - Start immediately with substantive content in formal academic tone")
+        sections.append("   - Example BAD: 'Okay, here's a summary of the paper...'")
+        sections.append("   - Example GOOD: 'This paper investigates [topic]...'")
         sections.append("")
         
         # Title (critical)
         sections.append(f"1. Start with exact title: \"{context.title}\"")
         sections.append("")
         
-        # Extract Quotes - explicit request
+        # Extract Quotes - explicit request for verbatim extraction
         sections.append("2. EXTRACT QUOTES:")
         sections.append("   - Extract 10-15 direct quotes from the paper that support key claims")
-        sections.append("   - Format each quote as: 'The authors state: \"[exact quote from paper]\"'")
+        sections.append("   - QUOTE EXTRACTION AND FORMATTING:")
+        sections.append("     * Extract quotes VERBATIM from the paper text - do NOT modify or \"correct\" them")
+        sections.append("     * Extract quotes exactly as they appear in the source text")
+        sections.append("     * Preserve all aspects of the quote exactly as written, including spacing")
+        sections.append("     * Use proper quotation marks: \"quote text\" (double quotes)")
+        sections.append("     * CRITICAL: Only extract quotes that actually appear in the paper text")
+        sections.append("     * Do NOT generate, invent, or \"fix\" quotes - extract them exactly as written")
+        sections.append("   - QUOTE FORMATTING STANDARD:")
+        sections.append("     * Attribution format: 'The authors state: \"quote text\"' OR 'According to the paper: \"quote text\"'")
+        sections.append("     * Vary attribution phrases to avoid repetition (use: 'The authors state', 'They note',")
+        sections.append("       'The paper argues', 'According to the research', 'The study demonstrates')")
+        sections.append("     * Include section context when available: 'In the Introduction, the authors state: \"quote text\"'")
+        sections.append("     * Ensure proper spacing around quotes and punctuation")
         sections.append("   - Search the full paper text to find relevant quotes")
-        sections.append("   - Each quote must be verbatim from the paper text")
+        sections.append("   - Each quote must be verbatim from the paper text (with spacing normalized)")
         sections.append("")
         
         # Identify Claims - explicit request
@@ -406,15 +456,22 @@ class SummarizationPromptBuilder:
         sections.append("   - Support results with quotes or data from the paper")
         sections.append("")
         
-        # Anti-repetition (CRITICAL)
-        sections.append("7. NO REPETITION - CRITICAL REQUIREMENT:")
-        sections.append("   - Each sentence and paragraph must be COMPLETELY UNIQUE")
+        # Anti-repetition (CRITICAL) - Enhanced with explicit checks
+        sections.append("7. NO REPETITION - CRITICAL REQUIREMENT (ENHANCED):")
+        sections.append("   - CRITICAL: Before writing EACH sentence, check: 'Have I already said this exact idea?'")
+        sections.append("   - If you've already stated an idea, DO NOT repeat it - move to the next unique point")
+        sections.append("   - Each sentence must be COMPLETELY UNIQUE - no duplicate ideas, even with different words")
+        sections.append("   - Each claim appears EXACTLY ONCE - if you've stated it, move to the next unique point")
+        sections.append("   - Each paragraph must be COMPLETELY UNIQUE - no duplicate paragraphs")
         sections.append("   - Do NOT repeat the same sentence, even with slight variations or word changes")
-        sections.append("   - Do NOT repeat paragraphs or sections")
+        sections.append("   - Do NOT repeat paragraphs or sections - each section must have unique content")
         sections.append("   - Each claim should appear only ONCE in the entire summary")
-        sections.append("   - Do NOT use the same phrase multiple times (e.g., 'The authors state' should not appear 5+ times)")
-        sections.append("   - If you find yourself repeating content, STOP and write something NEW")
+        sections.append("   - Vary attribution phrases: use 'The authors state', 'They note', 'The paper argues',")
+        sections.append("     'According to the research', 'The study demonstrates' - do NOT repeat the same phrase")
+        sections.append("   - If you find yourself writing similar content, STOP immediately and write something completely different")
+        sections.append("   - Before each sentence, ask: 'Have I already said this?' If yes, write something new")
         sections.append("   - Vary your language: use synonyms, different sentence structures, different perspectives")
+        sections.append("   - REPETITION CHECKLIST: After writing each sentence, verify it's not a duplicate of any previous sentence")
         sections.append("")
         sections.append("   EXAMPLES OF WHAT NOT TO DO:")
         sections.append("   ❌ BAD: 'The authors state: \"X\". The authors state: \"Y\". The authors state: \"Z\".'")

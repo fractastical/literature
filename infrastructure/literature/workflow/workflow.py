@@ -868,6 +868,14 @@ class LiteratureWorkflow:
             logger.info(f"Overall progress: {completed}/{total} completed, {pending} pending")
 
         results = skipped_results.copy()
+        
+        # Track failures for analysis
+        failure_tracker = {
+            'by_error_type': {},
+            'by_citation_key': {},
+            'total_failures': 0,
+            'total_successes': 0
+        }
 
         if max_workers > 1:
             # Parallel processing
@@ -888,6 +896,8 @@ class LiteratureWorkflow:
                         results.append(summary_result)
 
                         if summary_result.success:
+                            failure_tracker['total_successes'] += 1
+                            
                             file_size = "?"
                             if summary_result.summary_path and summary_result.summary_path.exists():
                                 try:
@@ -914,16 +924,36 @@ class LiteratureWorkflow:
                                     summary_time=summary_result.generation_time
                                 )
                         else:
+                            failure_tracker['total_failures'] += 1
+                            
+                            # Track failure by error type
+                            error_msg = summary_result.error or "Unknown error"
+                            error_type = self._categorize_error(error_msg)
+                            
+                            if error_type not in failure_tracker['by_error_type']:
+                                failure_tracker['by_error_type'][error_type] = []
+                            failure_tracker['by_error_type'][error_type].append({
+                                'citation_key': citation_key,
+                                'error': error_msg,
+                                'attempts': summary_result.attempts
+                            })
+                            
+                            failure_tracker['by_citation_key'][citation_key] = {
+                                'error': error_msg,
+                                'error_type': error_type,
+                                'attempts': summary_result.attempts
+                            }
+                            
                             progress_indicator = f"[{completed_count}/{total_papers}]"
                             logger.warning(
-                                f"{progress_indicator} ✗ {citation_key}: {summary_result.error}"
+                                f"{progress_indicator} ✗ {citation_key}: {error_msg}"
                             )
                             
                             # Update progress tracker for failures
                             if self.progress_tracker:
                                 self.progress_tracker.update_entry_status(
                                     citation_key, "failed",
-                                    last_error=summary_result.error,
+                                    last_error=error_msg,
                                     summary_attempts=summary_result.attempts
                                 )
 
@@ -949,6 +979,8 @@ class LiteratureWorkflow:
                 results.append(summary_result)
 
                 if summary_result.success:
+                    failure_tracker['total_successes'] += 1
+                    
                     file_size = "?"
                     if summary_result.summary_path and summary_result.summary_path.exists():
                         try:
@@ -963,8 +995,28 @@ class LiteratureWorkflow:
                         f"quality: {summary_result.quality_score:.2f}"
                     )
                 else:
+                    failure_tracker['total_failures'] += 1
+                    
+                    # Track failure by error type
+                    error_msg = summary_result.error or "Unknown error"
+                    error_type = self._categorize_error(error_msg)
+                    
+                    if error_type not in failure_tracker['by_error_type']:
+                        failure_tracker['by_error_type'][error_type] = []
+                    failure_tracker['by_error_type'][error_type].append({
+                        'citation_key': citation_key,
+                        'error': error_msg,
+                        'attempts': summary_result.attempts
+                    })
+                    
+                    failure_tracker['by_citation_key'][citation_key] = {
+                        'error': error_msg,
+                        'error_type': error_type,
+                        'attempts': summary_result.attempts
+                    }
+                    
                     logger.warning(
-                        f"{progress_indicator} ✗ {citation_key}: {summary_result.error}"
+                        f"{progress_indicator} ✗ {citation_key}: {error_msg}"
                     )
 
         # Calculate statistics
@@ -972,6 +1024,26 @@ class LiteratureWorkflow:
         successful = sum(1 for r in results if r.success and not getattr(r, 'skipped', False))
         failed = sum(1 for r in results if not r.success)
         skipped = sum(1 for r in results if getattr(r, 'skipped', False))
+        
+        # Ensure failure_tracker is initialized even if no failures occurred in sequential mode
+        if 'failure_tracker' not in locals():
+            failure_tracker = {
+                'by_error_type': {},
+                'by_citation_key': {},
+                'total_failures': failed,
+                'total_successes': successful
+            }
+            # Populate from results if not already tracked
+            for result in results:
+                if not result.success and result.error:
+                    error_type = self._categorize_error(result.error)
+                    if error_type not in failure_tracker['by_error_type']:
+                        failure_tracker['by_error_type'][error_type] = []
+                    failure_tracker['by_error_type'][error_type].append({
+                        'citation_key': result.citation_key,
+                        'error': result.error,
+                        'attempts': result.attempts
+                    })
 
         # Calculate metrics
         avg_time_per_paper = total_duration / to_process_count if to_process_count > 0 else 0
@@ -1006,9 +1078,106 @@ class LiteratureWorkflow:
             logger.info(f"  Data generated: {total_summary_size:,} bytes")
             logger.info(f"  Average size: {avg_summary_size:,.0f} bytes")
 
+        # Display failure analysis if there were failures
+        if failure_tracker['total_failures'] > 0:
+            self._display_failure_analysis(failure_tracker)
+
         logger.info("=" * 60)
 
         return results
+    
+    def _categorize_error(self, error_msg: str) -> str:
+        """Categorize error message into error types.
+        
+        Args:
+            error_msg: Error message string
+            
+        Returns:
+            Error category string
+        """
+        error_lower = error_msg.lower()
+        
+        if "repetition" in error_lower:
+            return "Repetition Issues"
+        elif "hallucination" in error_lower:
+            return "Hallucination"
+        elif "title mismatch" in error_lower:
+            return "Title Mismatch"
+        elif "connection" in error_lower or "llm" in error_lower:
+            return "LLM Connection Error"
+        elif "timeout" in error_lower:
+            return "Timeout"
+        elif "context" in error_lower and "limit" in error_lower:
+            return "Context Limit Exceeded"
+        elif "extraction" in error_lower or "pdf" in error_lower:
+            return "PDF Extraction Error"
+        elif "empty" in error_lower or "no text" in error_lower:
+            return "Empty/No Content"
+        else:
+            return "Other Error"
+    
+    def _display_failure_analysis(self, failure_tracker: dict) -> None:
+        """Display detailed failure analysis.
+        
+        Args:
+            failure_tracker: Dictionary with failure tracking data
+        """
+        logger.info("")
+        logger.info("FAILURE ANALYSIS")
+        logger.info("-" * 60)
+        
+        total_failures = failure_tracker['total_failures']
+        if total_failures == 0:
+            return
+        
+        # Group failures by type
+        by_type = failure_tracker['by_error_type']
+        
+        logger.info(f"Total failures: {total_failures}")
+        logger.info("")
+        logger.info("Failures by category:")
+        
+        # Sort by count (descending)
+        sorted_types = sorted(
+            by_type.items(),
+            key=lambda x: len(x[1]),
+            reverse=True
+        )
+        
+        for error_type, failures in sorted_types:
+            count = len(failures)
+            percentage = (count / total_failures) * 100
+            logger.info(f"  {error_type}: {count} ({percentage:.1f}%)")
+            
+            # Show first few examples
+            if count <= 3:
+                for failure in failures:
+                    logger.info(f"    - {failure['citation_key']}: {failure['error'][:80]}")
+            else:
+                # Show first 2 and indicate more
+                for failure in failures[:2]:
+                    logger.info(f"    - {failure['citation_key']}: {failure['error'][:80]}")
+                logger.info(f"    ... and {count - 2} more")
+        
+        # Provide suggestions based on common failure types
+        logger.info("")
+        logger.info("Suggestions:")
+        
+        if "Repetition Issues" in by_type:
+            logger.info("  • Repetition issues: Consider using lower temperature or different model")
+            logger.info("  • Review papers with repetition for PDF quality issues")
+        
+        if "LLM Connection Error" in by_type:
+            logger.info("  • Connection errors: Check Ollama is running and accessible")
+            logger.info("  • Verify network connectivity and LLM service status")
+        
+        if "Context Limit Exceeded" in by_type:
+            logger.info("  • Context limit: Enable two-stage mode or reduce max_pdf_chars")
+            logger.info("  • Consider truncating very long papers")
+        
+        if "PDF Extraction Error" in by_type:
+            logger.info("  • PDF extraction: Check PDF file integrity and format")
+            logger.info("  • Some PDFs may require manual text extraction")
 
     def _summarize_single_paper(self, result: SearchResult, pdf_path: Path) -> SummarizationResult:
         """Summarize a single paper with progress tracking."""

@@ -207,16 +207,44 @@ python3 scripts/07_literature_search.py --meta-analysis --keywords "AI"
 ```bash
 # Search settings
 export LITERATURE_DEFAULT_LIMIT=25
-export LITERATURE_SOURCES="arxiv,semanticscholar,pubmed"
 export LITERATURE_MAX_RESULTS=100
+export LITERATURE_SOURCES="arxiv,semanticscholar,pubmed"
+export LITERATURE_USER_AGENT="Research-Template-Bot/1.0 (mailto:admin@example.com)"
+export LITERATURE_ARXIV_DELAY=3.0
+export LITERATURE_SEMANTICSCHOLAR_DELAY=1.5
+export SEMANTICSCHOLAR_API_KEY=your-api-key  # Optional
+export LITERATURE_RETRY_ATTEMPTS=3
+export LITERATURE_RETRY_DELAY=5.0
+export LITERATURE_TIMEOUT=30.0
+
+# PDF settings
+export LITERATURE_DOWNLOAD_DIR="data/pdfs"
+export LITERATURE_PDF_DOWNLOAD_TIMEOUT=60.0
+export LITERATURE_DOWNLOAD_RETRY_ATTEMPTS=2
+export LITERATURE_DOWNLOAD_RETRY_DELAY=2.0
+export LITERATURE_MAX_PARALLEL_DOWNLOADS=4
+export LITERATURE_MAX_URL_ATTEMPTS_PER_PDF=8
+export LITERATURE_MAX_FALLBACK_STRATEGIES=3
+export LITERATURE_USE_BROWSER_USER_AGENT=true
+
+# File paths
+export LITERATURE_BIBTEX_FILE="data/references.bib"
+export LITERATURE_LIBRARY_INDEX="data/library.json"
 
 # Unpaywall (open access PDFs)
 export LITERATURE_USE_UNPAYWALL=true
 export UNPAYWALL_EMAIL=your@email.com
 
 # LLM settings
+export OLLAMA_HOST=http://localhost:11434
 export OLLAMA_MODEL=gemma3:4b
+export LLM_TEMPERATURE=0.7
+export LLM_MAX_TOKENS=2048
+export LLM_CONTEXT_WINDOW=131072
+export LLM_NUM_CTX=131072  # Alternative name for context_window
 export LLM_TIMEOUT=600
+export LLM_SEED=42  # Optional: seed for reproducibility
+export LLM_LONG_MAX_TOKENS=16384  # Maximum tokens for long responses
 export MAX_PARALLEL_SUMMARIES=1
 
 # Logging

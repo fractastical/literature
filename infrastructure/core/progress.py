@@ -39,7 +39,8 @@ class ProgressBar:
         width: int = 30,
         show_eta: bool = True,
         update_interval: float = 0.1,
-        use_ema: bool = True
+        use_ema: bool = True,
+        track_success_failure: bool = False
     ):
         """Initialize progress bar.
         
@@ -50,6 +51,7 @@ class ProgressBar:
             show_eta: Whether to show ETA
             update_interval: Minimum time between updates (seconds)
             use_ema: Whether to use exponential moving average for ETA
+            track_success_failure: Whether to track successes and failures separately
         """
         self.total = total
         self.task = task
@@ -57,20 +59,40 @@ class ProgressBar:
         self.show_eta = show_eta
         self.update_interval = update_interval
         self.use_ema = use_ema
+        self.track_success_failure = track_success_failure
         
         self.current = 0
         self.start_time = time.time()
         self.last_update_time = 0.0
         self.previous_eta: Optional[float] = None
         
-    def update(self, value: int, force: bool = False) -> None:
+        # Track successes and failures separately for better ETA
+        self.successes = 0
+        self.failures = 0
+        self.success_times: list[float] = []
+        self.failure_times: list[float] = []
+        
+    def update(self, value: int, force: bool = False, success: Optional[bool] = None, item_time: Optional[float] = None) -> None:
         """Update progress bar.
         
         Args:
             value: Current progress value
             force: Force update even if interval hasn't passed
+            success: Whether the last item was successful (for success/failure tracking)
+            item_time: Time taken for the last item (for ETA calculation)
         """
         self.current = min(value, self.total)
+        
+        # Track success/failure if enabled
+        if self.track_success_failure and success is not None:
+            if success:
+                self.successes += 1
+                if item_time is not None:
+                    self.success_times.append(item_time)
+            else:
+                self.failures += 1
+                if item_time is not None:
+                    self.failure_times.append(item_time)
         
         # Throttle updates
         now = time.time()
@@ -89,26 +111,28 @@ class ProgressBar:
         # Build status line
         status_parts = [f"[{bar}] {self.current}/{self.total} ({percent}%)"]
         
+        # Add success/failure indicators if tracking
+        if self.track_success_failure:
+            status_parts.append(f"✓:{self.successes} ✗:{self.failures}")
+        
         if self.task:
             status_parts.insert(0, self.task)
         
         # Add ETA if enabled
         if self.show_eta and self.current > 0:
             elapsed = time.time() - self.start_time
-            if self.use_ema:
-                linear_eta = calculate_eta(elapsed, self.current, self.total)
-                if linear_eta is not None:
-                    if self.previous_eta is None:
-                        self.previous_eta = linear_eta
-                    else:
-                        self.previous_eta = calculate_eta_ema(
-                            elapsed, self.current, self.total,
-                            previous_eta=self.previous_eta
-                        )
+            eta_seconds = self._calculate_eta_with_success_failure(elapsed)
+            
+            if eta_seconds is not None:
+                if self.use_ema and self.previous_eta is not None:
+                    # Use EMA smoothing
+                    self.previous_eta = calculate_eta_ema(
+                        elapsed, self.current, self.total,
+                        previous_eta=self.previous_eta
+                    )
                     status_parts.append(f"ETA: {format_duration(self.previous_eta)}")
-            else:
-                eta_seconds = calculate_eta(elapsed, self.current, self.total)
-                if eta_seconds is not None:
+                else:
+                    self.previous_eta = eta_seconds
                     status_parts.append(f"ETA: {format_duration(eta_seconds)}")
         
         status = " ".join(status_parts)
@@ -116,6 +140,49 @@ class ProgressBar:
         # Write to stderr to avoid interfering with stdout
         sys.stderr.write(f"\r  {status}")
         sys.stderr.flush()
+    
+    def _calculate_eta_with_success_failure(self, elapsed: float) -> Optional[float]:
+        """Calculate ETA accounting for success/failure rates.
+        
+        If tracking successes and failures, weights ETA calculation based on
+        average time per success vs failure, and remaining items estimated
+        based on current success rate.
+        
+        Args:
+            elapsed: Elapsed time so far
+            
+        Returns:
+            Estimated time remaining in seconds, or None if cannot calculate
+        """
+        if not self.track_success_failure or self.current == 0:
+            # Fall back to standard calculation
+            return calculate_eta(elapsed, self.current, self.total)
+        
+        remaining = self.total - self.current
+        
+        # If we have timing data for both successes and failures, use weighted average
+        if self.success_times and self.failure_times:
+            avg_success_time = sum(self.success_times) / len(self.success_times)
+            avg_failure_time = sum(self.failure_times) / len(self.failure_times)
+            
+            # Estimate success rate from current data
+            total_completed = self.successes + self.failures
+            if total_completed > 0:
+                success_rate = self.successes / total_completed
+                # Weighted average time per item
+                avg_time_per_item = (success_rate * avg_success_time) + ((1 - success_rate) * avg_failure_time)
+                return avg_time_per_item * remaining
+        elif self.success_times:
+            # Only have success times - use those
+            avg_success_time = sum(self.success_times) / len(self.success_times)
+            return avg_success_time * remaining
+        elif self.failure_times:
+            # Only have failure times - use those
+            avg_failure_time = sum(self.failure_times) / len(self.failure_times)
+            return avg_failure_time * remaining
+        
+        # Fall back to standard calculation
+        return calculate_eta(elapsed, self.current, self.total)
     
     def finish(self) -> None:
         """Finish progress bar and print final status."""

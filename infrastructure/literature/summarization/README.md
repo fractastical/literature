@@ -424,6 +424,57 @@ in `quality_score` and `validation_errors` for transparency.
 - Consider adjusting validation thresholds if needed
 - Review PDF text quality
 
+### Repetition Issues
+
+**Issue**: Summaries contain severe repetition (same sentences/phrases repeated multiple times)
+
+**Symptoms**:
+- Validation errors: "Severe repetition detected: Same sentence appears X times"
+- Refinement attempts worsen repetition (e.g., 4 repetitions → 16 repetitions)
+
+**Solutions**:
+- **Automatic handling**: The system now detects severe repetition and applies aggressive deduplication before refinement
+- **Temperature adjustment**: Repetition issues trigger lower temperature (0.2) during refinement to reduce randomness
+- **Deduplication**: More aggressive similarity thresholds (0.75 vs 0.85) are used for repetition issues
+- **Regeneration**: For severe cases, the system may skip refinement and apply aggressive post-processing
+- **Model selection**: Consider using a different LLM model if repetition persists
+- **PDF quality**: Check if PDF text extraction is producing duplicate content
+
+**Recovery**:
+- Failed summaries are saved with quality score 0.00 for manual review
+- You can manually edit and re-save summaries if needed
+- Consider re-running summarization with a different model or lower temperature
+
+### Common Failure Modes
+
+The system categorizes failures and provides analysis at the end of summarization runs:
+
+1. **Repetition Issues** (most common)
+   - Cause: LLM generating repetitive content
+   - Solution: System automatically applies aggressive deduplication and lower temperature
+
+2. **LLM Connection Error**
+   - Cause: Ollama not running or network issues
+   - Solution: Check `ollama ps` and ensure service is accessible
+
+3. **Context Limit Exceeded**
+   - Cause: Paper too large for model context window
+   - Solution: Enable two-stage mode (`LITERATURE_AUTO_TWO_STAGE=true`) or reduce `max_pdf_chars`
+
+4. **PDF Extraction Error**
+   - Cause: Corrupted PDF or unsupported format
+   - Solution: Check PDF file integrity, try manual extraction
+
+5. **Title Mismatch**
+   - Cause: Summary doesn't identify the correct paper
+   - Solution: Check PDF metadata, verify correct PDF is being processed
+
+**Failure Analysis**:
+At the end of each summarization run, the system displays:
+- Failure count by category
+- Examples of failed papers
+- Suggestions for common failure types
+
 ### Progress Not Updating
 
 **Issue**: Progress events not appearing

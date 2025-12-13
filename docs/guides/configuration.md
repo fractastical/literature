@@ -26,6 +26,16 @@ export LITERATURE_SOURCES="arxiv,semanticscholar,pubmed"
 # Search delays (seconds)
 export LITERATURE_ARXIV_DELAY=3.0
 export LITERATURE_SEMANTICSCHOLAR_DELAY=1.5
+
+# Retry settings for API requests
+export LITERATURE_RETRY_ATTEMPTS=3
+export LITERATURE_RETRY_DELAY=5.0
+
+# Request timeout (seconds)
+export LITERATURE_TIMEOUT=30.0
+
+# User agent string for API requests
+export LITERATURE_USER_AGENT="Research-Template-Bot/1.0 (mailto:admin@example.com)"
 ```
 
 ### PDF Settings
@@ -37,6 +47,9 @@ export LITERATURE_DOWNLOAD_DIR="data/pdfs"
 # Parallel downloads (default: 4 workers)
 export LITERATURE_MAX_PARALLEL_DOWNLOADS=4
 
+# PDF download timeout (seconds, larger files need more time)
+export LITERATURE_PDF_DOWNLOAD_TIMEOUT=60.0
+
 # PDF download retry settings
 export LITERATURE_DOWNLOAD_RETRY_ATTEMPTS=2
 export LITERATURE_DOWNLOAD_RETRY_DELAY=2.0
@@ -45,9 +58,22 @@ export LITERATURE_DOWNLOAD_RETRY_DELAY=2.0
 export LITERATURE_MAX_URL_ATTEMPTS_PER_PDF=8
 export LITERATURE_MAX_FALLBACK_STRATEGIES=3
 
+# Use browser-like User-Agent for downloads (helps avoid 403 errors)
+export LITERATURE_USE_BROWSER_USER_AGENT=true
+
 # Use Unpaywall for open access
 export LITERATURE_USE_UNPAYWALL=true
 export UNPAYWALL_EMAIL=your@email.com
+```
+
+### File Path Settings
+
+```bash
+# BibTeX bibliography file
+export LITERATURE_BIBTEX_FILE="data/references.bib"
+
+# JSON library index file
+export LITERATURE_LIBRARY_INDEX="data/library.json"
 ```
 
 ### LLM Settings
@@ -61,7 +87,12 @@ export OLLAMA_MODEL="gemma3:4b"
 export LLM_TEMPERATURE=0.7
 export LLM_MAX_TOKENS=2048
 export LLM_CONTEXT_WINDOW=131072
+export LLM_NUM_CTX=131072  # Alternative name for context_window (Ollama parameter)
 export LLM_TIMEOUT=60
+export LLM_SEED=42  # Optional: seed for reproducibility
+
+# Response length settings
+export LLM_LONG_MAX_TOKENS=16384  # Maximum tokens for long responses
 
 # Summarization
 export MAX_PARALLEL_SUMMARIES=1

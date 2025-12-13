@@ -126,6 +126,80 @@ class TestResearchTemplates:
             assert len(classes) >= 0  # May have template classes
         except ImportError:
             pytest.skip("research module not available")
+    
+    def test_paper_summarization_template(self):
+        """Test PaperSummarization template includes new features."""
+        from infrastructure.llm.templates.research import PaperSummarization
+        
+        template = PaperSummarization()
+        result = template.render(
+            title="Test Paper",
+            authors="Author One",
+            year="2024",
+            source="test",
+            text="Sample paper text"
+        )
+        
+        # Should include professional tone requirements
+        assert "professional tone" in result.lower() or "conversational" in result.lower()
+        assert "okay" in result.lower() or "here's" in result.lower()
+        
+        # Should include quote spacing fix
+        assert "spacing" in result.lower() or "dynamicssimulationsand" in result.lower()
+        
+        # Should include enhanced anti-repetition
+        assert "have i already said this" in result.lower() or "check before writing" in result.lower()
+        assert "vary attribution" in result.lower()
+        
+        # Should include quote formatting standard
+        assert "quote formatting" in result.lower() or "formatting standard" in result.lower()
+    
+    def test_claims_quotes_extraction_template(self):
+        """Test ClaimsQuotesExtraction template includes new features."""
+        from infrastructure.llm.templates.research import ClaimsQuotesExtraction
+        
+        template = ClaimsQuotesExtraction()
+        result = template.render(
+            title="Test Paper",
+            authors="Author One",
+            year="2024",
+            source="test",
+            text="Sample paper text"
+        )
+        
+        # Should include quote spacing fix
+        assert "spacing" in result.lower() or "dynamicssimulationsand" in result.lower()
+        
+        # Should include deduplication requirements
+        assert "deduplication" in result.lower() or "each quote appears only once" in result.lower()
+        
+        # Should include quote formatting standard
+        assert "quote formatting" in result.lower() or "formatting standard" in result.lower()
+        assert "vary attribution" in result.lower()
+    
+    def test_methods_tools_analysis_template(self):
+        """Test MethodsToolsAnalysis template includes enhanced rigor."""
+        from infrastructure.llm.templates.research import MethodsToolsAnalysis
+        
+        template = MethodsToolsAnalysis()
+        result = template.render(
+            title="Test Paper",
+            authors="Author One",
+            year="2024",
+            source="test",
+            text="Sample paper text"
+        )
+        
+        # Should include enhanced NO SPECULATION section
+        assert "not explicitly mentioned" not in result.lower() or "not specified in paper" in result.lower()
+        assert "never infer" in result.lower() or "never guess" in result.lower()
+        
+        # Should include verification requirements
+        assert "verification" in result.lower() or "verify" in result.lower()
+        assert "explicitly named" in result.lower() or "explicitly stated" in result.lower()
+        
+        # Should require exact quotes or references
+        assert "exact quote" in result.lower() or "specific text" in result.lower()
 
 
 class TestTemplateModule:

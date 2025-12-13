@@ -162,6 +162,40 @@ for source, status in health_status.items():
 - Check network connectivity
 - Verify source rate limits
 
+### PDF Download Failures
+
+The system automatically tracks failed PDF downloads and **skips them by default** in subsequent runs to avoid repeated failures on access-restricted papers.
+
+**Understanding Failed Downloads:**
+
+- Failed downloads are tracked in `data/failed_downloads.json`
+- Each failure includes: citation key, failure reason, attempted URLs, timestamp, and retriable status
+- Common failure reasons:
+  - `access_denied` - PDF requires authentication or subscription (typically not retriable)
+  - `network_error` - Network connectivity issue (retriable)
+  - `timeout` - Request timed out (retriable)
+  - `not_found` - PDF URL does not exist (not retriable)
+  - `html_response` - Received HTML instead of PDF (not retriable)
+
+**Retrying Failed Downloads:**
+
+To retry previously failed downloads, use the `--retry-failed` flag:
+
+```bash
+# Retry failed downloads
+python3 scripts/07_literature_search.py --search --retry-failed --keywords "machine learning"
+
+# Or for download-only operation
+python3 scripts/07_literature_search.py --download-only --retry-failed
+```
+
+**Best Practices:**
+
+- Use `--retry-failed` for network errors or timeouts (retriable failures)
+- Skip retrying `access_denied` failures unless you have institutional access
+- Check `data/failed_downloads.json` to understand why downloads failed
+- Manually download access-restricted papers if you have institutional access
+
 ## See Also
 
 - **[API Reference](../reference/api-reference.md)** - Complete API documentation

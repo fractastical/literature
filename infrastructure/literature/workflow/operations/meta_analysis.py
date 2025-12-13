@@ -419,6 +419,9 @@ def run_meta_analysis(
         except Exception as e:
             logger.warning(f"Author analysis failed: {e}")
             import traceback
+            logger.warning(f"  Error type: {type(e).__name__}")
+            logger.warning(f"  Total entries: {len(all_entries)}")
+            logger.warning(f"  Entries with authors: {quality_metrics.get('has_authors', 0)}")
             logger.debug(f"Author analysis error details: {traceback.format_exc()}")
         
         try:
@@ -450,6 +453,16 @@ def run_meta_analysis(
         except Exception as e:
             logger.warning(f"Metadata visualization failed: {e}")
             import traceback
+            logger.warning(f"  Error type: {type(e).__name__}")
+            logger.warning(f"  Total entries: {len(all_entries)}")
+            # Try to get more context about the data
+            try:
+                metadata_sample = aggregator.prepare_metadata_data()
+                logger.warning(f"  Venues found: {len(metadata_sample.venues)}")
+                logger.warning(f"  Authors found: {len(metadata_sample.authors)}")
+                logger.warning(f"  Sources found: {len(metadata_sample.sources)}")
+            except Exception as inner_e:
+                logger.warning(f"  Could not gather metadata context: {inner_e}")
             logger.debug(f"Metadata visualization error details: {traceback.format_exc()}")
         
         try:
@@ -556,6 +569,8 @@ def run_meta_analysis(
         except Exception as e:
             logger.warning(f"Metadata completeness visualization failed: {e}")
             import traceback
+            logger.warning(f"  Error type: {type(e).__name__}")
+            logger.warning(f"  Total entries: {len(all_entries)}")
             logger.debug(f"Metadata completeness error details: {traceback.format_exc()}")
         
         try:
@@ -593,6 +608,16 @@ def run_meta_analysis(
         except Exception as e:
             logger.error(f"Graphical abstract generation failed: {e}")
             import traceback
+            logger.error(f"  Error type: {type(e).__name__}")
+            logger.error(f"  Total entries: {len(all_entries)}")
+            logger.error(f"  Keywords: {', '.join(keywords) if keywords else 'None'}")
+            # Try to get more context about the data
+            try:
+                metadata_sample = aggregator.prepare_metadata_data()
+                logger.error(f"  Venues found: {len(metadata_sample.venues)}")
+                logger.error(f"  This error may be due to data type issues in metadata (e.g., venue as list)")
+            except Exception as inner_e:
+                logger.error(f"  Could not gather metadata context: {inner_e}")
             logger.error(f"Graphical abstract error details: {traceback.format_exc()}")
             logger.debug(f"Full graphical abstract traceback: {traceback.format_exc()}")
         
@@ -617,6 +642,9 @@ def run_meta_analysis(
         except Exception as e:
             logger.warning(f"Summary generation failed: {e}")
             import traceback
+            logger.warning(f"  Error type: {type(e).__name__}")
+            logger.warning(f"  Total entries: {len(all_entries)}")
+            logger.warning(f"  This error may be due to data type issues in metadata")
             logger.debug(f"Summary generation error details: {traceback.format_exc()}")
         
         # Calculate total time

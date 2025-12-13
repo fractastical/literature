@@ -1181,6 +1181,12 @@ class SummarizationEngine:
                 return "## Key Claims and Hypotheses\n\nNo claims extracted.\n\n## Important Quotes\n\nNo quotes extracted."
             
             words = len(claims_quotes.split())
+            
+            # Validate quotes against source PDF text
+            validated_claims_quotes = self._validate_quotes_against_source(
+                claims_quotes, pdf_text, citation_key
+            )
+            
             logger.info(
                 f"[{citation_key}] Claims/quotes extraction completed: "
                 f"{words} words in {extraction_time:.2f}s"
@@ -1193,13 +1199,111 @@ class SummarizationEngine:
                 {"words": words, "time": extraction_time}
             )
             
-            return claims_quotes
+            return validated_claims_quotes
             
         except Exception as e:
             extraction_time = time.time() - extraction_start if 'extraction_start' in locals() else 0.0
             logger.error(f"[{citation_key}] Claims/quotes extraction failed: {e}")
             emit_progress("claims_extraction", "failed", f"Extraction failed: {e}")
             return f"## Key Claims and Hypotheses\n\nExtraction failed: {e}\n\n## Important Quotes\n\nExtraction failed."
+    
+    def _validate_quotes_against_source(
+        self,
+        claims_quotes_text: str,
+        pdf_text: str,
+        citation_key: str
+    ) -> str:
+        """Validate that extracted quotes actually exist in the source PDF text.
+        
+        Removes hallucinated quotes that don't appear in the source, allowing for
+        minor spacing variations (fuzzy matching).
+        
+        Args:
+            claims_quotes_text: Extracted claims and quotes text.
+            pdf_text: Source PDF text to validate against.
+            citation_key: Citation key for logging.
+            
+        Returns:
+            Validated claims/quotes text with invalid quotes removed.
+        """
+        import re
+        
+        if not claims_quotes_text or not pdf_text:
+            return claims_quotes_text
+        
+        # Normalize PDF text for comparison (remove extra whitespace)
+        pdf_normalized = re.sub(r'\s+', ' ', pdf_text.lower())
+        
+        # Extract quotes from claims/quotes text
+        # Look for quote patterns: "quote text" or **Quote:** "quote text"
+        quote_patterns = [
+            r'\*\*Quote:\*\*\s*"([^"]+)"',  # **Quote:** "text"
+            r'"([^"]{20,500})"',  # "text" (20-500 chars)
+            r"'([^']{20,500})'",  # 'text' (20-500 chars)
+        ]
+        
+        lines = claims_quotes_text.split('\n')
+        validated_lines = []
+        removed_count = 0
+        
+        for line in lines:
+            is_quote_line = False
+            quote_found = False
+            
+            # Check if this line contains a quote
+            for pattern in quote_patterns:
+                matches = re.finditer(pattern, line)
+                for match in matches:
+                    is_quote_line = True
+                    quote_text = match.group(1)
+                    
+                    # Skip artifacts like "dynamicssimulationsand" → "dynamics simulations and"
+                    if '→' in quote_text or '->' in quote_text:
+                        removed_count += 1
+                        logger.debug(f"[{citation_key}] Removed quote artifact: {quote_text[:50]}...")
+                        quote_found = False
+                        break
+                    
+                    # Normalize quote for comparison (remove spaces, lowercase)
+                    quote_normalized = re.sub(r'\s+', '', quote_text.lower())
+                    
+                    # Check if quote exists in PDF (fuzzy matching - allow spacing variations)
+                    # Try exact match first
+                    if quote_text.lower() in pdf_normalized:
+                        quote_found = True
+                        break
+                    
+                    # Try normalized match (no spaces)
+                    if quote_normalized in pdf_normalized.replace(' ', ''):
+                        quote_found = True
+                        break
+                    
+                    # Try partial match (first 50 chars)
+                    if len(quote_normalized) > 50:
+                        quote_partial = quote_normalized[:50]
+                        # Check if this partial appears in PDF
+                        pdf_no_spaces = pdf_normalized.replace(' ', '')
+                        if quote_partial in pdf_no_spaces:
+                            quote_found = True
+                            break
+                
+                if is_quote_line:
+                    break
+            
+            # Keep the line if it's not a quote, or if the quote was found
+            if not is_quote_line or quote_found:
+                validated_lines.append(line)
+            else:
+                removed_count += 1
+                logger.debug(f"[{citation_key}] Removed quote not found in source: {line[:80]}...")
+        
+        if removed_count > 0:
+            logger.warning(
+                f"[{citation_key}] Quote validation removed {removed_count} quotes "
+                f"that were not found in source PDF"
+            )
+        
+        return '\n'.join(validated_lines)
     
     def _extract_claims_and_quotes_chunked(
         self,
@@ -1338,6 +1442,11 @@ class SummarizationEngine:
                 deduplicated_lines.append(line)
         
         final_result = '\n'.join(deduplicated_lines)
+        
+        # Validate quotes against source PDF text
+        final_result = self._validate_quotes_against_source(
+            final_result, pdf_text, citation_key
+        )
         
         words = len(final_result.split())
         logger.info(

@@ -594,19 +594,74 @@ format_duration() {
         return 0
     fi
     
-    # Days and beyond
-    local days=$((seconds / 86400))
-    local hours=$(((seconds % 86400) / 3600))
-    local minutes=$(((seconds % 3600) / 60))
-    local result="${days}d"
-    if [[ $hours -gt 0 ]]; then
-        result="${result} ${hours}h"
+    # Less than a week
+    if (( seconds < 604800 )); then
+        local days=$((seconds / 86400))
+        local hours=$(((seconds % 86400) / 3600))
+        local minutes=$(((seconds % 3600) / 60))
+        local result="${days}d"
+        if [[ $hours -gt 0 ]]; then
+            result="${result} ${hours}h"
+        fi
+        if [[ $minutes -gt 0 ]] && [[ $hours -eq 0 ]] && [[ $days -eq 0 ]]; then
+            result="${result} ${minutes}m"
+        fi
+        echo "$result"
+        return 0
     fi
-    if [[ $minutes -gt 0 ]] && [[ $hours -eq 0 ]]; then
-        result="${result} ${minutes}m"
+    
+    # Weeks and beyond (for very long operations)
+    local weeks=$((seconds / 604800))
+    local days=$(((seconds % 604800) / 86400))
+    local result="${weeks}w"
+    if [[ $days -gt 0 ]]; then
+        result="${result} ${days}d"
     fi
     echo "$result"
     return 0
+}
+
+log_summarization_progress() {
+    # Display summarization progress with success/failure counts.
+    # Args:
+    #   $1: Current count
+    #   $2: Total count
+    #   $3: Success count (optional)
+    #   $4: Failure count (optional)
+    #   $5: ETA in seconds (optional)
+    local current="${1:-0}"
+    local total="${2:-0}"
+    local successes="${3:-0}"
+    local failures="${4:-0}"
+    local eta_seconds="${5:-}"
+    
+    # Validate inputs
+    if ! validate_numeric "$current" 0 || ! validate_numeric "$total" 0; then
+        return 1
+    fi
+    
+    # Calculate percentage
+    local percent=0
+    if [[ $total -gt 0 ]]; then
+        percent=$((current * 100 / total))
+    fi
+    
+    # Build progress message
+    local message="[${current}/${total} (${percent}%)]"
+    
+    # Add success/failure indicators if provided
+    if validate_numeric "$successes" 0 && validate_numeric "$failures" 0; then
+        message="${message} ✓:${successes} ✗:${failures}"
+    fi
+    
+    # Add ETA if provided
+    if [[ -n "$eta_seconds" ]] && validate_numeric "$eta_seconds" 0; then
+        local eta_formatted
+        eta_formatted=$(format_duration "$eta_seconds")
+        message="${message} ETA: ${eta_formatted}"
+    fi
+    
+    log_info "$message"
 }
 
 press_enter_to_continue() {

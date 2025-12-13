@@ -70,8 +70,9 @@ for paper in papers:
     
     # Download PDF
     if paper.pdf_url:
-        result = searcher.download_paper(paper)
-        print(f"  PDF: {result.status}")
+        pdf_path = searcher.download_paper(paper)
+        if pdf_path:
+            print(f"  PDF: {pdf_path}")
 ```
 
 ## Directory Structure

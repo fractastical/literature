@@ -205,4 +205,104 @@ class TestPromptBuilder:
         # Should include full text
         assert sample_context.full_text in prompt
 
+    def test_prompt_includes_professional_tone_requirements(self, builder, sample_context, sample_metadata):
+        """Test that prompt includes professional tone requirements prohibiting conversational openings."""
+        prompt = builder.build_draft_prompt(sample_context, sample_metadata)
+        
+        # Should prohibit conversational openings
+        assert "conversational" in prompt.lower() or "professional tone" in prompt.lower()
+        assert "okay" in prompt.lower() or "here's" in prompt.lower() or "let me" in prompt.lower()
+        assert "do not" in prompt.lower() or "do not use" in prompt.lower()
+
+    def test_prompt_includes_quote_spacing_fix(self, builder, sample_context, sample_metadata):
+        """Test that prompt includes instructions to fix quote spacing from PDF extraction."""
+        prompt = builder.build_draft_prompt(sample_context, sample_metadata)
+        
+        # Should mention spacing fix for quotes
+        assert "spacing" in prompt.lower() or "space" in prompt.lower()
+        assert "pdf extraction" in prompt.lower() or "missing spaces" in prompt.lower() or "dynamicssimulationsand" in prompt.lower()
+
+    def test_prompt_includes_enhanced_anti_repetition(self, builder, sample_context, sample_metadata):
+        """Test that prompt includes enhanced anti-repetition rules."""
+        prompt = builder.build_draft_prompt(sample_context, sample_metadata)
+        
+        # Should include enhanced repetition rules
+        assert "have i already said this" in prompt.lower() or "check before writing" in prompt.lower()
+        assert "vary attribution" in prompt.lower() or "vary your language" in prompt.lower()
+
+    def test_prompt_includes_quote_formatting_standard(self, builder, sample_context, sample_metadata):
+        """Test that prompt includes quote formatting standard with varied attribution."""
+        prompt = builder.build_draft_prompt(sample_context, sample_metadata)
+        
+        # Should include quote formatting standard
+        assert "quote formatting" in prompt.lower() or "formatting standard" in prompt.lower()
+        assert "vary attribution" in prompt.lower() or "attribution phrases" in prompt.lower()
+        assert "authors state" in prompt.lower() or "according to" in prompt.lower()
+
+    def test_refinement_prompt_includes_professional_tone(self, builder, sample_context):
+        """Test that refinement prompt includes professional tone requirements."""
+        draft = "This is a draft summary."
+        issues = ["Missing quotes"]
+        
+        prompt = builder.build_refinement_prompt(draft, issues, sample_context)
+        
+        # Should prohibit conversational openings
+        assert "professional tone" in prompt.lower() or "conversational" in prompt.lower()
+        assert "okay" in prompt.lower() or "here's" in prompt.lower()
+
+    def test_refinement_prompt_includes_quote_spacing_fix(self, builder, sample_context):
+        """Test that refinement prompt includes quote spacing fix instructions."""
+        draft = "This is a draft summary."
+        issues = ["Missing quotes"]
+        
+        prompt = builder.build_refinement_prompt(draft, issues, sample_context)
+        
+        # Should mention spacing fix
+        assert "spacing" in prompt.lower() or "dynamicssimulationsand" in prompt.lower()
+
+    def test_refinement_prompt_includes_enhanced_anti_repetition(self, builder, sample_context):
+        """Test that refinement prompt includes enhanced anti-repetition rules."""
+        draft = "This is a draft summary."
+        issues = ["Repetition detected"]
+        
+        prompt = builder.build_refinement_prompt(draft, issues, sample_context)
+        
+        # Should include enhanced repetition rules
+        assert "have i already said this" in prompt.lower() or "check before" in prompt.lower()
+        assert "vary attribution" in prompt.lower()
+
+    def test_simple_refinement_prompt_includes_professional_tone(self, builder, sample_context):
+        """Test that simple refinement prompt includes professional tone requirements."""
+        draft = "This is a draft summary."
+        issues = ["Missing quotes"]
+        
+        prompt = builder.build_simple_refinement_prompt(draft, issues, sample_context)
+        
+        # Should prohibit conversational openings
+        assert "professional tone" in prompt.lower() or "conversational" in prompt.lower()
+
+    def test_instructions_section_includes_professional_tone(self, builder, sample_context):
+        """Test that instructions section includes professional tone requirements."""
+        instructions = builder._build_instructions_section(sample_context)
+        
+        # Should prohibit conversational openings
+        assert "professional tone" in instructions.lower() or "conversational" in instructions.lower()
+        assert "okay" in instructions.lower() or "here's" in instructions.lower()
+
+    def test_instructions_section_includes_quote_spacing_fix(self, builder, sample_context):
+        """Test that instructions section includes quote spacing fix instructions."""
+        instructions = builder._build_instructions_section(sample_context)
+        
+        # Should mention spacing fix
+        assert "spacing" in instructions.lower()
+        assert "pdf extraction" in instructions.lower() or "missing spaces" in instructions.lower() or "dynamicssimulationsand" in instructions.lower()
+
+    def test_instructions_section_includes_quote_formatting_standard(self, builder, sample_context):
+        """Test that instructions section includes quote formatting standard."""
+        instructions = builder._build_instructions_section(sample_context)
+        
+        # Should include formatting standard
+        assert "quote formatting" in instructions.lower() or "formatting standard" in instructions.lower()
+        assert "vary attribution" in instructions.lower() or "attribution phrases" in instructions.lower()
+
 

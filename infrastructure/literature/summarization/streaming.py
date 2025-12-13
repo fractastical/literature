@@ -239,7 +239,8 @@ def stream_with_progress(
                         }
                     ))
                 
-                logger.info(
+                # Log at DEBUG level to reduce verbosity (deduplication will handle true duplicates)
+                logger.debug(
                     f"[{citation_key}] Streaming progress: {chars_received:,} chars, "
                     f"{words_received:,} words, {chunks_received} chunks "
                     f"({elapsed:.1f}s, {chars_per_sec:.1f} chars/s, {chunks_per_sec:.2f} chunks/s)"

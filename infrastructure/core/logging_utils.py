@@ -15,6 +15,7 @@ import logging
 import os
 import sys
 import time
+from collections import deque
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Any, Callable, Optional, TypeVar, Iterator
@@ -37,6 +38,124 @@ from infrastructure.core.logging_progress import (
 
 # Type variable for generic context manager
 T = TypeVar('T')
+
+# =============================================================================
+# LOG MESSAGE DEDUPLICATION
+# =============================================================================
+
+class DeduplicationFilter(logging.Filter):
+    """Filter to prevent duplicate log messages within a time window.
+    
+    Tracks recent log messages and suppresses duplicates that occur
+    within a short time period (default: 1 second).
+    
+    This helps reduce log verbosity when the same message is logged
+    multiple times in quick succession (e.g., progress updates).
+    """
+    
+    def __init__(self, window_seconds: float = 1.0, max_tracked: int = 100):
+        """Initialize deduplication filter.
+        
+        Args:
+            window_seconds: Time window in seconds to consider messages as duplicates
+            max_tracked: Maximum number of recent messages to track
+        """
+        super().__init__()
+        self.window_seconds = window_seconds
+        self.max_tracked = max_tracked
+        # Track recent messages: (message_hash, timestamp)
+        self._recent_messages: deque = deque(maxlen=max_tracked)
+    
+    def _normalize_message(self, record: logging.LogRecord) -> str:
+        """Normalize log message for comparison.
+        
+        Removes timestamps and other variable parts to detect true duplicates.
+        
+        Args:
+            record: Log record to normalize
+            
+        Returns:
+            Normalized message string
+        """
+        # Get the message without timestamp and level prefix
+        msg = record.getMessage()
+        
+        # Remove common variable parts that shouldn't affect deduplication
+        # Remove timestamps in various formats
+        import re
+        msg = re.sub(r'\[?\d{4}-\d{2}-\d{2}[\sT]\d{2}:\d{2}:\d{2}[.\d]*\]?', '', msg)
+        msg = re.sub(r'\(\d+\.\d+s\)', '(X.Xs)', msg)  # Normalize durations
+        msg = re.sub(r'\d+\.\d+s', 'X.Xs', msg)  # Normalize other durations
+        msg = re.sub(r'\d+ chars', 'X chars', msg)  # Normalize char counts
+        msg = re.sub(r'\d+ words', 'X words', msg)  # Normalize word counts
+        
+        return msg.strip()
+    
+    def filter(self, record: logging.LogRecord) -> bool:
+        """Filter log record to prevent duplicates.
+        
+        Args:
+            record: Log record to filter
+            
+        Returns:
+            True if message should be logged, False if it's a duplicate
+        """
+        # Always allow ERROR and WARNING level messages
+        if record.levelno >= logging.WARNING:
+            return True
+        
+        # Normalize message for comparison
+        normalized = self._normalize_message(record)
+        
+        # Create a hash of the normalized message
+        msg_hash = hash(normalized)
+        current_time = time.time()
+        
+        # Check if this message was recently logged
+        # Remove old entries outside the time window
+        while self._recent_messages and current_time - self._recent_messages[0][1] > self.window_seconds:
+            self._recent_messages.popleft()
+        
+        # Check for duplicates
+        for stored_hash, stored_time in self._recent_messages:
+            if stored_hash == msg_hash:
+                # Found duplicate within time window
+                return False
+        
+        # Not a duplicate - add to recent messages
+        self._recent_messages.append((msg_hash, current_time))
+        return True
+
+
+# Global deduplication filter instance (shared across loggers)
+_dedup_filter: Optional[DeduplicationFilter] = None
+
+
+def enable_log_deduplication(window_seconds: float = 1.0, max_tracked: int = 100) -> None:
+    """Enable log message deduplication globally.
+    
+    Adds a deduplication filter to all loggers to prevent duplicate
+    messages within a short time window.
+    
+    Args:
+        window_seconds: Time window in seconds to consider messages as duplicates
+        max_tracked: Maximum number of recent messages to track
+    """
+    global _dedup_filter
+    _dedup_filter = DeduplicationFilter(window_seconds=window_seconds, max_tracked=max_tracked)
+    
+    # Add filter to root logger so it applies to all loggers
+    root_logger = logging.getLogger()
+    root_logger.addFilter(_dedup_filter)
+
+
+def disable_log_deduplication() -> None:
+    """Disable log message deduplication."""
+    global _dedup_filter
+    if _dedup_filter:
+        root_logger = logging.getLogger()
+        root_logger.removeFilter(_dedup_filter)
+        _dedup_filter = None
 
 
 # =============================================================================
@@ -158,6 +277,12 @@ def setup_logger(
     
     # Set propagation based on environment
     logger.propagate = is_test_env
+    
+    # Enable log deduplication by default (unless explicitly disabled)
+    if os.getenv('DISABLE_LOG_DEDUP', 'false').lower() != 'true':
+        global _dedup_filter
+        if _dedup_filter is None:
+            enable_log_deduplication(window_seconds=1.0, max_tracked=100)
     
     # In test environment, ensure root logger is configured to receive propagated logs
     if is_test_env:
