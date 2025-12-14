@@ -9,6 +9,7 @@ PDF handling, downloading, extraction, and fallback strategies.
 - **extractor.py**: Text extraction and HTML parsing utilities
 - **fallbacks.py**: Fallback strategies for PDF URL resolution
 - **html_extractor.py**: HTML-to-text extraction for fallback when PDFs unavailable
+- **failed_tracker.py**: Failed download tracking for retry capability
 
 ## Quick Start
 
@@ -33,6 +34,7 @@ pdf_path = handler.download_paper(search_result)
 - OSF.io (Open Science Framework) support with direct download URL transformation
 - Enhanced publisher-specific URL patterns (MDPI, IEEE, Preprints.org)
 - Citation key-based file naming
+- **Failed download tracking**: Automatic tracking of failures with retry capability
 
 ## See Also
 

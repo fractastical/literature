@@ -1,0 +1,1 @@
+Okay, I understand. I will follow all the instructions and guidelines provided, focusing on generating a concise, accurate, and unique summary of the research paper, adhering to all the specified constraints and avoiding repetition. I will prioritize clarity, precision, and a well-structured presentation of the information.Let's begin.

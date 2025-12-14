@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import re
 from pathlib import Path
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 
 from infrastructure.core.logging_utils import get_logger
 
@@ -13,8 +13,13 @@ logger = get_logger(__name__)
 try:
     from bs4 import BeautifulSoup
     HAS_BS4 = True
+    if TYPE_CHECKING:
+        from bs4 import BeautifulSoup as BeautifulSoupType
+    else:
+        BeautifulSoupType = BeautifulSoup
 except ImportError:
     HAS_BS4 = False
+    BeautifulSoupType = None  # type: ignore
     logger.debug("BeautifulSoup4 not available, using regex-based HTML extraction")
 
 
@@ -35,21 +40,22 @@ class HTMLTextExtractor:
         
         Args:
             html_content: Raw HTML content as bytes.
-            base_url: Optional base URL for context (not currently used but kept for API consistency).
+            base_url: Optional base URL for publisher-specific extraction.
             
         Returns:
             Extracted text content as a single string.
         """
         if self.has_bs4:
-            return self._extract_with_bs4(html_content)
+            return self._extract_with_bs4(html_content, base_url)
         else:
             return self._extract_with_regex(html_content)
     
-    def _extract_with_bs4(self, html_content: bytes) -> str:
+    def _extract_with_bs4(self, html_content: bytes, base_url: Optional[str] = None) -> str:
         """Extract text using BeautifulSoup4 for better parsing.
         
         Args:
             html_content: Raw HTML content as bytes.
+            base_url: Optional base URL for publisher-specific extraction.
             
         Returns:
             Extracted text content.
@@ -58,12 +64,19 @@ class HTMLTextExtractor:
             # Decode HTML content
             html_str = html_content.decode('utf-8', errors='ignore')
             
+            # Check if this is an IEEE Xplore page
+            is_ieee = base_url and ('ieeexplore.ieee.org' in base_url or 'ieee.org' in base_url)
+            
             # Parse with BeautifulSoup
             soup = BeautifulSoup(html_str, 'html.parser')
             
             # Remove script and style elements
             for script in soup(["script", "style", "nav", "header", "footer", "aside"]):
                 script.decompose()
+            
+            # IEEE Xplore specific extraction
+            if is_ieee:
+                return self._extract_ieee_xplore(soup)
             
             # Try to find main content area
             # Common academic paper HTML structures
@@ -131,6 +144,125 @@ class HTMLTextExtractor:
         except Exception as e:
             logger.warning(f"BeautifulSoup4 extraction failed: {e}, falling back to regex")
             return self._extract_with_regex(html_content)
+    
+    def _extract_ieee_xplore(self, soup: "BeautifulSoupType") -> str:
+        """Extract full paper content from IEEE Xplore HTML page.
+        
+        Args:
+            soup: BeautifulSoup parsed HTML.
+            
+        Returns:
+            Extracted text content.
+        """
+        text_parts = []
+        
+        # Extract title
+        title_elem = soup.find('h1', class_='document-title') or soup.find('h1') or soup.find('title')
+        if title_elem:
+            title = title_elem.get_text(strip=True)
+            if title and len(title) > 5:
+                text_parts.append(title)
+                text_parts.append("=" * len(title))
+                text_parts.append("")
+        
+        # Extract authors
+        authors_elem = soup.find('div', class_='authors') or soup.find('div', {'data-testid': 'authors'})
+        if authors_elem:
+            authors = authors_elem.get_text(strip=True)
+            if authors:
+                text_parts.append(f"Authors: {authors}")
+                text_parts.append("")
+        
+        # Extract abstract - IEEE Xplore specific selectors
+        abstract_selectors = [
+            'div.abstract',
+            'section.abstract',
+            'div[data-testid="abstract"]',
+            '.abstract-text',
+            '#abstract',
+            'div.u-mb-1',  # Common IEEE abstract container
+        ]
+        abstract_found = False
+        for selector in abstract_selectors:
+            abstract_elem = soup.select_one(selector)
+            if abstract_elem:
+                abstract_text = abstract_elem.get_text(separator=' ', strip=True)
+                if abstract_text and len(abstract_text) > 50:
+                    text_parts.append("Abstract")
+                    text_parts.append("-" * 50)
+                    text_parts.append(abstract_text)
+                    text_parts.append("")
+                    abstract_found = True
+                    break
+        
+        # Extract main content - IEEE Xplore article body
+        content_selectors = [
+            'div.article-body',
+            'div.article-content',
+            'div[data-testid="article-body"]',
+            'section.article-body',
+            'div.xpl-article-content',
+            'div.article-text',
+            'div.u-pb-1',  # Common IEEE content container
+        ]
+        
+        main_content = None
+        for selector in content_selectors:
+            main_content = soup.select_one(selector)
+            if main_content:
+                break
+        
+        # If no specific content area, try to find sections
+        if not main_content:
+            # Look for sections with headings
+            sections = soup.find_all(['section', 'div'], class_=re.compile(r'section|content|body', re.I))
+            if sections:
+                main_content = soup.new_tag('div')
+                for section in sections:
+                    main_content.append(section)
+        
+        # Extract all text from main content
+        if main_content:
+            # Extract all paragraphs and headings
+            for elem in main_content.find_all(['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div', 'section']):
+                elem_text = elem.get_text(separator=' ', strip=True)
+                if elem_text and len(elem_text) > 20:  # Filter short fragments
+                    # Check if it's a heading
+                    if elem.name and elem.name.startswith('h'):
+                        text_parts.append("")
+                        text_parts.append(elem_text)
+                        text_parts.append("")
+                    elif elem.name == 'p' or (elem.name == 'div' and len(elem_text) > 50):
+                        text_parts.append(elem_text)
+        
+        # If still no content, try extracting from body but filter navigation
+        if len(text_parts) < 5 or sum(len(p) for p in text_parts) < 1000:
+            body = soup.find('body')
+            if body:
+                # Remove navigation and footer elements
+                for nav in body.find_all(['nav', 'header', 'footer', 'aside', 'script', 'style']):
+                    nav.decompose()
+                
+                # Extract all meaningful text
+                for elem in body.find_all(['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div']):
+                    elem_text = elem.get_text(separator=' ', strip=True)
+                    # Filter out navigation text (short, repetitive)
+                    if elem_text and len(elem_text) > 30 and not any(
+                        nav_word in elem_text.lower() for nav_word in 
+                        ['cookie', 'privacy', 'terms', 'sign in', 'register', 'account', 'purchase']
+                    ):
+                        if elem.name and elem.name.startswith('h'):
+                            text_parts.append("")
+                            text_parts.append(elem_text)
+                            text_parts.append("")
+                        else:
+                            text_parts.append(elem_text)
+        
+        # Join and clean
+        text = '\n'.join(text_parts)
+        text = self._clean_text(text)
+        
+        return text
     
     def _extract_with_regex(self, html_content: bytes) -> str:
         """Extract text using regex patterns (fallback when BeautifulSoup4 unavailable).
@@ -265,6 +397,82 @@ class HTMLTextExtractor:
         text = text.strip()
         
         return text
+    
+    def is_valid_paper_content(self, text: str, min_length: int = 2000) -> tuple[bool, str]:
+        """Validate that extracted text appears to be a full academic paper.
+        
+        Checks both length and content quality to ensure the extracted text
+        is not just a webpage header/footer but contains actual paper content.
+        
+        Args:
+            text: Extracted text content to validate.
+            min_length: Minimum character length required (default: 2000).
+            
+        Returns:
+            Tuple of (is_valid: bool, reason: str). If valid, reason is empty string.
+            If invalid, reason explains why (too short, missing sections, etc.).
+        """
+        if not text or not text.strip():
+            return False, "extracted text is empty"
+        
+        text_length = len(text)
+        
+        # Check minimum length
+        if text_length < min_length:
+            return False, f"extracted {text_length:,} characters (minimum {min_length:,} required)"
+        
+        # Check for common academic paper section keywords (case-insensitive)
+        text_lower = text.lower()
+        paper_section_keywords = [
+            "abstract",
+            "introduction",
+            "methods",
+            "methodology",
+            "results",
+            "discussion",
+            "conclusion",
+            "references",
+            "background",
+            "related work",
+            "related works",
+            "literature review",
+            "experiments",
+            "experimental",
+            "evaluation",
+            "analysis",
+            "method",
+            "approach",
+        ]
+        
+        found_sections = []
+        for keyword in paper_section_keywords:
+            if keyword in text_lower:
+                found_sections.append(keyword)
+        
+        if not found_sections:
+            return False, f"extracted {text_length:,} characters but missing common paper sections (abstract, introduction, methods, etc.)"
+        
+        # Check for excessive repetition of short phrases (likely navigation/header text)
+        # Split into words and check for high-frequency short phrases
+        words = text.split()
+        if len(words) < 100:  # Too few words to be a full paper
+            return False, f"extracted {text_length:,} characters but only {len(words)} words (likely incomplete)"
+        
+        # Check for repetitive short phrases (common in navigation headers)
+        # Count occurrences of 2-3 word phrases
+        phrase_counts = {}
+        for i in range(len(words) - 1):
+            phrase = " ".join(words[i:i+2]).lower()
+            if len(phrase) < 20:  # Only check short phrases
+                phrase_counts[phrase] = phrase_counts.get(phrase, 0) + 1
+        
+        # If any short phrase appears more than 10% of the time, it's likely navigation text
+        max_repetition = max(phrase_counts.values()) if phrase_counts else 0
+        if max_repetition > len(words) * 0.1:
+            return False, f"extracted {text_length:,} characters but contains excessive repetition (likely navigation/header text)"
+        
+        # Validation passed
+        return True, ""
     
     def save_extracted_text(self, text: str, output_path: Path) -> None:
         """Save extracted text to file.

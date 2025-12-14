@@ -118,10 +118,12 @@ Automatically tracks failed PDF download attempts for retry capability:
 ```
 
 **Features:**
-- **Automatic tracking** of all download failures
-- **Retriable detection** (network errors, timeouts)
+- **Automatic tracking** of all download failures (except "no_pdf_url" which is just a warning)
+- **Retriable detection** (network errors, timeouts are retriable; access denied, not found are not)
+- **Default skip behavior** - Previously failed downloads are automatically skipped on subsequent runs
 - **Retry support** via `--retry-failed` flag or interactive prompts
 - **Auto-cleanup** when downloads succeed
+- **Integration** with all download operations (workflow, meta-analysis, download-only)
 
 **Usage:**
 ```bash

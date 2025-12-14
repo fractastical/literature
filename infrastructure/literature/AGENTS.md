@@ -115,6 +115,7 @@ LLMOperationResult (llm_operations.py)  # NEW: LLM operation results
 | `pdf/downloader.py` | PDF download implementation |
 | `pdf/extractor.py` | Text extraction utilities |
 | `pdf/fallbacks.py` | Fallback strategies for PDF URLs |
+| `pdf/failed_tracker.py` | Failed download tracking for retry capability |
 | **library/** | Library management |
 | `library/index.py` | JSON library index manager |
 | `library/stats.py` | Library statistics |
@@ -991,18 +992,69 @@ except LiteratureSearchError as e:
 
 The PDF download system categorizes failures for better diagnostics:
 
-| Category | Description | Example |
-|----------|-------------|---------|
-| `access_denied` | HTTP 403 Forbidden | Paywall or geo-blocking |
-| `not_found` | HTTP 404 Not Found | Paper removed or URL changed |
-| `rate_limited` | HTTP 429 Too Many Requests | API rate limit exceeded |
-| `timeout` | Request timeout | Slow network or server issues |
-| `network_error` | Connection/Socket errors | DNS, SSL, or network problems |
-| `server_error` | HTTP 5xx errors | Server-side issues |
-| `html_response` | HTML received instead of PDF | Publisher landing page |
-| `html_no_pdf_link` | HTML page with no PDF links | Malformed or missing content |
-| `content_mismatch` | Content-Type doesn't match content | Server misconfiguration |
-| `invalid_response` | Malformed or unexpected response | API changes or bugs |
+| Category | Description | Example | Retriable |
+|----------|-------------|---------|-----------|
+| `access_denied` | HTTP 403 Forbidden | Paywall or geo-blocking | No |
+| `not_found` | HTTP 404 Not Found | Paper removed or URL changed | No |
+| `rate_limited` | HTTP 429 Too Many Requests | API rate limit exceeded | Yes |
+| `timeout` | Request timeout | Slow network or server issues | Yes |
+| `network_error` | Connection/Socket errors | DNS, SSL, or network problems | Yes |
+| `server_error` | HTTP 5xx errors | Server-side issues | Yes |
+| `html_response` | HTML received instead of PDF | Publisher landing page | No |
+| `html_no_pdf_link` | HTML page with no PDF links | Malformed or missing content | No |
+| `content_mismatch` | Content-Type doesn't match content | Server misconfiguration | No |
+| `invalid_response` | Malformed or unexpected response | API changes or bugs | No |
+| `no_pdf_url` | No PDF URL available | Paper has no downloadable PDF | Not tracked |
+
+### Failed Downloads Tracking
+
+All download failures are automatically tracked in `data/failed_downloads.json` for retry capability and automatic skip behavior.
+
+**Automatic Tracking:**
+- All download failures are saved (except "no_pdf_url" which is just a warning)
+- Failures are tracked in all download operations:
+  - Workflow sequential and parallel downloads
+  - Meta-analysis pipeline downloads
+  - Download-only operation downloads
+- Each failure includes: citation_key, title, failure_reason, failure_message, attempted_urls, source, timestamp, retriable flag
+
+**Default Skip Behavior:**
+- By default, previously failed downloads are automatically skipped
+- Skip happens in `find_papers_needing_pdf()` function
+- Skip message: "Skipped X paper(s) with previously failed downloads (use --retry-failed to retry)"
+- This prevents wasting time on papers that are likely to fail again (e.g., access-restricted papers)
+
+**Retry Mechanism:**
+- Use `retry_failed=True` parameter or `--retry-failed` flag to retry previously failed downloads
+- Only retriable failures (network errors, timeouts) are retried by default
+- All failures can be retried if explicitly requested
+- Successful retries automatically remove entries from the tracker
+
+**File Format:**
+Failures are saved to `data/failed_downloads.json`:
+```json
+{
+  "version": "1.0",
+  "updated": "2025-12-13T14:21:29.308815",
+  "failures": {
+    "citation_key": {
+      "citation_key": "citation_key",
+      "title": "Paper Title",
+      "failure_reason": "access_denied",
+      "failure_message": "Detailed error message",
+      "attempted_urls": ["url1", "url2"],
+      "source": "arxiv",
+      "timestamp": "2025-12-13T14:21:29.308815",
+      "retriable": false
+    }
+  }
+}
+```
+
+**Integration:**
+- The `FailedDownloadTracker` class is in `infrastructure/literature/pdf/failed_tracker.py`
+- All download operations use `workflow.failed_tracker.save_failed()` to track failures
+- Operations check `workflow.failed_tracker.is_failed()` to skip previously failed downloads
 
 ## Advanced Features
 

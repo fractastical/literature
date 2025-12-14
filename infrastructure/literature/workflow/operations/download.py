@@ -188,7 +188,16 @@ def run_download_only(workflow: LiteratureWorkflow, retry_failed: bool = False) 
             else:
                 log_success(f"✓ Downloaded: {abs_path} ({file_size:,} bytes) [Source: {source}]")
             downloaded_count += 1
+        elif download_result.failure_reason == "no_pdf_url":
+            source = entry.source or "unknown"
+            logger.warning(f"✗ No PDF URL available: {entry.title[:50]}... [Source: {source}]")
         else:
+            # Save to failed tracker
+            workflow.failed_tracker.save_failed(
+                entry.citation_key, download_result,
+                title=entry.title, source=entry.source
+            )
+            
             # Enhanced failure logging with full context
             error_msg = download_result.failure_message or "Unknown error"
             expected_path = Path("data/pdfs") / f"{entry.citation_key}.pdf"
@@ -222,6 +231,12 @@ def run_download_only(workflow: LiteratureWorkflow, retry_failed: bool = False) 
             log_success(f"✓ Retry successful: {abs_path} ({file_size:,} bytes) [Source: {source}]")
             downloaded_count += 1
         else:
+            # Save to failed tracker
+            workflow.failed_tracker.save_failed(
+                citation_key, download_result,
+                title=search_result.title, source=search_result.source
+            )
+            
             error_msg = download_result.failure_message or "Unknown error"
             expected_path = Path("data/pdfs") / f"{citation_key}.pdf"
             source = search_result.source or "unknown"

@@ -16,8 +16,11 @@ from infrastructure.literature.workflow.operations import (
 # Search only
 run_search_only(keywords=["machine learning"], limit=10)
 
-# Download PDFs
+# Download PDFs (skips previously failed downloads by default)
 run_download_only()
+
+# Retry previously failed downloads
+run_download_only(retry_failed=True)
 
 # Cleanup library
 run_cleanup()

@@ -1,13 +1,310 @@
 {
-  "run_id": "run_1765662947",
+  "run_id": "run_1765671689",
   "keywords": [],
   "total_papers": 1180,
-  "start_time": 1765662947.83565,
-  "last_update": 1765663061.47541,
+  "start_time": 1765671689.5425012,
+  "last_update": 1765751769.309047,
   "entries": {
     "millidge2021applications": {
       "citation_key": "millidge2021applications",
       "pdf_path": "data/pdfs/millidge2021applications.pdf",
+      "status": "summarized",
+      "download_attempts": 0,
+      "summary_attempts": 3,
+      "last_error": null,
+      "summary_path": "data/summaries/millidge2021applications_summary.md",
+      "download_time": null,
+      "summary_time": 80.41047596931458
+    },
+    "c2025structural": {
+      "citation_key": "c2025structural",
+      "pdf_path": "data/pdfs/c2025structural.pdf",
+      "status": "summarized",
+      "download_attempts": 0,
+      "summary_attempts": 3,
+      "last_error": null,
+      "summary_path": "data/summaries/c2025structural_summary.md",
+      "download_time": null,
+      "summary_time": 170.05295205116272
+    },
+    "sheikhbahaee2024from": {
+      "citation_key": "sheikhbahaee2024from",
+      "pdf_path": "data/pdfs/sheikhbahaee2024from.pdf",
+      "status": "summarized",
+      "download_attempts": 0,
+      "summary_attempts": 1,
+      "last_error": null,
+      "summary_path": "data/summaries/sheikhbahaee2024from_summary.md",
+      "download_time": null,
+      "summary_time": 21.24943494796753
+    },
+    "shafiei2025distributionally": {
+      "citation_key": "shafiei2025distributionally",
+      "pdf_path": "data/pdfs/shafiei2025distributionally.pdf",
+      "status": "summarized",
+      "download_attempts": 0,
+      "summary_attempts": 2,
+      "last_error": null,
+      "summary_path": "data/summaries/shafiei2025distributionally_summary.md",
+      "download_time": null,
+      "summary_time": 494.86603713035583
+    },
+    "spisak2025selforthogonalizing": {
+      "citation_key": "spisak2025selforthogonalizing",
+      "pdf_path": "data/pdfs/spisak2025selforthogonalizing.pdf",
+      "status": "summarized",
+      "download_attempts": 0,
+      "summary_attempts": 3,
+      "last_error": null,
+      "summary_path": "data/summaries/spisak2025selforthogonalizing_summary.md",
+      "download_time": null,
+      "summary_time": 365.71410608291626
+    },
+    "mayama2025bridging": {
+      "citation_key": "mayama2025bridging",
+      "pdf_path": "data/pdfs/mayama2025bridging.pdf",
+      "status": "failed",
+      "download_attempts": 0,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same sentence appears 3 times (severe repetition)",
+      "summary_path": null,
+      "download_time": null,
+      "summary_time": null
+    },
+    "albarracin2025resilience": {
+      "citation_key": "albarracin2025resilience",
+      "pdf_path": "data/pdfs/albarracin2025resilience.pdf",
+      "status": "summarized",
+      "download_attempts": 0,
+      "summary_attempts": 2,
+      "last_error": null,
+      "summary_path": "data/summaries/albarracin2025resilience_summary.md",
+      "download_time": null,
+      "summary_time": 114.8467059135437
+    },
+    "possati2025markov": {
+      "citation_key": "possati2025markov",
+      "pdf_path": "data/pdfs/possati2025markov.pdf",
+      "status": "summarized",
+      "download_attempts": 0,
+      "summary_attempts": 3,
+      "last_error": null,
+      "summary_path": "data/summaries/possati2025markov_summary.md",
+      "download_time": null,
+      "summary_time": 554.8077530860901
+    },
+    "li2023return": {
+      "citation_key": "li2023return",
+      "pdf_path": "data/pdfs/li2023return.pdf",
+      "status": "failed",
+      "download_attempts": 0,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same phrase appears 10 times (severe repetition)",
+      "summary_path": null,
+      "download_time": null,
+      "summary_time": null
+    },
+    "kim2024bayesian": {
+      "citation_key": "kim2024bayesian",
+      "pdf_path": "data/pdfs/kim2024bayesian.pdf",
+      "status": "failed",
+      "download_attempts": 0,
+      "summary_attempts": 4,
+      "last_error": "Hard failure: Too short: 176 words (minimum 200), Severe repetition detected: Same phrase appears 5 times (severe repetition)",
+      "summary_path": null,
+      "download_time": null,
+      "summary_time": null
+    },
+    "bellingrath2024emergence": {
+      "citation_key": "bellingrath2024emergence",
+      "pdf_path": "data/pdfs/bellingrath2024emergence.pdf",
+      "status": "summarized",
+      "download_attempts": 0,
+      "summary_attempts": 1,
+      "last_error": null,
+      "summary_path": "data/summaries/bellingrath2024emergence_summary.md",
+      "download_time": null,
+      "summary_time": 56.74607992172241
+    },
+    "costa2024probabilistic": {
+      "citation_key": "costa2024probabilistic",
+      "pdf_path": "data/pdfs/costa2024probabilistic.pdf",
+      "status": "summarized",
+      "download_attempts": 0,
+      "summary_attempts": 1,
+      "last_error": null,
+      "summary_path": "data/summaries/costa2024probabilistic_summary.md",
+      "download_time": null,
+      "summary_time": 37.71940517425537
+    },
+    "tinker2024intrinsic": {
+      "citation_key": "tinker2024intrinsic",
+      "pdf_path": "data/pdfs/tinker2024intrinsic.pdf",
+      "status": "summarized",
+      "download_attempts": 0,
+      "summary_attempts": 1,
+      "last_error": null,
+      "summary_path": "data/summaries/tinker2024intrinsic_summary.md",
+      "download_time": null,
+      "summary_time": 36.54602289199829
+    },
+    "stamps2024active": {
+      "citation_key": "stamps2024active",
+      "pdf_path": "data/pdfs/stamps2024active.pdf",
+      "status": "summarized",
+      "download_attempts": 0,
+      "summary_attempts": 1,
+      "last_error": null,
+      "summary_path": "data/summaries/stamps2024active_summary.md",
+      "download_time": null,
+      "summary_time": 45.758869886398315
+    },
+    "friston2022free": {
+      "citation_key": "friston2022free",
+      "pdf_path": "data/pdfs/friston2022free.pdf",
+      "status": "summarized",
+      "download_attempts": 0,
+      "summary_attempts": 1,
+      "last_error": null,
+      "summary_path": "data/summaries/friston2022free_summary.md",
+      "download_time": null,
+      "summary_time": 73.83538818359375
+    },
+    "fields2022free": {
+      "citation_key": "fields2022free",
+      "pdf_path": "data/pdfs/fields2022free.pdf",
+      "status": "summarized",
+      "download_attempts": 0,
+      "summary_attempts": 2,
+      "last_error": null,
+      "summary_path": "data/summaries/fields2022free_summary.md",
+      "download_time": null,
+      "summary_time": 147.9480447769165
+    },
+    "sakthivadivel2022regarding": {
+      "citation_key": "sakthivadivel2022regarding",
+      "pdf_path": "data/pdfs/sakthivadivel2022regarding.pdf",
+      "status": "failed",
+      "download_attempts": 0,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same phrase appears 7 times (severe repetition)",
+      "summary_path": null,
+      "download_time": null,
+      "summary_time": null
+    },
+    "ramstead2022some": {
+      "citation_key": "ramstead2022some",
+      "pdf_path": "data/pdfs/ramstead2022some.pdf",
+      "status": "summarized",
+      "download_attempts": 0,
+      "summary_attempts": 1,
+      "last_error": null,
+      "summary_path": "data/summaries/ramstead2022some_summary.md",
+      "download_time": null,
+      "summary_time": 27.707740306854248
+    },
+    "ramstead2022one": {
+      "citation_key": "ramstead2022one",
+      "pdf_path": "data/pdfs/ramstead2022one.pdf",
+      "status": "summarized",
+      "download_attempts": 0,
+      "summary_attempts": 3,
+      "last_error": null,
+      "summary_path": "data/summaries/ramstead2022one_summary.md",
+      "download_time": null,
+      "summary_time": 103.01512598991394
+    },
+    "heins2022sparse": {
+      "citation_key": "heins2022sparse",
+      "pdf_path": "data/pdfs/heins2022sparse.pdf",
+      "status": "summarized",
+      "download_attempts": 0,
+      "summary_attempts": 1,
+      "last_error": null,
+      "summary_path": "data/summaries/heins2022sparse_summary.md",
+      "download_time": null,
+      "summary_time": 42.15618681907654
+    },
+    "heins2022particular": {
+      "citation_key": "heins2022particular",
+      "pdf_path": "data/pdfs/heins2022particular.pdf",
+      "status": "summarized",
+      "download_attempts": 0,
+      "summary_attempts": 2,
+      "last_error": null,
+      "summary_path": "data/summaries/heins2022particular_summary.md",
+      "download_time": null,
+      "summary_time": 65.0793297290802
+    },
+    "peltre2023local": {
+      "citation_key": "peltre2023local",
+      "pdf_path": "data/pdfs/peltre2023local.pdf",
+      "status": "summarized",
+      "download_attempts": 0,
+      "summary_attempts": 3,
+      "last_error": null,
+      "summary_path": "data/summaries/peltre2023local_summary.md",
+      "download_time": null,
+      "summary_time": 538.6313791275024
+    },
+    "sawada2023humanrobot": {
+      "citation_key": "sawada2023humanrobot",
+      "pdf_path": "data/pdfs/sawada2023humanrobot.pdf",
+      "status": "summarized",
+      "download_attempts": 0,
+      "summary_attempts": 1,
+      "last_error": null,
+      "summary_path": "data/summaries/sawada2023humanrobot_summary.md",
+      "download_time": null,
+      "summary_time": 35.04640507698059
+    },
+    "liu2023neural": {
+      "citation_key": "liu2023neural",
+      "pdf_path": "data/pdfs/liu2023neural.pdf",
+      "status": "summarized",
+      "download_attempts": 0,
+      "summary_attempts": 1,
+      "last_error": null,
+      "summary_path": "data/summaries/liu2023neural_summary.md",
+      "download_time": null,
+      "summary_time": 39.478058099746704
+    },
+    "ramstead2023inner": {
+      "citation_key": "ramstead2023inner",
+      "pdf_path": "data/pdfs/ramstead2023inner.pdf",
+      "status": "summarized",
+      "download_attempts": 0,
+      "summary_attempts": 2,
+      "last_error": null,
+      "summary_path": "data/summaries/ramstead2023inner_summary.md",
+      "download_time": null,
+      "summary_time": 155.9047451019287
+    },
+    "fields2021free": {
+      "citation_key": "fields2021free",
+      "pdf_path": "data/pdfs/fields2021free.pdf",
+      "status": "summarized",
+      "download_attempts": 0,
+      "summary_attempts": 2,
+      "last_error": null,
+      "summary_path": "data/summaries/fields2021free_summary.md",
+      "download_time": null,
+      "summary_time": 273.7899520397186
+    },
+    "aguilera2021how": {
+      "citation_key": "aguilera2021how",
+      "pdf_path": "data/pdfs/aguilera2021how.pdf",
+      "status": "summarized",
+      "download_attempts": 0,
+      "summary_attempts": 1,
+      "last_error": null,
+      "summary_path": "data/summaries/aguilera2021how_summary.md",
+      "download_time": null,
+      "summary_time": 77.48487091064453
+    },
+    "meera2022free": {
+      "citation_key": "meera2022free",
+      "pdf_path": "data/pdfs/meera2022free.pdf",
       "status": "failed",
       "download_attempts": 0,
       "summary_attempts": 3,
@@ -16,365 +313,68 @@
       "download_time": null,
       "summary_time": null
     },
-    "c2025structural": {
-      "citation_key": "c2025structural",
-      "pdf_path": "data/pdfs/c2025structural.pdf",
-      "status": "processing",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "sheikhbahaee2024from": {
-      "citation_key": "sheikhbahaee2024from",
-      "pdf_path": "data/pdfs/sheikhbahaee2024from.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "shafiei2025distributionally": {
-      "citation_key": "shafiei2025distributionally",
-      "pdf_path": "data/pdfs/shafiei2025distributionally.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "spisak2025selforthogonalizing": {
-      "citation_key": "spisak2025selforthogonalizing",
-      "pdf_path": "data/pdfs/spisak2025selforthogonalizing.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "mayama2025bridging": {
-      "citation_key": "mayama2025bridging",
-      "pdf_path": "data/pdfs/mayama2025bridging.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "albarracin2025resilience": {
-      "citation_key": "albarracin2025resilience",
-      "pdf_path": "data/pdfs/albarracin2025resilience.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "possati2025markov": {
-      "citation_key": "possati2025markov",
-      "pdf_path": "data/pdfs/possati2025markov.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "li2023return": {
-      "citation_key": "li2023return",
-      "pdf_path": "data/pdfs/li2023return.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "kim2024bayesian": {
-      "citation_key": "kim2024bayesian",
-      "pdf_path": "data/pdfs/kim2024bayesian.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "bellingrath2024emergence": {
-      "citation_key": "bellingrath2024emergence",
-      "pdf_path": "data/pdfs/bellingrath2024emergence.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "costa2024probabilistic": {
-      "citation_key": "costa2024probabilistic",
-      "pdf_path": "data/pdfs/costa2024probabilistic.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "tinker2024intrinsic": {
-      "citation_key": "tinker2024intrinsic",
-      "pdf_path": "data/pdfs/tinker2024intrinsic.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "stamps2024active": {
-      "citation_key": "stamps2024active",
-      "pdf_path": "data/pdfs/stamps2024active.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "friston2022free": {
-      "citation_key": "friston2022free",
-      "pdf_path": "data/pdfs/friston2022free.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "fields2022free": {
-      "citation_key": "fields2022free",
-      "pdf_path": "data/pdfs/fields2022free.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "sakthivadivel2022regarding": {
-      "citation_key": "sakthivadivel2022regarding",
-      "pdf_path": "data/pdfs/sakthivadivel2022regarding.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "ramstead2022some": {
-      "citation_key": "ramstead2022some",
-      "pdf_path": "data/pdfs/ramstead2022some.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "ramstead2022one": {
-      "citation_key": "ramstead2022one",
-      "pdf_path": "data/pdfs/ramstead2022one.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "heins2022sparse": {
-      "citation_key": "heins2022sparse",
-      "pdf_path": "data/pdfs/heins2022sparse.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "heins2022particular": {
-      "citation_key": "heins2022particular",
-      "pdf_path": "data/pdfs/heins2022particular.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "peltre2023local": {
-      "citation_key": "peltre2023local",
-      "pdf_path": "data/pdfs/peltre2023local.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "sawada2023humanrobot": {
-      "citation_key": "sawada2023humanrobot",
-      "pdf_path": "data/pdfs/sawada2023humanrobot.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "liu2023neural": {
-      "citation_key": "liu2023neural",
-      "pdf_path": "data/pdfs/liu2023neural.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "ramstead2023inner": {
-      "citation_key": "ramstead2023inner",
-      "pdf_path": "data/pdfs/ramstead2023inner.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "fields2021free": {
-      "citation_key": "fields2021free",
-      "pdf_path": "data/pdfs/fields2021free.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "aguilera2021how": {
-      "citation_key": "aguilera2021how",
-      "pdf_path": "data/pdfs/aguilera2021how.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
-    "meera2022free": {
-      "citation_key": "meera2022free",
-      "pdf_path": "data/pdfs/meera2022free.pdf",
-      "status": "downloaded",
-      "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
-      "summary_path": null,
-      "download_time": null,
-      "summary_time": null
-    },
     "murphy2022natural": {
       "citation_key": "murphy2022natural",
       "pdf_path": "data/pdfs/murphy2022natural.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/murphy2022natural_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 217.79541611671448
     },
     "peltre2022local": {
       "citation_key": "peltre2022local",
       "pdf_path": "data/pdfs/peltre2022local.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/peltre2022local_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 42.099523067474365
     },
     "seth2022continuity": {
       "citation_key": "seth2022continuity",
       "pdf_path": "data/pdfs/seth2022continuity.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/seth2022continuity_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 21.405064821243286
     },
     "spector2022blankets": {
       "citation_key": "spector2022blankets",
       "pdf_path": "data/pdfs/spector2022blankets.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/spector2022blankets_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 46.12150812149048
     },
     "esaki2020sensorimotor": {
       "citation_key": "esaki2020sensorimotor",
       "pdf_path": "data/pdfs/esaki2020sensorimotor.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 3,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/esaki2020sensorimotor_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 188.79333972930908
     },
     "ramstead2020is": {
       "citation_key": "ramstead2020is",
       "pdf_path": "data/pdfs/ramstead2020is.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Similar sentences appear 7 times (severe repetition, similarity >= 0.85)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -382,10 +382,10 @@
     "ogishima2021reinforced": {
       "citation_key": "ogishima2021reinforced",
       "pdf_path": "data/pdfs/ogishima2021reinforced.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same sentence appears 3 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -393,21 +393,21 @@
     "bos2021free": {
       "citation_key": "bos2021free",
       "pdf_path": "data/pdfs/bos2021free.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/bos2021free_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 24.467101097106934
     },
     "kappel2021synapsecentric": {
       "citation_key": "kappel2021synapsecentric",
       "pdf_path": "data/pdfs/kappel2021synapsecentric.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same sentence appears 43 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -415,65 +415,65 @@
     "millidge2021mathematical": {
       "citation_key": "millidge2021mathematical",
       "pdf_path": "data/pdfs/millidge2021mathematical.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/millidge2021mathematical_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 227.90482306480408
     },
     "gershman2019what": {
       "citation_key": "gershman2019what",
       "pdf_path": "data/pdfs/gershman2019what.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/gershman2019what_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 24.07680583000183
     },
     "laar2019application": {
       "citation_key": "laar2019application",
       "pdf_path": "data/pdfs/laar2019application.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/laar2019application_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 124.39808893203735
     },
     "annabi2020autonomous": {
       "citation_key": "annabi2020autonomous",
       "pdf_path": "data/pdfs/annabi2020autonomous.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/annabi2020autonomous_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 44.8905463218689
     },
     "ramstead2020neural": {
       "citation_key": "ramstead2020neural",
       "pdf_path": "data/pdfs/ramstead2020neural.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 3,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/ramstead2020neural_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 244.88378071784973
     },
     "ortega2012free": {
       "citation_key": "ortega2012free",
       "pdf_path": "data/pdfs/ortega2012free.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same phrase appears 5 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -481,32 +481,32 @@
     "buckley2017free": {
       "citation_key": "buckley2017free",
       "pdf_path": "data/pdfs/buckley2017free.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/buckley2017free_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 69.52358794212341
     },
     "kim2017recognition": {
       "citation_key": "kim2017recognition",
       "pdf_path": "data/pdfs/kim2017recognition.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/kim2017recognition_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 67.83827114105225
     },
     "mazzaglia2022free": {
       "citation_key": "mazzaglia2022free",
       "pdf_path": "data/pdfs/mazzaglia2022free.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Similar sentences appear 4 times (severe repetition, similarity >= 0.85)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -514,32 +514,32 @@
     "thomas2022knowledge": {
       "citation_key": "thomas2022knowledge",
       "pdf_path": "data/pdfs/thomas2022knowledge.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/thomas2022knowledge_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 99.54788994789124
     },
     "friston2020some": {
       "citation_key": "friston2020some",
       "pdf_path": "data/pdfs/friston2020some.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/friston2020some_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 89.86705899238586
     },
     "biehl2020technical": {
       "citation_key": "biehl2020technical",
       "pdf_path": "data/pdfs/biehl2020technical.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same sentence appears 3 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -547,76 +547,76 @@
     "bennett2025what": {
       "citation_key": "bennett2025what",
       "pdf_path": "data/pdfs/bennett2025what.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/bennett2025what_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 59.539458990097046
     },
     "lu2025semantic": {
       "citation_key": "lu2025semantic",
       "pdf_path": "data/pdfs/lu2025semantic.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/lu2025semantic_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 220.15755414962769
     },
     "fujii2025realworld": {
       "citation_key": "fujii2025realworld",
       "pdf_path": "data/pdfs/fujii2025realworld.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/fujii2025realworld_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 105.68174004554749
     },
     "lapkovskis2025benchmarking": {
       "citation_key": "lapkovskis2025benchmarking",
       "pdf_path": "data/pdfs/lapkovskis2025benchmarking.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/lapkovskis2025benchmarking_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 53.108489990234375
     },
     "kavi2024from": {
       "citation_key": "kavi2024from",
       "pdf_path": "data/pdfs/kavi2024from.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/kavi2024from_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 47.82548403739929
     },
     "yeganeh2024active": {
       "citation_key": "yeganeh2024active",
       "pdf_path": "data/pdfs/yeganeh2024active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/yeganeh2024active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 48.70374512672424
     },
     "wakayama2024active": {
       "citation_key": "wakayama2024active",
       "pdf_path": "data/pdfs/wakayama2024active.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same sentence appears 97 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -624,65 +624,65 @@
     "oostrum2024concise": {
       "citation_key": "oostrum2024concise",
       "pdf_path": "data/pdfs/oostrum2024concise.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/oostrum2024concise_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 38.8749840259552
     },
     "paul2024predictive": {
       "citation_key": "paul2024predictive",
       "pdf_path": "data/pdfs/paul2024predictive.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/paul2024predictive_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 48.093050956726074
     },
     "tinguy2024exploring": {
       "citation_key": "tinguy2024exploring",
       "pdf_path": "data/pdfs/tinguy2024exploring.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/tinguy2024exploring_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 99.253338098526
     },
     "sloun2024active": {
       "citation_key": "sloun2024active",
       "pdf_path": "data/pdfs/sloun2024active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/sloun2024active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 41.96386003494263
     },
     "tinguy2024learning": {
       "citation_key": "tinguy2024learning",
       "pdf_path": "data/pdfs/tinguy2024learning.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/tinguy2024learning_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 57.563092947006226
     },
     "annicchiarico2024bayesian": {
       "citation_key": "annicchiarico2024bayesian",
       "pdf_path": "data/pdfs/annicchiarico2024bayesian.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same phrase appears 410 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -690,32 +690,32 @@
     "chen2024why": {
       "citation_key": "chen2024why",
       "pdf_path": "data/pdfs/chen2024why.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/chen2024why_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 61.360799074172974
     },
     "bazargani2025brain": {
       "citation_key": "bazargani2025brain",
       "pdf_path": "data/pdfs/bazargani2025brain.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/bazargani2025brain_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 89.81871843338013
     },
     "vries2025expected": {
       "citation_key": "vries2025expected",
       "pdf_path": "data/pdfs/vries2025expected.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Too short: 186 words (minimum 200), Severe repetition detected: Same sentence appears 3 times (severe repetition), Paragraph-level repetition detected",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -723,21 +723,21 @@
     "kidera2025evaluation": {
       "citation_key": "kidera2025evaluation",
       "pdf_path": "data/pdfs/kidera2025evaluation.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/kidera2025evaluation_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 44.65663933753967
     },
     "kenny2025active": {
       "citation_key": "kenny2025active",
       "pdf_path": "data/pdfs/kenny2025active.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same phrase appears 5 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -745,109 +745,109 @@
     "jhajj2025graph": {
       "citation_key": "jhajj2025graph",
       "pdf_path": "data/pdfs/jhajj2025graph.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/jhajj2025graph_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 24.399643898010254
     },
     "esaki2025eperson": {
       "citation_key": "esaki2025eperson",
       "pdf_path": "data/pdfs/esaki2025eperson.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/esaki2025eperson_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 101.9805850982666
     },
     "nazemi2025active": {
       "citation_key": "nazemi2025active",
       "pdf_path": "data/pdfs/nazemi2025active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/nazemi2025active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 44.964791774749756
     },
     "donta2025resilient": {
       "citation_key": "donta2025resilient",
       "pdf_path": "data/pdfs/donta2025resilient.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/donta2025resilient_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 47.341997146606445
     },
     "williams2025free": {
       "citation_key": "williams2025free",
       "pdf_path": "data/pdfs/williams2025free.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/williams2025free_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 44.66681170463562
     },
     "wang2025bridging": {
       "citation_key": "wang2025bridging",
       "pdf_path": "data/pdfs/wang2025bridging.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/wang2025bridging_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 55.1929612159729
     },
     "dao2025boosting": {
       "citation_key": "dao2025boosting",
       "pdf_path": "data/pdfs/dao2025boosting.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/dao2025boosting_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 35.606486082077026
     },
     "li2025trion": {
       "citation_key": "li2025trion",
       "pdf_path": "data/pdfs/li2025trion.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/li2025trion_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 112.80252695083618
     },
     "walters2025free": {
       "citation_key": "walters2025free",
       "pdf_path": "data/pdfs/walters2025free.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/walters2025free_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 49.52162313461304
     },
     "mcculloch2025selfevidencing": {
       "citation_key": "mcculloch2025selfevidencing",
       "pdf_path": "data/pdfs/mcculloch2025selfevidencing.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same sentence appears 23 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -855,10 +855,10 @@
     "haryanto2025cognitive": {
       "citation_key": "haryanto2025cognitive",
       "pdf_path": "data/pdfs/haryanto2025cognitive.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same sentence appears 42 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -866,119 +866,119 @@
     "yaron2025dissociated": {
       "citation_key": "yaron2025dissociated",
       "pdf_path": "data/pdfs/yaron2025dissociated.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/yaron2025dissociated_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 43.51844930648804
     },
     "kim2025emergence": {
       "citation_key": "kim2025emergence",
       "pdf_path": "data/pdfs/kim2025emergence.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/kim2025emergence_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 40.09497117996216
     },
     "yang2025quantifying": {
       "citation_key": "yang2025quantifying",
       "pdf_path": "data/pdfs/yang2025quantifying.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/yang2025quantifying_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 91.17226910591125
     },
     "li2025balancing": {
       "citation_key": "li2025balancing",
       "pdf_path": "data/pdfs/li2025balancing.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/li2025balancing_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 96.65737009048462
     },
     "glybovets2025morphonas": {
       "citation_key": "glybovets2025morphonas",
       "pdf_path": "data/pdfs/glybovets2025morphonas.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/glybovets2025morphonas_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 39.641237020492554
     },
     "ghasimi2025new": {
       "citation_key": "ghasimi2025new",
       "pdf_path": "data/pdfs/ghasimi2025new.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/ghasimi2025new_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 109.68749690055847
     },
     "dang2025free": {
       "citation_key": "dang2025free",
       "pdf_path": "data/pdfs/dang2025free.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/dang2025free_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 36.19835019111633
     },
     "casnici2025bioinspired": {
       "citation_key": "casnici2025bioinspired",
       "pdf_path": "data/pdfs/casnici2025bioinspired.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/casnici2025bioinspired_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 108.82860898971558
     },
     "ororbia2025metarepresentational": {
       "citation_key": "ororbia2025metarepresentational",
       "pdf_path": "data/pdfs/ororbia2025metarepresentational.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/ororbia2025metarepresentational_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 53.2065269947052
     },
     "beck2025dynamic": {
       "citation_key": "beck2025dynamic",
       "pdf_path": "data/pdfs/beck2025dynamic.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 3,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/beck2025dynamic_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 255.92386102676392
     },
     "kawakami2025finding": {
       "citation_key": "kawakami2025finding",
       "pdf_path": "data/pdfs/kawakami2025finding.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 4,
       "last_error": null,
       "summary_path": null,
       "download_time": null,
@@ -987,142 +987,142 @@
     "fiderer2025work": {
       "citation_key": "fiderer2025work",
       "pdf_path": "data/pdfs/fiderer2025work.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/fiderer2025work_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 267.2124969959259
     },
     "yokozawa2025deep": {
       "citation_key": "yokozawa2025deep",
       "pdf_path": "data/pdfs/yokozawa2025deep.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/yokozawa2025deep_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 95.4741702079773
     },
     "nan2025nemori": {
       "citation_key": "nan2025nemori",
       "pdf_path": "data/pdfs/nan2025nemori.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/nan2025nemori_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 32.22066783905029
     },
     "idei2025scalable": {
       "citation_key": "idei2025scalable",
       "pdf_path": "data/pdfs/idei2025scalable.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/idei2025scalable_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 53.151509046554565
     },
     "ruffini2025algorithmic": {
       "citation_key": "ruffini2025algorithmic",
       "pdf_path": "data/pdfs/ruffini2025algorithmic.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/ruffini2025algorithmic_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 188.67663478851318
     },
     "kouw2025message": {
       "citation_key": "kouw2025message",
       "pdf_path": "data/pdfs/kouw2025message.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/kouw2025message_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 47.81170701980591
     },
     "schubert2025active": {
       "citation_key": "schubert2025active",
       "pdf_path": "data/pdfs/schubert2025active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/schubert2025active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 142.33617877960205
     },
     "hinrichs2025geometric": {
       "citation_key": "hinrichs2025geometric",
       "pdf_path": "data/pdfs/hinrichs2025geometric.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/hinrichs2025geometric_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 100.87860798835754
     },
     "klar2025active": {
       "citation_key": "klar2025active",
       "pdf_path": "data/pdfs/klar2025active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/klar2025active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 130.69751811027527
     },
     "perez2025cognitive": {
       "citation_key": "perez2025cognitive",
       "pdf_path": "data/pdfs/perez2025cognitive.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/perez2025cognitive_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 116.63390779495239
     },
     "pezzato2025mobile": {
       "citation_key": "pezzato2025mobile",
       "pdf_path": "data/pdfs/pezzato2025mobile.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/pezzato2025mobile_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 106.83742713928223
     },
     "torzoni2025active": {
       "citation_key": "torzoni2025active",
       "pdf_path": "data/pdfs/torzoni2025active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/torzoni2025active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 109.74839496612549
     },
     "nuijten2025active": {
       "citation_key": "nuijten2025active",
       "pdf_path": "data/pdfs/nuijten2025active.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Similar sentences appear 3 times (severe repetition, similarity >= 0.85)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -1130,32 +1130,32 @@
     "kuhn2025addressing": {
       "citation_key": "kuhn2025addressing",
       "pdf_path": "data/pdfs/kuhn2025addressing.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/kuhn2025addressing_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 30.12613081932068
     },
     "delavari2025perceptual": {
       "citation_key": "delavari2025perceptual",
       "pdf_path": "data/pdfs/delavari2025perceptual.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/delavari2025perceptual_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 27.283628940582275
     },
     "schumann2025active": {
       "citation_key": "schumann2025active",
       "pdf_path": "data/pdfs/schumann2025active.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Similar sentences appear 4 times (severe repetition, similarity >= 0.85)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -1163,87 +1163,87 @@
     "maier2025from": {
       "citation_key": "maier2025from",
       "pdf_path": "data/pdfs/maier2025from.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/maier2025from_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 49.41335606575012
     },
     "wen2025framework": {
       "citation_key": "wen2025framework",
       "pdf_path": "data/pdfs/wen2025framework.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/wen2025framework_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 33.45127582550049
     },
     "torresan2025prior": {
       "citation_key": "torresan2025prior",
       "pdf_path": "data/pdfs/torresan2025prior.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/torresan2025prior_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 147.65010595321655
     },
     "wei2025active": {
       "citation_key": "wei2025active",
       "pdf_path": "data/pdfs/wei2025active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/wei2025active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 26.48487114906311
     },
     "pi\u017eurica2025hardwareoriented": {
       "citation_key": "pi\u017eurica2025hardwareoriented",
       "pdf_path": "data/pdfs/pi\u017eurica2025hardwareoriented.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/pi\u017eurica2025hardwareoriented_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 17.358530044555664
     },
     "maisto2025what": {
       "citation_key": "maisto2025what",
       "pdf_path": "data/pdfs/maisto2025what.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/maisto2025what_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 102.7129340171814
     },
     "annicchiarico2025active": {
       "citation_key": "annicchiarico2025active",
       "pdf_path": "data/pdfs/annicchiarico2025active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/annicchiarico2025active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 67.44550919532776
     },
     "pitliya2025theory": {
       "citation_key": "pitliya2025theory",
       "pdf_path": "data/pdfs/pitliya2025theory.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same phrase appears 7 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -1251,109 +1251,109 @@
     "beckenbauer2025orchestrator": {
       "citation_key": "beckenbauer2025orchestrator",
       "pdf_path": "data/pdfs/beckenbauer2025orchestrator.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/beckenbauer2025orchestrator_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 40.498557806015015
     },
     "tinguy2025zeroshot": {
       "citation_key": "tinguy2025zeroshot",
       "pdf_path": "data/pdfs/tinguy2025zeroshot.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/tinguy2025zeroshot_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 72.56819105148315
     },
     "tinguy2025navigation": {
       "citation_key": "tinguy2025navigation",
       "pdf_path": "data/pdfs/tinguy2025navigation.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/tinguy2025navigation_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 31.850292921066284
     },
     "krayani2025bayesian": {
       "citation_key": "krayani2025bayesian",
       "pdf_path": "data/pdfs/krayani2025bayesian.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/krayani2025bayesian_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 25.767639875411987
     },
     "pan2025active": {
       "citation_key": "pan2025active",
       "pdf_path": "data/pdfs/pan2025active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/pan2025active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 25.3242449760437
     },
     "paul2025simulating": {
       "citation_key": "paul2025simulating",
       "pdf_path": "data/pdfs/paul2025simulating.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/paul2025simulating_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 35.865363121032715
     },
     "torresan2025active": {
       "citation_key": "torresan2025active",
       "pdf_path": "data/pdfs/torresan2025active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/torresan2025active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 109.69831418991089
     },
     "mi\u0161i\u01072025active": {
       "citation_key": "mi\u0161i\u01072025active",
       "pdf_path": "data/pdfs/mi\u0161i\u01072025active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/mi\u0161i\u01072025active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 89.02126622200012
     },
     "tinguy2025bioinspired": {
       "citation_key": "tinguy2025bioinspired",
       "pdf_path": "data/pdfs/tinguy2025bioinspired.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/tinguy2025bioinspired_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 84.42498898506165
     },
     "ishida2025emergence": {
       "citation_key": "ishida2025emergence",
       "pdf_path": "data/pdfs/ishida2025emergence.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same phrase appears 7 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -1361,21 +1361,21 @@
     "wen2025missing": {
       "citation_key": "wen2025missing",
       "pdf_path": "data/pdfs/wen2025missing.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/wen2025missing_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 39.92984485626221
     },
     "pujol2025distributed": {
       "citation_key": "pujol2025distributed",
       "pdf_path": "data/pdfs/pujol2025distributed.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 2,
+      "last_error": "Hard failure: Severe repetition detected: Same phrase appears 90 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -1383,54 +1383,54 @@
     "wu2025think": {
       "citation_key": "wu2025think",
       "pdf_path": "data/pdfs/wu2025think.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/wu2025think_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 111.57964205741882
     },
     "yeganeh2025deep": {
       "citation_key": "yeganeh2025deep",
       "pdf_path": "data/pdfs/yeganeh2025deep.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/yeganeh2025deep_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 59.050708055496216
     },
     "hill2025structural": {
       "citation_key": "hill2025structural",
       "pdf_path": "data/pdfs/hill2025structural.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/hill2025structural_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 29.487700939178467
     },
     "albarracin2025physics": {
       "citation_key": "albarracin2025physics",
       "pdf_path": "data/pdfs/albarracin2025physics.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/albarracin2025physics_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 47.708571910858154
     },
     "constant2025normative": {
       "citation_key": "constant2025normative",
       "pdf_path": "data/pdfs/constant2025normative.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same sentence appears 3 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -1438,131 +1438,131 @@
     "sedlak2025multidimensional": {
       "citation_key": "sedlak2025multidimensional",
       "pdf_path": "data/pdfs/sedlak2025multidimensional.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 3,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/sedlak2025multidimensional_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 107.54653692245483
     },
     "hyland2025variational": {
       "citation_key": "hyland2025variational",
       "pdf_path": "data/pdfs/hyland2025variational.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/hyland2025variational_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 51.716036796569824
     },
     "duraisamy2025active": {
       "citation_key": "duraisamy2025active",
       "pdf_path": "data/pdfs/duraisamy2025active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/duraisamy2025active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 108.37770795822144
     },
     "feng2025active": {
       "citation_key": "feng2025active",
       "pdf_path": "data/pdfs/feng2025active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/feng2025active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 34.06411004066467
     },
     "tinker2025curiositydriven": {
       "citation_key": "tinker2025curiositydriven",
       "pdf_path": "data/pdfs/tinker2025curiositydriven.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/tinker2025curiositydriven_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 43.5042622089386
     },
     "vyas2025towards": {
       "citation_key": "vyas2025towards",
       "pdf_path": "data/pdfs/vyas2025towards.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/vyas2025towards_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 22.338226795196533
     },
     "kiefer2025intrinsic": {
       "citation_key": "kiefer2025intrinsic",
       "pdf_path": "data/pdfs/kiefer2025intrinsic.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/kiefer2025intrinsic_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 109.62404203414917
     },
     "heins2025axiom": {
       "citation_key": "heins2025axiom",
       "pdf_path": "data/pdfs/heins2025axiom.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/heins2025axiom_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 72.24379086494446
     },
     "vertegaal2025interactive": {
       "citation_key": "vertegaal2025interactive",
       "pdf_path": "data/pdfs/vertegaal2025interactive.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/vertegaal2025interactive_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 55.61875510215759
     },
     "lerma2025nael": {
       "citation_key": "lerma2025nael",
       "pdf_path": "data/pdfs/lerma2025nael.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/lerma2025nael_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 86.03334712982178
     },
     "higham2025actively": {
       "citation_key": "higham2025actively",
       "pdf_path": "data/pdfs/higham2025actively.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/higham2025actively_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 48.754966735839844
     },
     "fernando2025wanting": {
       "citation_key": "fernando2025wanting",
       "pdf_path": "data/pdfs/fernando2025wanting.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 2,
+      "last_error": "Hard failure: Title mismatch: Paper title 'Wanting to be Understood' not found in summary",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -1570,65 +1570,65 @@
     "nuijten2025message": {
       "citation_key": "nuijten2025message",
       "pdf_path": "data/pdfs/nuijten2025message.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/nuijten2025message_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 36.95310115814209
     },
     "laukkonen2025contemplative": {
       "citation_key": "laukkonen2025contemplative",
       "pdf_path": "data/pdfs/laukkonen2025contemplative.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/laukkonen2025contemplative_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 93.93300008773804
     },
     "li2025robust": {
       "citation_key": "li2025robust",
       "pdf_path": "data/pdfs/li2025robust.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/li2025robust_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 43.265145778656006
     },
     "hashimoto2025toward": {
       "citation_key": "hashimoto2025toward",
       "pdf_path": "data/pdfs/hashimoto2025toward.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/hashimoto2025toward_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 32.68246507644653
     },
     "bramblett2025implicit": {
       "citation_key": "bramblett2025implicit",
       "pdf_path": "data/pdfs/bramblett2025implicit.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/bramblett2025implicit_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 89.73221611976624
     },
     "benrimoh2025role": {
       "citation_key": "benrimoh2025role",
       "pdf_path": "data/pdfs/benrimoh2025role.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same sentence appears 115 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -1636,32 +1636,32 @@
     "corcoran2025integrated": {
       "citation_key": "corcoran2025integrated",
       "pdf_path": "data/pdfs/corcoran2025integrated.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/corcoran2025integrated_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 65.98759198188782
     },
     "khelloufi2025agi": {
       "citation_key": "khelloufi2025agi",
       "pdf_path": "data/pdfs/khelloufi2025agi.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/khelloufi2025agi_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 74.85886406898499
     },
     "baltieri2025coalgebraic": {
       "citation_key": "baltieri2025coalgebraic",
       "pdf_path": "data/pdfs/baltieri2025coalgebraic.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same sentence appears 4 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -1669,32 +1669,32 @@
     "carl2025from": {
       "citation_key": "carl2025from",
       "pdf_path": "data/pdfs/carl2025from.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/carl2025from_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 39.55897784233093
     },
     "molloy2025iscpomdps": {
       "citation_key": "molloy2025iscpomdps",
       "pdf_path": "data/pdfs/molloy2025iscpomdps.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/molloy2025iscpomdps_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 32.200307846069336
     },
     "tang2025is": {
       "citation_key": "tang2025is",
       "pdf_path": "data/pdfs/tang2025is.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 2,
+      "last_error": "Hard failure: Severe repetition detected: Same phrase appears 468 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -1702,87 +1702,87 @@
     "hayashi2025universal": {
       "citation_key": "hayashi2025universal",
       "pdf_path": "data/pdfs/hayashi2025universal.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/hayashi2025universal_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 66.73372721672058
     },
     "webb2025use": {
       "citation_key": "webb2025use",
       "pdf_path": "data/pdfs/webb2025use.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/webb2025use_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 53.581193923950195
     },
     "choudhury2025bedllm": {
       "citation_key": "choudhury2025bedllm",
       "pdf_path": "data/pdfs/choudhury2025bedllm.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/choudhury2025bedllm_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 53.4521050453186
     },
     "alanova2025lightweight": {
       "citation_key": "alanova2025lightweight",
       "pdf_path": "data/pdfs/alanova2025lightweight.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/alanova2025lightweight_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 39.59365510940552
     },
     "wan2025enhancing": {
       "citation_key": "wan2025enhancing",
       "pdf_path": "data/pdfs/wan2025enhancing.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/wan2025enhancing_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 69.52639508247375
     },
     "figueira2025comprehensive": {
       "citation_key": "figueira2025comprehensive",
       "pdf_path": "data/pdfs/figueira2025comprehensive.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/figueira2025comprehensive_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 102.2778549194336
     },
     "laar2023realising": {
       "citation_key": "laar2023realising",
       "pdf_path": "data/pdfs/laar2023realising.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/laar2023realising_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 42.89384889602661
     },
     "yanagisawa2023modeling": {
       "citation_key": "yanagisawa2023modeling",
       "pdf_path": "data/pdfs/yanagisawa2023modeling.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same sentence appears 3 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -1790,32 +1790,32 @@
     "priorelli2023modeling": {
       "citation_key": "priorelli2023modeling",
       "pdf_path": "data/pdfs/priorelli2023modeling.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/priorelli2023modeling_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 45.42500710487366
     },
     "paul2023efficient": {
       "citation_key": "paul2023efficient",
       "pdf_path": "data/pdfs/paul2023efficient.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/paul2023efficient_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 43.58233094215393
     },
     "ferraro2023symmetry": {
       "citation_key": "ferraro2023symmetry",
       "pdf_path": "data/pdfs/ferraro2023symmetry.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same phrase appears 6 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -1823,87 +1823,87 @@
     "zhang2023multimodal": {
       "citation_key": "zhang2023multimodal",
       "pdf_path": "data/pdfs/zhang2023multimodal.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/zhang2023multimodal_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 113.64783477783203
     },
     "tinguy2023spatial": {
       "citation_key": "tinguy2023spatial",
       "pdf_path": "data/pdfs/tinguy2023spatial.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/tinguy2023spatial_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 52.09291100502014
     },
     "sedlak2023equilibrium": {
       "citation_key": "sedlak2023equilibrium",
       "pdf_path": "data/pdfs/sedlak2023equilibrium.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/sedlak2023equilibrium_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 207.43883800506592
     },
     "wakayama2023observationaugmented": {
       "citation_key": "wakayama2023observationaugmented",
       "pdf_path": "data/pdfs/wakayama2023observationaugmented.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/wakayama2023observationaugmented_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 32.03239703178406
     },
     "heins2023collective": {
       "citation_key": "heins2023collective",
       "pdf_path": "data/pdfs/heins2023collective.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/heins2023collective_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 71.50927114486694
     },
     "sergeantperthuis2023influence": {
       "citation_key": "sergeantperthuis2023influence",
       "pdf_path": "data/pdfs/sergeantperthuis2023influence.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/sergeantperthuis2023influence_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 35.8735568523407
     },
     "friston2023variational": {
       "citation_key": "friston2023variational",
       "pdf_path": "data/pdfs/friston2023variational.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/friston2023variational_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 45.23963522911072
     },
     "oyama2024modeling": {
       "citation_key": "oyama2024modeling",
       "pdf_path": "data/pdfs/oyama2024modeling.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same phrase appears 5 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -1911,131 +1911,131 @@
     "goehle2024dynamics": {
       "citation_key": "goehle2024dynamics",
       "pdf_path": "data/pdfs/goehle2024dynamics.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/goehle2024dynamics_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 93.35950493812561
     },
     "dodigcrnkovic2024exploring": {
       "citation_key": "dodigcrnkovic2024exploring",
       "pdf_path": "data/pdfs/dodigcrnkovic2024exploring.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/dodigcrnkovic2024exploring_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 48.76203417778015
     },
     "prakki2024active": {
       "citation_key": "prakki2024active",
       "pdf_path": "data/pdfs/prakki2024active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/prakki2024active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 44.87670707702637
     },
     "costa2024active": {
       "citation_key": "costa2024active",
       "pdf_path": "data/pdfs/costa2024active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 3,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/costa2024active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 135.677414894104
     },
     "friston2024framework": {
       "citation_key": "friston2024framework",
       "pdf_path": "data/pdfs/friston2024framework.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/friston2024framework_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 56.737688064575195
     },
     "pazem2024free": {
       "citation_key": "pazem2024free",
       "pdf_path": "data/pdfs/pazem2024free.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 3,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/pazem2024free_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 364.0224027633667
     },
     "gambetta2024learning": {
       "citation_key": "gambetta2024learning",
       "pdf_path": "data/pdfs/gambetta2024learning.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/gambetta2024learning_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 48.951148986816406
     },
     "weinstein2024internal": {
       "citation_key": "weinstein2024internal",
       "pdf_path": "data/pdfs/weinstein2024internal.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/weinstein2024internal_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 44.5484619140625
     },
     "vijayaraghavan2024development": {
       "citation_key": "vijayaraghavan2024development",
       "pdf_path": "data/pdfs/vijayaraghavan2024development.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/vijayaraghavan2024development_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 45.400015115737915
     },
     "collis2024learning": {
       "citation_key": "collis2024learning",
       "pdf_path": "data/pdfs/collis2024learning.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/collis2024learning_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 42.50995707511902
     },
     "nisslbeck2024coupled": {
       "citation_key": "nisslbeck2024coupled",
       "pdf_path": "data/pdfs/nisslbeck2024coupled.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/nisslbeck2024coupled_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 45.40698480606079
     },
     "kouw2024planning": {
       "citation_key": "kouw2024planning",
       "pdf_path": "data/pdfs/kouw2024planning.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same phrase appears 6 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -2043,10 +2043,10 @@
     "murraysmith2024active": {
       "citation_key": "murraysmith2024active",
       "pdf_path": "data/pdfs/murraysmith2024active.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same sentence appears 3 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -2054,32 +2054,32 @@
     "dehouche2024enhancing": {
       "citation_key": "dehouche2024enhancing",
       "pdf_path": "data/pdfs/dehouche2024enhancing.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/dehouche2024enhancing_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 47.608659982681274
     },
     "smithe2024structured": {
       "citation_key": "smithe2024structured",
       "pdf_path": "data/pdfs/smithe2024structured.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/smithe2024structured_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 33.0369668006897
     },
     "priorelli2024dynamic": {
       "citation_key": "priorelli2024dynamic",
       "pdf_path": "data/pdfs/priorelli2024dynamic.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same sentence appears 16 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -2087,98 +2087,98 @@
     "esaki2024environmentcentric": {
       "citation_key": "esaki2024environmentcentric",
       "pdf_path": "data/pdfs/esaki2024environmentcentric.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/esaki2024environmentcentric_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 95.1291229724884
     },
     "albarracin2024modeling": {
       "citation_key": "albarracin2024modeling",
       "pdf_path": "data/pdfs/albarracin2024modeling.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/albarracin2024modeling_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 27.40636706352234
     },
     "whyte2024minimal": {
       "citation_key": "whyte2024minimal",
       "pdf_path": "data/pdfs/whyte2024minimal.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/whyte2024minimal_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 73.10760807991028
     },
     "prakki2024demonstrating": {
       "citation_key": "prakki2024demonstrating",
       "pdf_path": "data/pdfs/prakki2024demonstrating.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/prakki2024demonstrating_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 31.74913787841797
     },
     "wei2024value": {
       "citation_key": "wei2024value",
       "pdf_path": "data/pdfs/wei2024value.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/wei2024value_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 59.85660099983215
     },
     "nuijten2024reactive": {
       "citation_key": "nuijten2024reactive",
       "pdf_path": "data/pdfs/nuijten2024reactive.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/nuijten2024reactive_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 43.65801286697388
     },
     "nguyen2024raif": {
       "citation_key": "nguyen2024raif",
       "pdf_path": "data/pdfs/nguyen2024raif.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/nguyen2024raif_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 67.34996008872986
     },
     "khan2024surprise": {
       "citation_key": "khan2024surprise",
       "pdf_path": "data/pdfs/khan2024surprise.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/khan2024surprise_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 28.2138249874115
     },
     "friston2024from": {
       "citation_key": "friston2024from",
       "pdf_path": "data/pdfs/friston2024from.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 2,
+      "last_error": "Hard failure: Severe repetition detected: Same phrase appears 426 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -2186,43 +2186,43 @@
     "krayani2024selfsupervised": {
       "citation_key": "krayani2024selfsupervised",
       "pdf_path": "data/pdfs/krayani2024selfsupervised.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/krayani2024selfsupervised_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 29.16181778907776
     },
     "huang2024navigating": {
       "citation_key": "huang2024navigating",
       "pdf_path": "data/pdfs/huang2024navigating.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/huang2024navigating_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 39.691514015197754
     },
     "amorese2024online": {
       "citation_key": "amorese2024online",
       "pdf_path": "data/pdfs/amorese2024online.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/amorese2024online_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 42.93167781829834
     },
     "ruizserra2024factorised": {
       "citation_key": "ruizserra2024factorised",
       "pdf_path": "data/pdfs/ruizserra2024factorised.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Similar sentences appear 4 times (severe repetition, similarity >= 0.85)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -2230,43 +2230,43 @@
     "sedlak2024adaptive": {
       "citation_key": "sedlak2024adaptive",
       "pdf_path": "data/pdfs/sedlak2024adaptive.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/sedlak2024adaptive_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 103.54804682731628
     },
     "danilenka2024adaptive": {
       "citation_key": "danilenka2024adaptive",
       "pdf_path": "data/pdfs/danilenka2024adaptive.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/danilenka2024adaptive_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 62.07748031616211
     },
     "hoyle2024phenomenology": {
       "citation_key": "hoyle2024phenomenology",
       "pdf_path": "data/pdfs/hoyle2024phenomenology.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 3,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/hoyle2024phenomenology_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 182.26527571678162
     },
     "shusterman2024active": {
       "citation_key": "shusterman2024active",
       "pdf_path": "data/pdfs/shusterman2024active.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same phrase appears 23 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -2274,131 +2274,131 @@
     "zrnic2024active": {
       "citation_key": "zrnic2024active",
       "pdf_path": "data/pdfs/zrnic2024active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/zrnic2024active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 67.6596930027008
     },
     "li2024enabling": {
       "citation_key": "li2024enabling",
       "pdf_path": "data/pdfs/li2024enabling.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/li2024enabling_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 25.347074031829834
     },
     "federici2024active": {
       "citation_key": "federici2024active",
       "pdf_path": "data/pdfs/federici2024active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/federici2024active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 19.462811946868896
     },
     "champion2024reframing": {
       "citation_key": "champion2024reframing",
       "pdf_path": "data/pdfs/champion2024reframing.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/champion2024reframing_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 97.26796984672546
     },
     "priorelli2024deep": {
       "citation_key": "priorelli2024deep",
       "pdf_path": "data/pdfs/priorelli2024deep.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/priorelli2024deep_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 52.301178216934204
     },
     "narendra2024intentbased": {
       "citation_key": "narendra2024intentbased",
       "pdf_path": "data/pdfs/narendra2024intentbased.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/narendra2024intentbased_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 87.42093420028687
     },
     "vega2024learning": {
       "citation_key": "vega2024learning",
       "pdf_path": "data/pdfs/vega2024learning.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/vega2024learning_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 79.11267805099487
     },
     "catal2024belief": {
       "citation_key": "catal2024belief",
       "pdf_path": "data/pdfs/catal2024belief.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/catal2024belief_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 73.09355902671814
     },
     "pattisapu2024free": {
       "citation_key": "pattisapu2024free",
       "pdf_path": "data/pdfs/pattisapu2024free.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/pattisapu2024free_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 66.90290403366089
     },
     "varona2024exploring": {
       "citation_key": "varona2024exploring",
       "pdf_path": "data/pdfs/varona2024exploring.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/varona2024exploring_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 60.21932506561279
     },
     "v\u00e1zquezgarc\u00eda2024review": {
       "citation_key": "v\u00e1zquezgarc\u00eda2024review",
       "pdf_path": "data/pdfs/v\u00e1zquezgarc\u00eda2024review.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/v\u00e1zquezgarc\u00eda2024review_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 60.08361077308655
     },
     "paolo2024call": {
       "citation_key": "paolo2024call",
       "pdf_path": "data/pdfs/paolo2024call.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 2,
+      "last_error": "Hard failure: Too short: 150 words (minimum 200), Severe repetition detected: Similar sentences appear 3 times (severe repetition, similarity >= 0.85)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -2406,76 +2406,76 @@
     "collis2024hybrid": {
       "citation_key": "collis2024hybrid",
       "pdf_path": "data/pdfs/collis2024hybrid.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/collis2024hybrid_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 26.401805877685547
     },
     "dodigcrnkovic2024rethinking": {
       "citation_key": "dodigcrnkovic2024rethinking",
       "pdf_path": "data/pdfs/dodigcrnkovic2024rethinking.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/dodigcrnkovic2024rethinking_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 86.93348574638367
     },
     "wang2024coreinfer": {
       "citation_key": "wang2024coreinfer",
       "pdf_path": "data/pdfs/wang2024coreinfer.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/wang2024coreinfer_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 43.725645780563354
     },
     "liu2024semantic": {
       "citation_key": "liu2024semantic",
       "pdf_path": "data/pdfs/liu2024semantic.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/liu2024semantic_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 25.303316116333008
     },
     "kundu2024algo": {
       "citation_key": "kundu2024algo",
       "pdf_path": "data/pdfs/kundu2024algo.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/kundu2024algo_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 25.172509908676147
     },
     "jia2024analyzing": {
       "citation_key": "jia2024analyzing",
       "pdf_path": "data/pdfs/jia2024analyzing.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/jia2024analyzing_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 111.81523084640503
     },
     "asadi2022quantum": {
       "citation_key": "asadi2022quantum",
       "pdf_path": "data/pdfs/asadi2022quantum.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Similar sentences appear 4 times (severe repetition, similarity >= 0.85)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -2483,10 +2483,10 @@
     "ramstead2022bayesian": {
       "citation_key": "ramstead2022bayesian",
       "pdf_path": "data/pdfs/ramstead2022bayesian.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 2,
+      "last_error": "Hard failure: Severe repetition detected: Same sentence appears 9 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -2494,21 +2494,21 @@
     "matsumoto2022goaldirected": {
       "citation_key": "matsumoto2022goaldirected",
       "pdf_path": "data/pdfs/matsumoto2022goaldirected.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/matsumoto2022goaldirected_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 32.878665924072266
     },
     "friston2022path": {
       "citation_key": "friston2022path",
       "pdf_path": "data/pdfs/friston2022path.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same sentence appears 5 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -2516,76 +2516,76 @@
     "smithe2022mathematical": {
       "citation_key": "smithe2022mathematical",
       "pdf_path": "data/pdfs/smithe2022mathematical.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/smithe2022mathematical_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 10543.215906858444
     },
     "smithe2022polynomial": {
       "citation_key": "smithe2022polynomial",
       "pdf_path": "data/pdfs/smithe2022polynomial.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/smithe2022polynomial_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 52.821465730667114
     },
     "heins2022pymdp": {
       "citation_key": "heins2022pymdp",
       "pdf_path": "data/pdfs/heins2022pymdp.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/heins2022pymdp_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 57.88070106506348
     },
     "krayani2022novel": {
       "citation_key": "krayani2022novel",
       "pdf_path": "data/pdfs/krayani2022novel.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/krayani2022novel_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 90.58510899543762
     },
     "biehl2022interpreting": {
       "citation_key": "biehl2022interpreting",
       "pdf_path": "data/pdfs/biehl2022interpreting.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 3,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/biehl2022interpreting_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 177.3223328590393
     },
     "sakthivadivel2022worked": {
       "citation_key": "sakthivadivel2022worked",
       "pdf_path": "data/pdfs/sakthivadivel2022worked.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/sakthivadivel2022worked_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 66.00566387176514
     },
     "friston2022designing": {
       "citation_key": "friston2022designing",
       "pdf_path": "data/pdfs/friston2022designing.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same sentence appears 5 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -2593,32 +2593,32 @@
     "taniguchi2022active": {
       "citation_key": "taniguchi2022active",
       "pdf_path": "data/pdfs/taniguchi2022active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/taniguchi2022active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 273.53418612480164
     },
     "scholz2022inference": {
       "citation_key": "scholz2022inference",
       "pdf_path": "data/pdfs/scholz2022inference.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/scholz2022inference_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 46.88064098358154
     },
     "smithe2022open": {
       "citation_key": "smithe2022open",
       "pdf_path": "data/pdfs/smithe2022open.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same sentence appears 3 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -2626,142 +2626,142 @@
     "barp2022geometric": {
       "citation_key": "barp2022geometric",
       "pdf_path": "data/pdfs/barp2022geometric.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/barp2022geometric_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 83.4035701751709
     },
     "fields2022neurons": {
       "citation_key": "fields2022neurons",
       "pdf_path": "data/pdfs/fields2022neurons.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/fields2022neurons_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 173.73479914665222
     },
     "maisto2022interactive": {
       "citation_key": "maisto2022interactive",
       "pdf_path": "data/pdfs/maisto2022interactive.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/maisto2022interactive_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 44.47989225387573
     },
     "ororbia2023mortal": {
       "citation_key": "ororbia2023mortal",
       "pdf_path": "data/pdfs/ororbia2023mortal.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/ororbia2023mortal_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 695.2823250293732
     },
     "brody2023quantum": {
       "citation_key": "brody2023quantum",
       "pdf_path": "data/pdfs/brody2023quantum.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/brody2023quantum_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 110.0954110622406
     },
     "jiang2023theory": {
       "citation_key": "jiang2023theory",
       "pdf_path": "data/pdfs/jiang2023theory.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/jiang2023theory_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 27.566436767578125
     },
     "costa2023towards": {
       "citation_key": "costa2023towards",
       "pdf_path": "data/pdfs/costa2023towards.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/costa2023towards_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 18.63329291343689
     },
     "carl2023empirical": {
       "citation_key": "carl2023empirical",
       "pdf_path": "data/pdfs/carl2023empirical.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/carl2023empirical_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 44.16727113723755
     },
     "prabhushankar2023stochastic": {
       "citation_key": "prabhushankar2023stochastic",
       "pdf_path": "data/pdfs/prabhushankar2023stochastic.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/prabhushankar2023stochastic_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 51.074461936950684
     },
     "albarracin2023designing": {
       "citation_key": "albarracin2023designing",
       "pdf_path": "data/pdfs/albarracin2023designing.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/albarracin2023designing_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 100.58079624176025
     },
     "friston2023active": {
       "citation_key": "friston2023active",
       "pdf_path": "data/pdfs/friston2023active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/friston2023active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 65.72831630706787
     },
     "koudahl2023realising": {
       "citation_key": "koudahl2023realising",
       "pdf_path": "data/pdfs/koudahl2023realising.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/koudahl2023realising_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 47.14542818069458
     },
     "fields2023control": {
       "citation_key": "fields2023control",
       "pdf_path": "data/pdfs/fields2023control.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same phrase appears 486 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -2769,54 +2769,54 @@
     "barbierchebbah2023approximate": {
       "citation_key": "barbierchebbah2023approximate",
       "pdf_path": "data/pdfs/barbierchebbah2023approximate.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/barbierchebbah2023approximate_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 268.8897547721863
     },
     "taniguchi2023world": {
       "citation_key": "taniguchi2023world",
       "pdf_path": "data/pdfs/taniguchi2023world.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 3,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/taniguchi2023world_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 386.33618092536926
     },
     "maele2023integrating": {
       "citation_key": "maele2023integrating",
       "pdf_path": "data/pdfs/maele2023integrating.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/maele2023integrating_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 66.92509579658508
     },
     "collis2023understanding": {
       "citation_key": "collis2023understanding",
       "pdf_path": "data/pdfs/collis2023understanding.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 3,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/collis2023understanding_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 102.56734371185303
     },
     "kulveit2023predictive": {
       "citation_key": "kulveit2023predictive",
       "pdf_path": "data/pdfs/kulveit2023predictive.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same phrase appears 6 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -2824,21 +2824,21 @@
     "vries2023toward": {
       "citation_key": "vries2023toward",
       "pdf_path": "data/pdfs/vries2023toward.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/vries2023toward_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 72.81630182266235
     },
     "champion2023deconstructing": {
       "citation_key": "champion2023deconstructing",
       "pdf_path": "data/pdfs/champion2023deconstructing.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same sentence appears 15 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -2846,109 +2846,109 @@
     "tull2023active": {
       "citation_key": "tull2023active",
       "pdf_path": "data/pdfs/tull2023active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/tull2023active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 56.15337514877319
     },
     "maele2023objectcentric": {
       "citation_key": "maele2023objectcentric",
       "pdf_path": "data/pdfs/maele2023objectcentric.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/maele2023objectcentric_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 36.93504095077515
     },
     "wei2023learning": {
       "citation_key": "wei2023learning",
       "pdf_path": "data/pdfs/wei2023learning.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/wei2023learning_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 67.96757388114929
     },
     "obite2023active": {
       "citation_key": "obite2023active",
       "pdf_path": "data/pdfs/obite2023active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/obite2023active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 90.4200530052185
     },
     "safa2023active": {
       "citation_key": "safa2023active",
       "pdf_path": "data/pdfs/safa2023active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/safa2023active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 44.53169393539429
     },
     "liu2023tactile": {
       "citation_key": "liu2023tactile",
       "pdf_path": "data/pdfs/liu2023tactile.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/liu2023tactile_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 44.51248002052307
     },
     "kamijo2023tactilebased": {
       "citation_key": "kamijo2023tactilebased",
       "pdf_path": "data/pdfs/kamijo2023tactilebased.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/kamijo2023tactilebased_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 45.2963080406189
     },
     "donnarumma2023integrating": {
       "citation_key": "donnarumma2023integrating",
       "pdf_path": "data/pdfs/donnarumma2023integrating.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/donnarumma2023integrating_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 64.18632411956787
     },
     "sedlak2023active": {
       "citation_key": "sedlak2023active",
       "pdf_path": "data/pdfs/sedlak2023active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/sedlak2023active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 44.372360944747925
     },
     "demekas2023analytical": {
       "citation_key": "demekas2023analytical",
       "pdf_path": "data/pdfs/demekas2023analytical.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 2,
+      "last_error": "Hard failure: Severe repetition detected: Same phrase appears 209 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -2956,10 +2956,10 @@
     "tinguy2023learning": {
       "citation_key": "tinguy2023learning",
       "pdf_path": "data/pdfs/tinguy2023learning.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Similar sentences appear 4 times (severe repetition, similarity >= 0.85)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -2967,65 +2967,65 @@
     "engstr\u00f6m2023resolving": {
       "citation_key": "engstr\u00f6m2023resolving",
       "pdf_path": "data/pdfs/engstr\u00f6m2023resolving.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 3,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/engstr\u00f6m2023resolving_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 310.42128586769104
     },
     "fallah2023active": {
       "citation_key": "fallah2023active",
       "pdf_path": "data/pdfs/fallah2023active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/fallah2023active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 64.96288990974426
     },
     "maele2023bridging": {
       "citation_key": "maele2023bridging",
       "pdf_path": "data/pdfs/maele2023bridging.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/maele2023bridging_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 59.26209306716919
     },
     "pezzulo2023neural": {
       "citation_key": "pezzulo2023neural",
       "pdf_path": "data/pdfs/pezzulo2023neural.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/pezzulo2023neural_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 72.12529301643372
     },
     "obite2023intelligent": {
       "citation_key": "obite2023intelligent",
       "pdf_path": "data/pdfs/obite2023intelligent.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/obite2023intelligent_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 28.791980028152466
     },
     "hodson2023sophisticated": {
       "citation_key": "hodson2023sophisticated",
       "pdf_path": "data/pdfs/hodson2023sophisticated.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same sentence appears 4 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -3033,98 +3033,98 @@
     "shi2023blind": {
       "citation_key": "shi2023blind",
       "pdf_path": "data/pdfs/shi2023blind.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/shi2023blind_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 52.00895118713379
     },
     "kiefer2023relative": {
       "citation_key": "kiefer2023relative",
       "pdf_path": "data/pdfs/kiefer2023relative.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/kiefer2023relative_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 104.25059676170349
     },
     "tinguy2023inferring": {
       "citation_key": "tinguy2023inferring",
       "pdf_path": "data/pdfs/tinguy2023inferring.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/tinguy2023inferring_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 25.693400144577026
     },
     "piriyakulkij2023active": {
       "citation_key": "piriyakulkij2023active",
       "pdf_path": "data/pdfs/piriyakulkij2023active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/piriyakulkij2023active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 26.130760192871094
     },
     "miyaguchi2023modeling": {
       "citation_key": "miyaguchi2023modeling",
       "pdf_path": "data/pdfs/miyaguchi2023modeling.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/miyaguchi2023modeling_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 46.85186195373535
     },
     "joseph2023anomaly": {
       "citation_key": "joseph2023anomaly",
       "pdf_path": "data/pdfs/joseph2023anomaly.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/joseph2023anomaly_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 38.947044134140015
     },
     "huang2023reconstructing": {
       "citation_key": "huang2023reconstructing",
       "pdf_path": "data/pdfs/huang2023reconstructing.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/huang2023reconstructing_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 105.98024392127991
     },
     "kundu2023discovering": {
       "citation_key": "kundu2023discovering",
       "pdf_path": "data/pdfs/kundu2023discovering.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/kundu2023discovering_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 48.43824100494385
     },
     "wirkuttis2021leading": {
       "citation_key": "wirkuttis2021leading",
       "pdf_path": "data/pdfs/wirkuttis2021leading.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same sentence appears 3 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -3132,21 +3132,21 @@
     "laar2021active": {
       "citation_key": "laar2021active",
       "pdf_path": "data/pdfs/laar2021active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/laar2021active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 45.89410400390625
     },
     "baioumy2021towards": {
       "citation_key": "baioumy2021towards",
       "pdf_path": "data/pdfs/baioumy2021towards.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same phrase appears 80 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -3154,76 +3154,76 @@
     "paul2021active": {
       "citation_key": "paul2021active",
       "pdf_path": "data/pdfs/paul2021active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/paul2021active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 42.76506805419922
     },
     "markovic2021empirical": {
       "citation_key": "markovic2021empirical",
       "pdf_path": "data/pdfs/markovic2021empirical.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/markovic2021empirical_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 53.16920709609985
     },
     "p\u00f6ppel2021resonating": {
       "citation_key": "p\u00f6ppel2021resonating",
       "pdf_path": "data/pdfs/p\u00f6ppel2021resonating.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/p\u00f6ppel2021resonating_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 51.752317905426025
     },
     "laar2021chanceconstrained": {
       "citation_key": "laar2021chanceconstrained",
       "pdf_path": "data/pdfs/laar2021chanceconstrained.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/laar2021chanceconstrained_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 53.563549280166626
     },
     "kaufmann2021active": {
       "citation_key": "kaufmann2021active",
       "pdf_path": "data/pdfs/kaufmann2021active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/kaufmann2021active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 163.25181698799133
     },
     "podusenko2021aida": {
       "citation_key": "podusenko2021aida",
       "pdf_path": "data/pdfs/podusenko2021aida.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 3,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/podusenko2021aida_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 380.58798575401306
     },
     "costa2021bayesian": {
       "citation_key": "costa2021bayesian",
       "pdf_path": "data/pdfs/costa2021bayesian.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same sentence appears 7 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -3231,54 +3231,54 @@
     "ram\u00edrezruiz2022complex": {
       "citation_key": "ram\u00edrezruiz2022complex",
       "pdf_path": "data/pdfs/ram\u00edrezruiz2022complex.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/ram\u00edrezruiz2022complex_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 81.8946852684021
     },
     "ramstead2022mapterritory": {
       "citation_key": "ramstead2022mapterritory",
       "pdf_path": "data/pdfs/ramstead2022mapterritory.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/ramstead2022mapterritory_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 42.12665605545044
     },
     "sakthivadivel2022towards": {
       "citation_key": "sakthivadivel2022towards",
       "pdf_path": "data/pdfs/sakthivadivel2022towards.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 3,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/sakthivadivel2022towards_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 543.517324924469
     },
     "kim2022free": {
       "citation_key": "kim2022free",
       "pdf_path": "data/pdfs/kim2022free.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/kim2022free_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 45.181803703308105
     },
     "sennesh2022deriving": {
       "citation_key": "sennesh2022deriving",
       "pdf_path": "data/pdfs/sennesh2022deriving.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same sentence appears 4 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -3286,241 +3286,241 @@
     "horibe2022investigating": {
       "citation_key": "horibe2022investigating",
       "pdf_path": "data/pdfs/horibe2022investigating.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/horibe2022investigating_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 48.7525839805603
     },
     "wakayama2022active": {
       "citation_key": "wakayama2022active",
       "pdf_path": "data/pdfs/wakayama2022active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/wakayama2022active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 33.838754177093506
     },
     "katayose2022unified": {
       "citation_key": "katayose2022unified",
       "pdf_path": "data/pdfs/katayose2022unified.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/katayose2022unified_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 87.60548996925354
     },
     "heins2022spin": {
       "citation_key": "heins2022spin",
       "pdf_path": "data/pdfs/heins2022spin.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/heins2022spin_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 60.49212384223938
     },
     "millidge2022successor": {
       "citation_key": "millidge2022successor",
       "pdf_path": "data/pdfs/millidge2022successor.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/millidge2022successor_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 23.22955894470215
     },
     "albarracin2022mapping": {
       "citation_key": "albarracin2022mapping",
       "pdf_path": "data/pdfs/albarracin2022mapping.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 3,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/albarracin2022mapping_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 108.48058867454529
     },
     "baioumy2022unbiased": {
       "citation_key": "baioumy2022unbiased",
       "pdf_path": "data/pdfs/baioumy2022unbiased.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/baioumy2022unbiased_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 101.22505688667297
     },
     "schneider2022active": {
       "citation_key": "schneider2022active",
       "pdf_path": "data/pdfs/schneider2022active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/schneider2022active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 66.6003577709198
     },
     "wauthier2022learning": {
       "citation_key": "wauthier2022learning",
       "pdf_path": "data/pdfs/wauthier2022learning.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/wauthier2022learning_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 66.61395478248596
     },
     "bergen2022objectbased": {
       "citation_key": "bergen2022objectbased",
       "pdf_path": "data/pdfs/bergen2022objectbased.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/bergen2022objectbased_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 29.088804244995117
     },
     "kiefer2022efficient": {
       "citation_key": "kiefer2022efficient",
       "pdf_path": "data/pdfs/kiefer2022efficient.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/kiefer2022efficient_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 22.548065185546875
     },
     "champion2022multimodal": {
       "citation_key": "champion2022multimodal",
       "pdf_path": "data/pdfs/champion2022multimodal.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/champion2022multimodal_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 42.16827702522278
     },
     "smithe2022compositional": {
       "citation_key": "smithe2022compositional",
       "pdf_path": "data/pdfs/smithe2022compositional.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/smithe2022compositional_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 202.0813329219818
     },
     "tinguy2022home": {
       "citation_key": "tinguy2022home",
       "pdf_path": "data/pdfs/tinguy2022home.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/tinguy2022home_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 24.381524085998535
     },
     "joshi2022blockchainbased": {
       "citation_key": "joshi2022blockchainbased",
       "pdf_path": "data/pdfs/joshi2022blockchainbased.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/joshi2022blockchainbased_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 23.756175994873047
     },
     "yang2022neural": {
       "citation_key": "yang2022neural",
       "pdf_path": "data/pdfs/yang2022neural.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/yang2022neural_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 36.019054889678955
     },
     "bauermeister2022role": {
       "citation_key": "bauermeister2022role",
       "pdf_path": "data/pdfs/bauermeister2022role.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/bauermeister2022role_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 47.8695809841156
     },
     "ferraro2022disentangling": {
       "citation_key": "ferraro2022disentangling",
       "pdf_path": "data/pdfs/ferraro2022disentangling.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/ferraro2022disentangling_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 77.1249647140503
     },
     "malekzadeh2022active": {
       "citation_key": "malekzadeh2022active",
       "pdf_path": "data/pdfs/malekzadeh2022active.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/malekzadeh2022active_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 1393.0655827522278
     },
     "kiefer2022capsule": {
       "citation_key": "kiefer2022capsule",
       "pdf_path": "data/pdfs/kiefer2022capsule.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/kiefer2022capsule_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 36.2770037651062
     },
     "huebotter2022learning": {
       "citation_key": "huebotter2022learning",
       "pdf_path": "data/pdfs/huebotter2022learning.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/huebotter2022learning_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 47.63708806037903
     },
     "tram\u00e8r2022truth": {
       "citation_key": "tram\u00e8r2022truth",
       "pdf_path": "data/pdfs/tram\u00e8r2022truth.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Similar sentences appear 7 times (severe repetition, similarity >= 0.85)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -3528,54 +3528,54 @@
     "souza2022parallel": {
       "citation_key": "souza2022parallel",
       "pdf_path": "data/pdfs/souza2022parallel.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/souza2022parallel_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 40.53397798538208
     },
     "meera2022reclaiming": {
       "citation_key": "meera2022reclaiming",
       "pdf_path": "data/pdfs/meera2022reclaiming.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/meera2022reclaiming_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 50.608556032180786
     },
     "wu2022aiotenabled": {
       "citation_key": "wu2022aiotenabled",
       "pdf_path": "data/pdfs/wu2022aiotenabled.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/wu2022aiotenabled_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 26.53976082801819
     },
     "liang2022m3vit": {
       "citation_key": "liang2022m3vit",
       "pdf_path": "data/pdfs/liang2022m3vit.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/liang2022m3vit_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 48.89672875404358
     },
     "kim2020bayesian": {
       "citation_key": "kim2020bayesian",
       "pdf_path": "data/pdfs/kim2020bayesian.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same phrase appears 157 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -3583,43 +3583,43 @@
     "costa2020neural": {
       "citation_key": "costa2020neural",
       "pdf_path": "data/pdfs/costa2020neural.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/costa2020neural_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 59.58229088783264
     },
     "himst2020deep": {
       "citation_key": "himst2020deep",
       "pdf_path": "data/pdfs/himst2020deep.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 1,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/himst2020deep_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 26.08953595161438
     },
     "rood2020deep": {
       "citation_key": "rood2020deep",
       "pdf_path": "data/pdfs/rood2020deep.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/rood2020deep_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 64.29009985923767
     },
     "costa2020active": {
       "citation_key": "costa2020active",
       "pdf_path": "data/pdfs/costa2020active.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same sentence appears 4 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -3627,20 +3627,20 @@
     "baltieri2020predictions": {
       "citation_key": "baltieri2020predictions",
       "pdf_path": "data/pdfs/baltieri2020predictions.pdf",
-      "status": "downloaded",
+      "status": "summarized",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 2,
       "last_error": null,
-      "summary_path": null,
+      "summary_path": "data/summaries/baltieri2020predictions_summary.md",
       "download_time": null,
-      "summary_time": null
+      "summary_time": 115.48308396339417
     },
     "matsumoto2020goaldirected": {
       "citation_key": "matsumoto2020goaldirected",
       "pdf_path": "data/pdfs/matsumoto2020goaldirected.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
+      "summary_attempts": 4,
       "last_error": null,
       "summary_path": null,
       "download_time": null,
@@ -3649,10 +3649,10 @@
     "ohata2020investigation": {
       "citation_key": "ohata2020investigation",
       "pdf_path": "data/pdfs/ohata2020investigation.pdf",
-      "status": "downloaded",
+      "status": "failed",
       "download_attempts": 0,
-      "summary_attempts": 0,
-      "last_error": null,
+      "summary_attempts": 3,
+      "last_error": "Hard failure: Severe repetition detected: Same sentence appears 4 times (severe repetition)",
       "summary_path": null,
       "download_time": null,
       "summary_time": null
@@ -3660,7 +3660,7 @@
     "kouw2020online": {
       "citation_key": "kouw2020online",
       "pdf_path": "data/pdfs/kouw2020online.pdf",
-      "status": "downloaded",
+      "status": "processing",
       "download_attempts": 0,
       "summary_attempts": 0,
       "last_error": null,

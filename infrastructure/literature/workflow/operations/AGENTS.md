@@ -48,12 +48,23 @@ PDF download operations for existing bibliography entries.
 - `failed_download_to_search_result()` - Convert failed download entry to SearchResult
 - `get_pdf_path_for_entry()` - Get expected PDF path for library entry
 
+**Failed Downloads Tracking:**
+- All download failures are automatically saved to `data/failed_downloads.json`
+- By default, previously failed downloads are **automatically skipped** to avoid wasting time
+- Use `retry_failed=True` to retry previously failed downloads
+- The `find_papers_needing_pdf()` function filters out failed downloads unless `retry_failed=True`
+- Failures are saved for both regular downloads and retry attempts
+- "no_pdf_url" failures are warnings and not tracked
+
 **Usage:**
 ```python
 from infrastructure.literature.workflow.operations import run_download_only
 
-# Download PDFs for existing entries
+# Download PDFs for existing entries (skips previously failed downloads)
 run_download_only()
+
+# Retry previously failed downloads
+run_download_only(retry_failed=True)
 ```
 
 ### Cleanup Operations (`cleanup.py`)
@@ -83,12 +94,22 @@ Meta-analysis pipeline execution.
   - Runs search → download → extract → meta-analysis pipeline
   - Performs PCA analysis, keyword analysis, author analysis, and visualizations
 
+**Failed Downloads Tracking:**
+- All download failures during the meta-analysis pipeline are automatically saved
+- Previously failed downloads are **automatically skipped** by default
+- Use `retry_failed=True` to retry previously failed downloads
+- Failures are saved for both regular downloads and retry attempts
+- The download step uses `find_papers_needing_pdf()` which filters out failed downloads unless `retry_failed=True`
+
 **Usage:**
 ```python
 from infrastructure.literature.workflow.operations import run_meta_analysis
 
-# Run meta-analysis pipeline
+# Run meta-analysis pipeline (skips previously failed downloads)
 run_meta_analysis(keywords=["active inference"], limit=25)
+
+# Retry previously failed downloads
+run_meta_analysis(keywords=["active inference"], limit=25, retry_failed=True)
 ```
 
 ### LLM Operations (`llm_operations.py`)

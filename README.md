@@ -143,6 +143,10 @@ See `infrastructure/literature/core/config.py` for complete configuration option
 ## Documentation
 
 - **[AGENTS.md](AGENTS.md)** - Complete system documentation
+- **[docs/](docs/)** - Comprehensive documentation
+  - **[Getting Started](docs/getting-started.md)** - Quick start guide
+  - **[Troubleshooting](docs/guides/troubleshooting.md)** - Troubleshooting guide
+  - **[Configuration Guide](docs/guides/configuration.md)** - Configuration options
 - **[infrastructure/literature/AGENTS.md](infrastructure/literature/AGENTS.md)** - Module documentation
 - **[infrastructure/literature/README.md](infrastructure/literature/README.md)** - CLI reference
 

@@ -67,10 +67,98 @@ Fallback text extraction when PDFs are unavailable.
 - Removes navigation, headers, footers, scripts, and styles
 - Preserves document structure (headings, paragraphs)
 - Uses BeautifulSoup4 when available, falls back to regex parsing
-- Saves extracted text as `.txt` files in `data/extracted_text/`
+- Validates extracted text to ensure it's a full paper (not just headers/footers)
+- Saves extracted text as `.txt` files in `data/pdfs/` (only if validation passes)
+
+**Validation:**
+The `is_valid_paper_content()` method validates extracted text by checking:
+- Minimum length (configurable via `html_text_min_length`, default: 2000 characters)
+- Presence of common academic paper sections (abstract, introduction, methods, etc.)
+- Absence of excessive repetition (indicates navigation/header text)
 
 **Usage:**
-Automatically used by `PDFHandler` when PDF download fails but HTML content is available.
+Automatically used by `PDFHandler` when PDF download fails but HTML content is available. Only saves text files that pass validation.
+
+### Failed Download Tracker (failed_tracker.py)
+
+Tracks failed PDF download attempts for retry capability and automatic skip behavior.
+
+**Class:** `FailedDownloadTracker`
+
+**Key Methods:**
+- `save_failed()` - Save a failed download to the tracker
+- `load_failed()` - Load all failed downloads
+- `get_retriable_failed()` - Get only retriable failed downloads (network errors, timeouts)
+- `is_failed()` - Check if a citation key has a failed download
+- `has_failures()` - Check if tracker has any failed downloads
+- `remove_successful()` - Remove a citation key from tracker when download succeeds
+- `clear_failed()` - Clear failed downloads from tracker
+
+**Features:**
+- Automatic tracking of all download failures
+- Retriable detection (network errors, timeouts are retriable; access denied, not found are not)
+- Persistent storage in `data/failed_downloads.json`
+- Atomic file writes for data integrity
+- Automatic cleanup when downloads succeed
+
+**Failure Categories:**
+- `network_error` - Connection errors (retriable)
+- `timeout` - Request timeout (retriable)
+- `access_denied` - HTTP 403 Forbidden (not retriable)
+- `not_found` - HTTP 404 Not Found (not retriable)
+- `html_response` - HTML received instead of PDF (not retriable)
+- `no_pdf_url` - No PDF URL available (not tracked, just a warning)
+
+**File Format:**
+The tracker saves failures to `data/failed_downloads.json`:
+```json
+{
+  "version": "1.0",
+  "updated": "2025-12-13T14:21:29.308815",
+  "failures": {
+    "citation_key": {
+      "citation_key": "citation_key",
+      "title": "Paper Title",
+      "failure_reason": "access_denied",
+      "failure_message": "Detailed error message",
+      "attempted_urls": ["url1", "url2"],
+      "source": "arxiv",
+      "timestamp": "2025-12-13T14:21:29.308815",
+      "retriable": false
+    }
+  }
+}
+```
+
+**Usage:**
+```python
+from infrastructure.literature.pdf.failed_tracker import FailedDownloadTracker
+from infrastructure.literature.core.config import LiteratureConfig
+
+config = LiteratureConfig()
+tracker = FailedDownloadTracker(config)
+
+# Save a failed download
+tracker.save_failed(citation_key, download_result, title="Paper Title", source="arxiv")
+
+# Check if a download previously failed
+if tracker.is_failed(citation_key):
+    print(f"Download for {citation_key} previously failed")
+
+# Get retriable failures for retry
+retriable = tracker.get_retriable_failed()
+
+# Remove successful download from tracker
+tracker.remove_successful(citation_key)
+```
+
+**Integration:**
+The tracker is integrated into all download operations:
+- `workflow.py` - `_download_papers_sequential` and `_download_papers_parallel`
+- `meta_analysis.py` - Regular downloads and retry downloads
+- `download.py` - Regular downloads and retry downloads
+
+All operations automatically save failures and skip previously failed downloads by default (unless `retry_failed=True`).
 
 ## Usage Examples
 
@@ -107,7 +195,14 @@ PDF downloads categorize failures:
 - `network_error` - Connection errors
 
 **HTML Text Extraction Fallback:**
-When PDF downloads fail with `html_response` or `html_no_pdf_link`, the system automatically attempts to extract text content from the HTML page. If successful, the extracted text is saved as a `.txt` file in `data/extracted_text/` with the same naming convention as PDFs (citation key). This allows the paper to be processed even when PDFs are not available.
+When PDF downloads fail with `html_response` or `html_no_pdf_link`, the system automatically attempts to extract text content from the HTML page. The extracted text is validated to ensure it contains a full academic paper (not just webpage headers/footers) before being saved.
+
+**Validation Criteria:**
+- Minimum length: Extracted text must be at least `html_text_min_length` characters (default: 2000)
+- Content quality: Must contain at least one common academic paper section (abstract, introduction, methods, results, discussion, conclusion, references, etc.)
+- Repetition check: Rejects text with excessive repetition of short phrases (likely navigation/header text)
+
+If validation passes, the extracted text is saved as a `.txt` file in `data/pdfs/` with the same naming convention as PDFs (citation key). If validation fails, a warning is logged explaining why (too short, missing sections, etc.) and the file is not saved. This prevents saving incomplete extractions that contain only webpage headers/footers.
 
 Error messages include helpful context and troubleshooting suggestions.
 
@@ -128,6 +223,7 @@ Or via environment variables:
 ```bash
 export LITERATURE_MAX_URL_ATTEMPTS_PER_PDF=8
 export LITERATURE_MAX_FALLBACK_STRATEGIES=3
+export LITERATURE_HTML_TEXT_MIN_LENGTH=2000  # Minimum characters for HTML text extraction (default: 2000)
 ```
 
 ### Retry Behavior

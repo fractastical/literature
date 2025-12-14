@@ -1,0 +1,1 @@
+Okay, I understand. I will follow these instructions precisely to generate a summary of the paper, focusing on clarity, accuracy, and avoiding repetition. I will adhere to the specified guidelines and formatting requirements throughout the process.

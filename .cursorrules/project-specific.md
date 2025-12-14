@@ -79,7 +79,58 @@
 - Implement automatic PDF retrieval with retry logic
 - Use Unpaywall for open access fallback when available
 - Handle download failures gracefully
-- Track failed downloads for retry
+
+### Failed Downloads Tracking
+
+**Automatic Failure Tracking:**
+- All download failures are automatically saved to `data/failed_downloads.json`
+- Failures are tracked in all download operations:
+  - Workflow sequential and parallel downloads
+  - Meta-analysis pipeline downloads
+  - Download-only operation downloads
+- Exceptions: "no_pdf_url" failures are warnings, not tracked as failures
+
+**Default Skip Behavior:**
+- By default, previously failed downloads are automatically skipped
+- Skip happens in `find_papers_needing_pdf()` function
+- Skip message: "Skipped X paper(s) with previously failed downloads (use --retry-failed to retry)"
+- This prevents wasting time on papers that are likely to fail again (e.g., access-restricted papers)
+
+**Retry Mechanism:**
+- Use `retry_failed=True` parameter or `--retry-failed` flag to retry previously failed downloads
+- Only retriable failures (network errors, timeouts) are retried by default
+- All failures can be retried if explicitly requested
+- Successful retries automatically remove entries from the tracker
+
+**Failure Categories:**
+- **Retriable**: `network_error`, `timeout` (may succeed on retry)
+- **Not Retriable**: `access_denied`, `not_found`, `html_response` (unlikely to succeed)
+- **Not Tracked**: `no_pdf_url` (just a warning, not a failure)
+
+**File Format (`data/failed_downloads.json`):**
+```json
+{
+  "version": "1.0",
+  "updated": "2025-12-13T14:21:29.308815",
+  "failures": {
+    "citation_key": {
+      "citation_key": "citation_key",
+      "title": "Paper Title",
+      "failure_reason": "access_denied",
+      "failure_message": "Detailed error message",
+      "attempted_urls": ["url1", "url2"],
+      "source": "arxiv",
+      "timestamp": "2025-12-13T14:21:29.308815",
+      "retriable": false
+    }
+  }
+}
+```
+
+**Integration:**
+- All download operations use `workflow.failed_tracker.save_failed()` to track failures
+- Operations check `workflow.failed_tracker.is_failed()` to skip previously failed downloads
+- The `FailedDownloadTracker` class is in `infrastructure/literature/pdf/failed_tracker.py`
 
 ### PDF Processing
 - Extract text from PDFs for summarization

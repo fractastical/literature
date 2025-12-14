@@ -96,6 +96,13 @@ from .file_operations import (
     clean_output_directories,
     copy_final_deliverables,
 )
+from .config_validator import (
+    validate_literature_config,
+    validate_llm_config,
+    validate_environment_variables,
+    validate_and_log_config,
+    validate_on_startup,
+)
 
 __all__ = [
     # Exceptions
@@ -175,5 +182,11 @@ __all__ = [
     "clean_output_directory",
     "clean_output_directories",
     "copy_final_deliverables",
+    # Configuration Validation
+    "validate_literature_config",
+    "validate_llm_config",
+    "validate_environment_variables",
+    "validate_and_log_config",
+    "validate_on_startup",
 ]
 

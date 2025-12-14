@@ -20,6 +20,8 @@ Welcome to the comprehensive documentation for the Literature Search and Managem
 - **[Summarizing Papers](guides/summarize-papers.md)** - How to generate summaries
 - **[Meta-Analysis](guides/meta-analysis.md)** - Running meta-analysis
 - **[Configuration](guides/configuration.md)** - System configuration
+- **[Troubleshooting](guides/troubleshooting.md)** - Comprehensive troubleshooting guide
+- **[Troubleshooting](guides/troubleshooting.md)** - Comprehensive troubleshooting guide
 
 ### Reference
 - **[API Reference](reference/api-reference.md)** - Complete API documentation
@@ -39,6 +41,7 @@ Welcome to the comprehensive documentation for the Literature Search and Managem
 - **Generate summaries** → [Summarizing Papers](guides/summarize-papers.md)
 - **Run meta-analysis** → [Meta-Analysis Guide](guides/meta-analysis.md)
 - **Configure the system** → [Configuration Guide](guides/configuration.md)
+- **Troubleshoot issues** → [Troubleshooting Guide](guides/troubleshooting.md)
 - **Use the API** → [API Reference](reference/api-reference.md)
 - **Use the CLI** → [CLI Reference](reference/cli-reference.md)
 

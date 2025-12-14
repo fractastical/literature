@@ -26,6 +26,7 @@ result = workflow.search_and_add(keywords=["machine learning"], limit=10)
 - Multi-paper operation orchestration
 - Progress tracking with resumability
 - Search workflow management
+- Failed download tracking with automatic skip behavior
 
 ## See Also
 

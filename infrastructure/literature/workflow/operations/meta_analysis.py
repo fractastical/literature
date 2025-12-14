@@ -212,7 +212,16 @@ def run_meta_analysis(
                     file_size = abs_path.stat().st_size if abs_path.exists() else 0
                     source = entry.source or "unknown"
                     logger.info(f"✓ Downloaded: {abs_path} ({file_size:,} bytes) [Source: {source}]")
+                elif download_result.failure_reason == "no_pdf_url":
+                    source = entry.source or "unknown"
+                    logger.warning(f"✗ No PDF URL available: {entry.title[:50]}... [Source: {source}]")
                 else:
+                    # Save to failed tracker
+                    workflow.failed_tracker.save_failed(
+                        entry.citation_key, download_result,
+                        title=entry.title, source=entry.source
+                    )
+                    
                     failed_count += 1
                     # Enhanced failure logging with full context
                     error_details = f"{download_result.failure_reason or 'unknown'}: {download_result.failure_message or 'No error message'}"
@@ -244,6 +253,12 @@ def run_meta_analysis(
                     source = search_result.source or "unknown"
                     logger.info(f"✓ Retry successful: {abs_path} ({file_size:,} bytes) [Source: {source}]")
                 else:
+                    # Save to failed tracker
+                    workflow.failed_tracker.save_failed(
+                        citation_key, download_result,
+                        title=search_result.title, source=search_result.source
+                    )
+                    
                     failed_count += 1
                     error_details = f"{download_result.failure_reason or 'unknown'}: {download_result.failure_message or 'No error message'}"
                     expected_path = Path("data/pdfs") / f"{citation_key}.pdf"

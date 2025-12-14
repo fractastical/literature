@@ -8,6 +8,7 @@ How-to guides for common tasks.
 - **[Summarizing Papers](summarize-papers.md)** - Guide to generating AI-powered summaries
 - **[Meta-Analysis](meta-analysis.md)** - Running meta-analysis on your library
 - **[Configuration](configuration.md)** - System configuration guide
+- **[Troubleshooting](troubleshooting.md)** - Comprehensive troubleshooting guide
 
 ## Quick Links
 

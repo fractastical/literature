@@ -995,8 +995,33 @@ class MultiStageSummarizer:
         overall_start_time = time.time()
         
         # Stage 1: Generate draft
-        draft = self.generate_draft(context, metadata, progress_callback=progress_callback)
-        total_attempts += 1
+        try:
+            draft = self.generate_draft(context, metadata, progress_callback=progress_callback)
+            total_attempts += 1
+        except TimeoutError as e:
+            overall_time = time.time() - overall_start_time
+            logger.error(
+                f"[{citation_key}] Draft generation timed out after {overall_time:.2f}s: {e}. "
+                f"Cannot proceed with summarization. "
+                f"Consider: 1) Increasing LLM_SUMMARIZATION_TIMEOUT, 2) Using two-stage mode, "
+                f"3) Reducing prompt size"
+            )
+            # Re-raise to prevent refinement attempt
+            raise
+        except Exception as e:
+            overall_time = time.time() - overall_start_time
+            logger.error(
+                f"[{citation_key}] Draft generation failed after {overall_time:.2f}s: {e}"
+            )
+            raise
+        
+        # Check draft validity before processing
+        if not draft or not draft.strip() or len(draft.strip()) < 100:
+            logger.error(
+                f"[{citation_key}] Draft is empty or too short ({len(draft) if draft else 0} chars). "
+                f"Cannot proceed with validation or refinement."
+            )
+            raise ValueError(f"Invalid draft for {citation_key}: empty or too short")
         
         # Apply post-generation deduplication before validation
         from infrastructure.llm.validation.repetition import deduplicate_sections
@@ -1110,10 +1135,19 @@ class MultiStageSummarizer:
                     f"Proceeding with refinement (will use repetition-specific prompts)..."
                 )
             except Exception as regen_error:
-                logger.warning(
-                    f"[{citation_key}] Regeneration failed: {regen_error}. "
-                    f"Proceeding with refinement..."
-                )
+                error_type = type(regen_error).__name__
+                if isinstance(regen_error, TimeoutError):
+                    logger.error(
+                        f"[{citation_key}] Regeneration timed out: {regen_error}. "
+                        f"Cannot proceed with refinement without valid draft."
+                    )
+                    raise  # Don't proceed with refinement
+                else:
+                    logger.warning(
+                        f"[{citation_key}] Regeneration failed: {regen_error}. "
+                        f"Proceeding with refinement..."
+                    )
+                    # Continue only for non-timeout errors
         
         logger.info(
             f"[{citation_key}] Draft not accepted (score: {validation_result.score:.2f}), "

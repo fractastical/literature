@@ -403,19 +403,32 @@ class PDFHandler:
                             # Extract text from HTML
                             extracted_text = self._html_extractor.extract_text(response.content, try_url)
                             
-                            if extracted_text and len(extracted_text) > 100:  # Ensure we got meaningful content
-                                # Save extracted text
-                                self._html_extractor.save_extracted_text(extracted_text, html_text_path)
+                            if extracted_text:
+                                # Validate that extracted text is a full paper, not just header/footer
+                                is_valid, validation_reason = self._html_extractor.is_valid_paper_content(
+                                    extracted_text, 
+                                    self.config.html_text_min_length
+                                )
                                 
-                                # Update library index with text path (similar to PDF path)
-                                if result and self._library_index:
-                                    citation_key = filename.replace('.pdf', '')
-                                    # Note: We don't update pdf_path for HTML text, but we could track it separately
-                                    logger.info(f"Extracted HTML text saved to {html_text_path} ({len(extracted_text):,} characters)")
-                                
-                                logger.info(f"✓ Extracted HTML text: {html_text_path.name} ({len(extracted_text):,} characters) [Source: {source or 'unknown'}]")
-                                html_extracted = True
-                                break
+                                if is_valid:
+                                    # Save extracted text
+                                    self._html_extractor.save_extracted_text(extracted_text, html_text_path)
+                                    
+                                    # Update library index with text path (similar to PDF path)
+                                    if result and self._library_index:
+                                        citation_key = filename.replace('.pdf', '')
+                                        # Note: We don't update pdf_path for HTML text, but we could track it separately
+                                        logger.info(f"Extracted HTML text saved to {html_text_path} ({len(extracted_text):,} characters)")
+                                    
+                                    logger.info(f"✓ Extracted HTML text: {html_text_path.name} ({len(extracted_text):,} characters) [Source: {source or 'unknown'}]")
+                                    html_extracted = True
+                                    break
+                                else:
+                                    # Log why validation failed
+                                    logger.warning(
+                                        f"HTML text extraction rejected for {try_url}: {validation_reason}. "
+                                        f"Extracted {len(extracted_text):,} characters but content does not appear to be a full paper."
+                                    )
                 except Exception as e:
                     logger.debug(f"HTML text extraction attempt failed for {try_url}: {e}")
                     continue

@@ -42,6 +42,7 @@ class LiteratureConfig:
         max_parallel_downloads: Maximum parallel download workers (default: 4).
         max_url_attempts_per_pdf: Maximum total URL attempts per PDF (default: 8).
         max_fallback_strategies: Maximum fallback strategy attempts (default: 3).
+        html_text_min_length: Minimum character length for extracted HTML text to be considered valid (default: 2000).
     
     Environment Variables:
         LITERATURE_DEFAULT_LIMIT: Override default_limit.
@@ -66,6 +67,7 @@ class LiteratureConfig:
         LITERATURE_MAX_PARALLEL_DOWNLOADS: Override max_parallel_downloads.
         LITERATURE_MAX_URL_ATTEMPTS_PER_PDF: Override max_url_attempts_per_pdf.
         LITERATURE_MAX_FALLBACK_STRATEGIES: Override max_fallback_strategies.
+        LITERATURE_HTML_TEXT_MIN_LENGTH: Override html_text_min_length.
     """
     
     # Search settings
@@ -174,6 +176,9 @@ class LiteratureConfig:
     # PDF download attempt limits (to prevent excessive retries)
     max_url_attempts_per_pdf: int = 8  # Maximum total URL attempts per PDF
     max_fallback_strategies: int = 3  # Maximum fallback strategy attempts
+    
+    # HTML text extraction validation
+    html_text_min_length: int = 2000  # Minimum characters for extracted HTML text to be considered a valid paper
 
     @classmethod
     def from_env(cls) -> LiteratureConfig:
@@ -235,5 +240,6 @@ class LiteratureConfig:
             max_parallel_downloads=int(os.environ.get("LITERATURE_MAX_PARALLEL_DOWNLOADS", "4")),
             max_url_attempts_per_pdf=int(os.environ.get("LITERATURE_MAX_URL_ATTEMPTS_PER_PDF", "8")),
             max_fallback_strategies=int(os.environ.get("LITERATURE_MAX_FALLBACK_STRATEGIES", "3")),
+            html_text_min_length=int(os.environ.get("LITERATURE_HTML_TEXT_MIN_LENGTH", "2000")),
         )
 

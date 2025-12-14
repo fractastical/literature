@@ -73,6 +73,24 @@ def doi_to_pdf_urls(doi: str) -> List[str]:
     if doi.startswith('10.1093/'):
         candidates.append(f"https://academic.oup.com/view-pdf/doi/{doi}")
 
+    # IEEE Xplore
+    if doi.startswith('10.1109/'):
+        # IEEE DOIs format: 10.1109/JOURNAL.YEAR.ARTICLE_ID
+        # Extract article ID (last part after final dot)
+        doi_parts = doi.split('/')
+        if len(doi_parts) >= 2:
+            article_part = doi_parts[-1]
+            # Article ID is typically the last segment after the final dot
+            if '.' in article_part:
+                article_id = article_part.split('.')[-1]
+                # Try IEEE Xplore document page (for HTML extraction)
+                candidates.insert(0, f"https://ieeexplore.ieee.org/document/{article_id}")
+                # Try PDF download URLs
+                candidates.append(f"https://ieeexplore.ieee.org/stampPDF/getPDF.jsp?arnumber={article_id}")
+                candidates.append(f"https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber={article_id}")
+            # Also try with full DOI path
+            candidates.append(f"https://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber={article_part.split('.')[-1] if '.' in article_part else article_part}")
+
     # OSF.io (Open Science Framework)
     # Pattern: 10.31234/osf.io/XXXXX or 10.31219/osf.io/XXXXX
     osf_match = re.search(r'10\.3123[49]/osf\.io/([a-z0-9_]+)', doi, re.IGNORECASE)

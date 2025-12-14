@@ -30,6 +30,40 @@ Progress tracking for resumable operations.
 - Per-paper status tracking
 - Progress persistence
 
+### Failed Download Tracker Integration
+
+The workflow module integrates with `FailedDownloadTracker` from `infrastructure.literature.pdf.failed_tracker` to track and manage failed PDF downloads.
+
+**Automatic Failure Tracking:**
+- All download failures are automatically saved to `data/failed_downloads.json`
+- Failures are tracked in all download operations:
+  - `_download_papers_sequential()` - Sequential downloads
+  - `_download_papers_parallel()` - Parallel downloads
+  - Meta-analysis pipeline downloads
+  - Download-only operation downloads
+
+**Skip Behavior:**
+- By default, previously failed downloads are automatically skipped
+- Skip happens in `find_papers_needing_pdf()` function
+- Skip message: "Skipped X paper(s) with previously failed downloads (use --retry-failed to retry)"
+- This prevents wasting time on papers that are likely to fail again (e.g., access-restricted papers)
+
+**Retry Mechanism:**
+- Use `retry_failed=True` parameter to retry previously failed downloads
+- Only retriable failures (network errors, timeouts) are retried by default
+- All failures can be retried if explicitly requested
+- Successful retries automatically remove entries from the tracker
+
+**Failure Categories:**
+- **Retriable**: `network_error`, `timeout` (may succeed on retry)
+- **Not Retriable**: `access_denied`, `not_found`, `html_response` (unlikely to succeed)
+- **Not Tracked**: `no_pdf_url` (just a warning, not a failure)
+
+**Integration Points:**
+- `LiteratureWorkflow` initializes `FailedDownloadTracker` on creation
+- All download operations use `workflow.failed_tracker.save_failed()` to track failures
+- Operations check `workflow.failed_tracker.is_failed()` to skip previously failed downloads
+
 ### Search Orchestrator (orchestrator.py)
 
 Thin orchestrator that imports and re-exports functions from operations submodules for backward compatibility.

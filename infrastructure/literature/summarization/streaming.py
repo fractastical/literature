@@ -5,6 +5,7 @@ during LLM generation, allowing real-time feedback on summarization progress.
 """
 from __future__ import annotations
 
+import os
 import time
 from typing import Callable, Optional, TYPE_CHECKING
 
@@ -25,7 +26,7 @@ def stream_with_progress(
     citation_key: str,
     stage: str = "draft_generation",
     update_interval: float = 5.0,
-    timeout: float = 300.0,
+    timeout: Optional[float] = None,
     options: Optional["GenerationOptions"] = None,
     reset_context: bool = False
 ) -> str:
@@ -42,7 +43,9 @@ def stream_with_progress(
         citation_key: Citation key for the paper being processed.
         stage: Stage name ("draft_generation" or "refinement").
         update_interval: Interval in seconds between progress updates (default: 5.0).
-        timeout: Maximum time to wait for response (default: 300.0).
+        timeout: Maximum time to wait for response. If None, reads from 
+                LLM_SUMMARIZATION_TIMEOUT env var (default: 600.0). Adaptive timeout
+                adds 1s per 1000 chars of prompt (max 1200s).
         options: Optional generation options (temperature, max_tokens, etc.).
         reset_context: Whether to clear LLM context before streaming (default: False).
                       Note: Context is already cleared at the start of each paper.
@@ -74,6 +77,17 @@ def stream_with_progress(
         )
         llm_client.context.clear()
     
+    # Read timeout from environment if not provided
+    if timeout is None:
+        timeout = float(os.environ.get('LLM_SUMMARIZATION_TIMEOUT', '600.0'))
+    
+    # Adaptive timeout based on prompt size
+    # Base: 300s, add 1s per 1000 chars of prompt (max 1200s)
+    prompt_size = len(prompt)
+    adaptive_timeout = min(300.0 + (prompt_size / 1000.0), 1200.0)
+    configured_timeout = timeout
+    timeout = max(timeout, adaptive_timeout)  # Use larger of configured or adaptive
+    
     accumulated = []
     chars_received = 0
     words_received = 0
@@ -85,18 +99,23 @@ def stream_with_progress(
     first_chunk_received = False
     heartbeat_interval = 2.5  # More frequent heartbeats (2.5s) for better feedback
     timeout_warning_threshold = timeout * 0.8  # Warn at 80% of timeout
+    timeout_warning_logged = False
+    last_timeout_warning_time = start_time
+    timeout_warning_interval = 10.0  # Log warning at most once per 10 seconds
+    slow_gen_warned = False
+    slow_gen_warn_time = start_time
     
     # Estimate processing time based on prompt size
     # Rough estimates: small models ~100 chars/s, medium ~200 chars/s, large ~500 chars/s
     # For prompt processing (before first token), estimate based on prompt size
-    prompt_size = len(prompt)
     estimated_prompt_processing = min(prompt_size / 1000, 30.0)  # Max 30s for prompt processing
     estimated_total_time = estimated_prompt_processing + (prompt_size * 0.1) / 200  # Rough estimate for generation
     
     # Log immediate feedback that streaming is starting
     logger.info(
         f"[{citation_key}] Starting streaming for {stage}... "
-        f"(timeout: {timeout:.0f}s, prompt: {prompt_size:,} chars, "
+        f"(timeout: {timeout:.0f}s, configured: {configured_timeout:.0f}s, "
+        f"adaptive: {adaptive_timeout:.0f}s based on {prompt_size:,} char prompt, "
         f"estimated processing: {estimated_prompt_processing:.1f}s)"
     )
     
@@ -128,18 +147,45 @@ def stream_with_progress(
             
             # Check for timeout
             if elapsed > timeout:
+                partial_text = "".join(accumulated)
+                
+                # Save partial result for debugging
+                if partial_text and len(partial_text) > 100:
+                    try:
+                        from pathlib import Path
+                        partial_path = Path("data/summaries") / "_debug" / f"{citation_key}_partial_{stage}_{int(time.time())}.md"
+                        partial_path.parent.mkdir(parents=True, exist_ok=True)
+                        partial_path.write_text(partial_text, encoding='utf-8')
+                        logger.warning(
+                            f"[{citation_key}] Saved partial result: {partial_path} "
+                            f"({len(partial_text):,} chars, {len(partial_text.split())} words)"
+                        )
+                    except Exception as save_error:
+                        logger.debug(f"[{citation_key}] Failed to save partial result: {save_error}")
+                
                 raise TimeoutError(
                     f"Streaming timeout after {timeout:.1f}s. "
                     f"Received {chunks_received} chunks, {chars_received:,} chars"
                 )
             
-            # Warn if approaching timeout
+            # Warn if approaching timeout (throttled to once per 10 seconds)
             if elapsed >= timeout_warning_threshold and elapsed < timeout:
                 remaining = timeout - elapsed
-                logger.warning(
-                    f"[{citation_key}] Approaching timeout: {remaining:.1f}s remaining. "
-                    f"Received {chunks_received} chunks, {chars_received:,} chars so far"
-                )
+                # Throttle warnings: only log once per interval
+                if not timeout_warning_logged or (now - last_timeout_warning_time) >= timeout_warning_interval:
+                    logger.warning(
+                        f"[{citation_key}] Approaching timeout: {remaining:.1f}s remaining. "
+                        f"Received {chunks_received} chunks, {chars_received:,} chars so far"
+                    )
+                    timeout_warning_logged = True
+                    last_timeout_warning_time = now
+                # After first warning, use DEBUG level for periodic updates
+                elif (now - last_timeout_warning_time) >= timeout_warning_interval:
+                    logger.debug(
+                        f"[{citation_key}] Still approaching timeout: {remaining:.1f}s remaining. "
+                        f"Received {chunks_received} chunks, {chars_received:,} chars"
+                    )
+                    last_timeout_warning_time = now
             
             # Handle empty chunks (waiting for response)
             if not chunk or not chunk.strip():
@@ -219,6 +265,26 @@ def stream_with_progress(
             else:
                 chars_per_sec = 0.0
                 chunks_per_sec = 0.0
+            
+            # Performance monitoring: warn if generation rate is very slow
+            if chars_per_sec > 0 and chars_per_sec < 10.0 and elapsed > 30.0:
+                # Estimate remaining based on max_tokens if available
+                if options and hasattr(options, 'max_tokens') and options.max_tokens:
+                    estimated_total_chars = options.max_tokens * 4  # Rough estimate: 4 chars per token
+                    estimated_remaining_chars = max(0, estimated_total_chars - chars_received)
+                    estimated_remaining_time = estimated_remaining_chars / chars_per_sec if chars_per_sec > 0 else float('inf')
+                    
+                    if estimated_remaining_time > timeout - elapsed:
+                        # Only warn once per 30 seconds to avoid spam
+                        if not slow_gen_warned or (now - slow_gen_warn_time) >= 30.0:
+                            logger.warning(
+                                f"[{citation_key}] Slow generation rate: {chars_per_sec:.1f} chars/s. "
+                                f"At this rate, completion would take {estimated_remaining_time:.0f}s more "
+                                f"(exceeds remaining timeout: {timeout - elapsed:.0f}s). "
+                                f"Consider increasing timeout or reducing prompt size."
+                            )
+                            slow_gen_warned = True
+                            slow_gen_warn_time = now
             
             # Emit progress every update_interval seconds
             if now - last_update >= update_interval:
