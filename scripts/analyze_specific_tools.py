@@ -29,7 +29,8 @@ specific_tools = {
     
     # Active Inference specific
     'pymdp': re.compile(r'\bpymdp\b', re.IGNORECASE),
-    'AIF': re.compile(r'\bactive[_\s]?inference[_\s]?framework\b', re.IGNORECASE),
+    # Note: Removed generic "AIF" pattern as it matches theoretical framework mentions
+    # Focus on actual software packages instead
     
     # Reinforcement Learning
     'OpenAI Gym': re.compile(r'\bgym\b|\bopenai[_\s]?gym\b', re.IGNORECASE),
