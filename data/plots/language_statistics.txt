@@ -1,0 +1,102 @@
+Programming Language Usage Statistics
+==================================================
+
+Total papers with GitHub repositories: 271
+Year range: 2016 - 2025
+Total unique languages/tools: 12
+
+Language Usage (Total Papers):
+--------------------------------------------------
+R              :  269 papers ( 99.3%)
+Python         :   91 papers ( 33.6%)
+MATLAB         :   53 papers ( 19.6%)
+PyTorch        :   27 papers ( 10.0%)
+ROS            :   17 papers (  6.3%)
+Julia          :   10 papers (  3.7%)
+JAX            :    6 papers (  2.2%)
+TensorFlow     :    6 papers (  2.2%)
+ROS2           :    4 papers (  1.5%)
+JavaScript     :    2 papers (  0.7%)
+Java           :    2 papers (  0.7%)
+C++            :    1 papers (  0.4%)
+
+
+Language Usage by Year:
+--------------------------------------------------
+
+2016:
+  R              :   2 papers
+  ROS            :   1 papers
+
+2017:
+  Python         :   1 papers
+  R              :   1 papers
+
+2018:
+  R              :   4 papers
+  PyTorch        :   2 papers
+
+2019:
+  R              :   7 papers
+  MATLAB         :   3 papers
+  Julia          :   1 papers
+  TensorFlow     :   1 papers
+
+2020:
+  R              :  14 papers
+  Python         :   5 papers
+  MATLAB         :   3 papers
+  PyTorch        :   2 papers
+  C++            :   1 papers
+  Julia          :   1 papers
+  ROS            :   1 papers
+
+2021:
+  R              :  28 papers
+  Python         :   6 papers
+  MATLAB         :   5 papers
+  PyTorch        :   5 papers
+  ROS            :   3 papers
+  JavaScript     :   1 papers
+  JAX            :   1 papers
+  Julia          :   1 papers
+  Java           :   1 papers
+
+2022:
+  R              :  26 papers
+  MATLAB         :   5 papers
+  Python         :   5 papers
+  PyTorch        :   2 papers
+  Julia          :   1 papers
+  ROS            :   1 papers
+
+2023:
+  R              :  47 papers
+  Python         :  21 papers
+  MATLAB         :   6 papers
+  Julia          :   4 papers
+  PyTorch        :   3 papers
+  ROS            :   3 papers
+  TensorFlow     :   2 papers
+  JAX            :   1 papers
+
+2024:
+  R              :  64 papers
+  Python         :  23 papers
+  MATLAB         :  13 papers
+  PyTorch        :   4 papers
+  ROS            :   1 papers
+  Java           :   1 papers
+  Julia          :   1 papers
+
+2025:
+  R              :  76 papers
+  Python         :  30 papers
+  MATLAB         :  18 papers
+  PyTorch        :   9 papers
+  ROS            :   7 papers
+  JAX            :   4 papers
+  ROS2           :   4 papers
+  TensorFlow     :   3 papers
+  JavaScript     :   1 papers
+  Julia          :   1 papers
