@@ -1,0 +1,33 @@
+Tools,Count,Percentage
+R,121,43.06%
+Python + R,49,17.44%
+MATLAB + R,30,10.68%
+MATLAB + Python + R,15,5.34%
+PyTorch + R,10,3.56%
+PyTorch + Python + R,6,2.14%
+Python + R + ROS,4,1.42%
+R + ROS,4,1.42%
+Julia + R,4,1.42%
+PyTorch + R + ROS,4,1.42%
+MATLAB + Python + R + ROS,2,0.71%
+MATLAB + PyTorch + Python + R,2,0.71%
+Python,2,0.71%
+JavaScript + R,2,0.71%
+Python + R + TensorFlow,2,0.71%
+JAX + MATLAB + Python + R,2,0.71%
+Julia + MATLAB + R,2,0.71%
+PyTorch + Python + R + ROS,2,0.71%
+Julia + Python + R,2,0.71%
+R + ROS2,2,0.71%
+R + ROS + ROS2,2,0.71%
+MATLAB + Python + R + TensorFlow,2,0.71%
+Java + JavaScript + Julia + Python + R,1,0.36%
+C++ + Python + R,1,0.36%
+JAX + PyTorch + Python + R,1,0.36%
+JAX + Julia + R,1,0.36%
+Java + R,1,0.36%
+R + TensorFlow,1,0.36%
+JAX + Python + R,1,0.36%
+Java + PyTorch + Python + R,1,0.36%
+JAX + R + TensorFlow,1,0.36%
+Julia + PyTorch + Python + R,1,0.36%

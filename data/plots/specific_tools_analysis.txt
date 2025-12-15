@@ -1,0 +1,293 @@
+Specific Tools, Libraries, and Frameworks Analysis
+======================================================================
+
+Total papers analyzed: 190
+Total unique tools found: 26
+
+Tool Usage Frequency:
+----------------------------------------------------------------------
+Tool                           Papers     Percentage
+----------------------------------------------------------------------
+AIF                            101          53.2%
+OpenAI Gym                     48           25.3%
+pymdp                          37           19.5%
+PyTorch                        27           14.2%
+ROS                            18            9.5%
+scikit-learn                   12            6.3%
+SciPy                          11            5.8%
+Flux.jl                        11            5.8%
+Unity                          10            5.3%
+Gazebo                         9             4.7%
+JAX                            6             3.2%
+NumPy                          6             3.2%
+TensorFlow                     6             3.2%
+PyBullet                       5             2.6%
+MuJoCo                         4             2.1%
+ROS2                           4             2.1%
+Keras                          3             1.6%
+Jupyter                        3             1.6%
+Matplotlib                     3             1.6%
+Seaborn                        3             1.6%
+Stable-Baselines3              2             1.1%
+OpenCV                         2             1.1%
+Django                         1             0.5%
+MATLAB Toolbox                 1             0.5%
+Pandas                         1             0.5%
+ggplot2                        1             0.5%
+
+
+Most Common Tool Pairs (Top 20):
+----------------------------------------------------------------------
+AIF + OpenAI Gym                                     20 papers ( 10.5%)
+AIF + pymdp                                          16 papers (  8.4%)
+AIF + ROS                                             8 papers (  4.2%)
+AIF + PyTorch                                         8 papers (  4.2%)
+AIF + Gazebo                                          7 papers (  3.7%)
+AIF + SciPy                                           6 papers (  3.2%)
+PyTorch + ROS                                         6 papers (  3.2%)
+Gazebo + ROS                                          6 papers (  3.2%)
+AIF + Unity                                           4 papers (  2.1%)
+AIF + scikit-learn                                    4 papers (  2.1%)
+SciPy + scikit-learn                                  4 papers (  2.1%)
+PyTorch + scikit-learn                                4 papers (  2.1%)
+AIF + NumPy                                           4 papers (  2.1%)
+AIF + Flux.jl                                         4 papers (  2.1%)
+Flux.jl + SciPy                                       4 papers (  2.1%)
+AIF + ROS2                                            4 papers (  2.1%)
+Gazebo + ROS2                                         4 papers (  2.1%)
+PyTorch + SciPy                                       3 papers (  1.6%)
+JAX + NumPy                                           3 papers (  1.6%)
+OpenAI Gym + pymdp                                    3 papers (  1.6%)
+
+
+Most Common Tool Combinations (Top 15):
+----------------------------------------------------------------------
+AIF                                                            45 papers ( 23.7%)
+OpenAI Gym                                                     21 papers ( 11.1%)
+AIF + OpenAI Gym                                               12 papers (  6.3%)
+pymdp                                                          11 papers (  5.8%)
+AIF + pymdp                                                    11 papers (  5.8%)
+Flux.jl                                                         5 papers (  2.6%)
+ROS                                                             4 papers (  2.1%)
+PyTorch                                                         4 papers (  2.1%)
+Unity                                                           4 papers (  2.1%)
+AIF + ROS                                                       3 papers (  1.6%)
+PyTorch + SciPy                                                 3 papers (  1.6%)
+TensorFlow                                                      3 papers (  1.6%)
+AIF + PyTorch                                                   3 papers (  1.6%)
+OpenAI Gym + PyBullet                                           3 papers (  1.6%)
+scikit-learn                                                    2 papers (  1.1%)
+
+
+Papers Using Each Tool:
+----------------------------------------------------------------------
+
+AIF (101 papers):
+  - annicchiarico2024bayesian
+  - annicchiarico2025active
+  - annicchiarico2025active2
+  - anonymous2024reviewer
+  - anonymous2024reviewer2
+  - anonymous2024reviewer3
+  - anonymous2025reviewer
+  - anonymous2025reviewer2
+  - athernodateactive
+  - baioumy2020active
+  ... and 91 more
+
+OpenAI Gym (48 papers):
+  - beckenbauer2025orchestrator
+  - beckenbauer2025orchestrator2
+  - champion2021branching
+  - champion2021branching3
+  - champion2022branching
+  - champion2022multimodal
+  - champion2023deconstructing
+  - champion2023deconstructing2
+  - eckert2023active
+  - esaki2024dynamical
+  ... and 38 more
+
+pymdp (37 papers):
+  - carl2024active
+  - casamayorpujol2025distributed
+  - danilenka2024adaptive
+  - danilenka2024adaptive2
+  - eckert2023active
+  - khan2024surprise
+  - khan2024surprise2
+  - khan2024surprise3
+  - kidera2025evaluation
+  - kiefer2022efficient
+  ... and 27 more
+
+PyTorch (27 papers):
+  - bazargani2025brain
+  - bazargani2025brain2
+  - casnici2025bioinspired
+  - chen2025effective
+  - danilenka2024adaptive
+  - danilenka2024adaptive2
+  - huang2025aline
+  - kiefer2022capsule
+  - kim2025emergence2
+  - meo2021adaptation
+  ... and 17 more
+
+ROS (18 papers):
+  - annicchiarico2025active
+  - annicchiarico2025active2
+  - athernodateactive
+  - bellingrath2024emergence
+  - hashimoto2025toward
+  - meo2021adaptation
+  - meo2021multimodal
+  - meo2021nmultimodal
+  - meo2023adaptation
+  - misic2025active
+  ... and 8 more
+
+scikit-learn (12 papers):
+  - cha2025abc3
+  - gijsen2022active
+  - huang2025aline
+  - meo2023adaptation
+  - paul2025simulating
+  - paul2025simulating2
+  - souza2022parallel
+  - spisak2025selforthogonalizing
+  - spisák2025selforthogonalizing
+  - tang2025is
+  ... and 2 more
+
+SciPy (11 papers):
+  - bazargani2025brain
+  - bazargani2025brain2
+  - eckert2023active
+  - gijsen2022active
+  - perez2025cognitive
+  - piolopez2023scaling
+  - sahu2021rethinking
+  - spisak2025selforthogonalizing
+  - spisák2025selforthogonalizing
+  - vargas2023selfregulation
+  ... and 1 more
+
+Flux.jl (11 papers):
+  - costa2024probabilistic
+  - figueira2025comprehensive
+  - millidge2021applications
+  - peltre2023local
+  - peltre2023local2
+  - piolopez2023scaling
+  - spisak2025selforthogonalizing
+  - spisák2025selforthogonalizing
+  - takahashi2025testing
+  - z2024hostmicrobiome
+  ... and 1 more
+
+Unity (10 papers):
+  - baioumy2020active
+  - füllsack2023predicting
+  - gijsen2022active
+  - huang2025aline
+  - li2023return
+  - li2024computational
+  - marghi2022active
+  - possati2025markov
+  - rood2020deep
+  - sergeantperthuis2023influence
+
+Gazebo (9 papers):
+  - baioumy2020active
+  - meo2021nmultimodal
+  - misic2025active
+  - mišić2025active
+  - pezzato2023active
+  - tinguy2025navigation
+  - tinguy2025navigation2
+  - tinguy2025zeroshot
+  - tinguy2025zeroshot2
+
+JAX (6 papers):
+  - chen2025effective
+  - heins2023collective
+  - kidera2025evaluation
+  - markovic2021empirical
+  - takahashi2025testing
+  - vyas2025towards
+
+NumPy (6 papers):
+  - chen2025effective
+  - kidera2025evaluation
+  - markovic2021empirical
+  - spisak2025selforthogonalizing
+  - spisák2025selforthogonalizing
+  - z2024hostmicrobiome
+
+TensorFlow (6 papers):
+  - fallah2023active
+  - fallah2023active2
+  - loaizaganem2019deep
+  - torzoni2025active
+  - torzoni2025active2
+  - vyas2025towards
+
+PyBullet (5 papers):
+  - malekzadeh2022active
+  - malekzadeh2024active
+  - sheikhbahaee2021dream
+  - tinker2024intrinsic
+  - tinker2024intrinsic2
+
+MuJoCo (4 papers):
+  - esaki2024dynamical
+  - fountas2020deep
+  - heins2025axiom
+  - ueltzhöffer2017deep
+
+ROS2 (4 papers):
+  - tinguy2025navigation
+  - tinguy2025navigation2
+  - tinguy2025zeroshot
+  - tinguy2025zeroshot2
+
+Keras (3 papers):
+  - horii2021active
+  - torzoni2025active
+  - torzoni2025active2
+
+Jupyter (3 papers):
+  - markovic2021empirical
+  - novicky2023robotic
+  - z2024hostmicrobiome
+
+Matplotlib (3 papers):
+  - spisak2025selforthogonalizing
+  - spisák2025selforthogonalizing
+  - z2024hostmicrobiome
+
+Seaborn (3 papers):
+  - spisak2025selforthogonalizing
+  - spisák2025selforthogonalizing
+  - z2024hostmicrobiome
+
+Stable-Baselines3 (2 papers):
+  - lapkovskis2025benchmarking
+  - çatal2020learning2
+
+OpenCV (2 papers):
+  - sedlak2024adaptive
+  - sedlak2025multidimensional
+
+Django (1 papers):
+  - 00012022program
+
+MATLAB Toolbox (1 papers):
+  - torzoni2025active2
+
+Pandas (1 papers):
+  - z2024hostmicrobiome
+
+ggplot2 (1 papers):
+  - z2024hostmicrobiome

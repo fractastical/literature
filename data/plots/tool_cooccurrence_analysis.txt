@@ -1,0 +1,134 @@
+Tool Co-occurrence Analysis
+======================================================================
+
+Total papers analyzed: 281
+
+Individual Tool Usage:
+----------------------------------------------------------------------
+R                   :  279 papers ( 99.3%)
+Python              :   96 papers ( 34.2%)
+MATLAB              :   55 papers ( 19.6%)
+PyTorch             :   27 papers (  9.6%)
+ROS                 :   18 papers (  6.4%)
+Julia               :   11 papers (  3.9%)
+JAX                 :    6 papers (  2.1%)
+TensorFlow          :    6 papers (  2.1%)
+ROS2                :    4 papers (  1.4%)
+Java                :    3 papers (  1.1%)
+JavaScript          :    3 papers (  1.1%)
+C++                 :    1 papers (  0.4%)
+
+
+Most Common Tool Pairs (Top 20):
+----------------------------------------------------------------------
+Tool Pair                                Co-occurrence   Jaccard   
+----------------------------------------------------------------------
+Python + R                               94              0.335     
+MATLAB + R                               55              0.197     
+PyTorch + R                              27              0.097     
+MATLAB + Python                          23              0.180     
+R + ROS                                  18              0.065     
+PyTorch + Python                         13              0.118     
+Julia + R                                11              0.039     
+Python + ROS                             8               0.075     
+JAX + R                                  6               0.022     
+R + TensorFlow                           6               0.022     
+PyTorch + ROS                            6               0.154     
+Julia + Python                           4               0.039     
+JAX + Python                             4               0.041     
+Python + TensorFlow                      4               0.041     
+R + ROS2                                 4               0.014     
+Java + R                                 3               0.011     
+JavaScript + R                           3               0.011     
+Java + Python                            2               0.021     
+MATLAB + ROS                             2               0.028     
+MATLAB + PyTorch                         2               0.025     
+
+
+Tool Pairs with Highest Jaccard Similarity (Most Likely to Co-occur):
+----------------------------------------------------------------------
+Tool Pair                                Jaccard    Co-occurrence  
+----------------------------------------------------------------------
+Python + R                               0.335      94             
+Java + JavaScript                        0.200      1              
+MATLAB + R                               0.197      55             
+MATLAB + Python                          0.180      23             
+PyTorch + ROS                            0.154      6              
+PyTorch + Python                         0.118      13             
+ROS + ROS2                               0.100      2              
+PyTorch + R                              0.097      27             
+JAX + TensorFlow                         0.091      1              
+Java + Julia                             0.077      1              
+JavaScript + Julia                       0.077      1              
+Python + ROS                             0.075      8              
+R + ROS                                  0.065      18             
+JAX + Julia                              0.062      1              
+JAX + Python                             0.041      4              
+Python + TensorFlow                      0.041      4              
+Julia + R                                0.039      11             
+Julia + Python                           0.039      4              
+Java + PyTorch                           0.034      1              
+JAX + MATLAB                             0.034      2              
+
+
+Most Common Tool Triplets (Top 15):
+----------------------------------------------------------------------
+MATLAB + Python + R                                            23 papers (  8.2%)
+PyTorch + Python + R                                           13 papers (  4.6%)
+Python + R + ROS                                                8 papers (  2.8%)
+PyTorch + R + ROS                                               6 papers (  2.1%)
+Julia + Python + R                                              4 papers (  1.4%)
+JAX + Python + R                                                4 papers (  1.4%)
+Python + R + TensorFlow                                         4 papers (  1.4%)
+Java + Python + R                                               2 papers (  0.7%)
+MATLAB + Python + ROS                                           2 papers (  0.7%)
+MATLAB + R + ROS                                                2 papers (  0.7%)
+MATLAB + PyTorch + Python                                       2 papers (  0.7%)
+MATLAB + PyTorch + R                                            2 papers (  0.7%)
+JAX + MATLAB + Python                                           2 papers (  0.7%)
+JAX + MATLAB + R                                                2 papers (  0.7%)
+Julia + MATLAB + R                                              2 papers (  0.7%)
+
+
+Common Tool Stacks:
+----------------------------------------------------------------------
+
+1-Tool Stacks (Top 10):
+  R                                                             121 papers ( 43.1%)
+  Python                                                          2 papers (  0.7%)
+
+2-Tool Stacks (Top 10):
+  Python + R                                                     49 papers ( 17.4%)
+  MATLAB + R                                                     30 papers ( 10.7%)
+  PyTorch + R                                                    10 papers (  3.6%)
+  R + ROS                                                         4 papers (  1.4%)
+  Julia + R                                                       4 papers (  1.4%)
+  JavaScript + R                                                  2 papers (  0.7%)
+  R + ROS2                                                        2 papers (  0.7%)
+  Java + R                                                        1 papers (  0.4%)
+  R + TensorFlow                                                  1 papers (  0.4%)
+
+3-Tool Stacks (Top 10):
+  MATLAB + Python + R                                            15 papers (  5.3%)
+  PyTorch + Python + R                                            6 papers (  2.1%)
+  Python + R + ROS                                                4 papers (  1.4%)
+  PyTorch + R + ROS                                               4 papers (  1.4%)
+  Python + R + TensorFlow                                         2 papers (  0.7%)
+  Julia + MATLAB + R                                              2 papers (  0.7%)
+  Julia + Python + R                                              2 papers (  0.7%)
+  R + ROS + ROS2                                                  2 papers (  0.7%)
+  C++ + Python + R                                                1 papers (  0.4%)
+  JAX + Julia + R                                                 1 papers (  0.4%)
+
+4-Tool Stacks (Top 10):
+  MATLAB + Python + R + ROS                                       2 papers (  0.7%)
+  MATLAB + PyTorch + Python + R                                   2 papers (  0.7%)
+  JAX + MATLAB + Python + R                                       2 papers (  0.7%)
+  PyTorch + Python + R + ROS                                      2 papers (  0.7%)
+  MATLAB + Python + R + TensorFlow                                2 papers (  0.7%)
+  JAX + PyTorch + Python + R                                      1 papers (  0.4%)
+  Java + PyTorch + Python + R                                     1 papers (  0.4%)
+  Julia + PyTorch + Python + R                                    1 papers (  0.4%)
+
+5-Tool Stacks (Top 10):
+  Java + JavaScript + Julia + Python + R                          1 papers (  0.4%)

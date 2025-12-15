@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tool Co-occurrence Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            margin-top: 0;
+            color: #333;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #333;
+        }
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+        .chart-container {
+            margin-top: 20px;
+        }
+        canvas {
+            max-height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tool Co-occurrence Analysis</h1>
+    <p class="subtitle">Common Tooling Patterns Across GitHub Repositories</p>
+    
+    <div class="section">
+        <h2>Summary</h2>
+        <p><strong>Total papers analyzed:</strong> 281</p>
+        <p><strong>Total unique tools:</strong> 12</p>
+        <p><strong>Total tool pairs:</strong> 35</p>
+        <p><strong>Total tool triplets:</strong> 36</p>
+    </div>
+    
+    <div class="section">
+        <h2>Most Common Tool Pairs</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tool Pair</th>
+                    <th>Co-occurrence Count</th>
+                    <th>Jaccard Similarity</th>
+                    <th>% of Papers</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td><strong>Python</strong> + <strong>R</strong></td>
+                    <td>94</td>
+                    <td>0.335</td>
+                    <td>33.5%</td>
+                </tr>
+
+                <tr>
+                    <td><strong>MATLAB</strong> + <strong>R</strong></td>
+                    <td>55</td>
+                    <td>0.197</td>
+                    <td>19.6%</td>
+                </tr>
+
+                <tr>
+                    <td><strong>PyTorch</strong> + <strong>R</strong></td>
+                    <td>27</td>
+                    <td>0.097</td>
+                    <td>9.6%</td>
+                </tr>
+
+                <tr>
+                    <td><strong>MATLAB</strong> + <strong>Python</strong></td>
+                    <td>23</td>
+                    <td>0.180</td>
+                    <td>8.2%</td>
+                </tr>
+
+                <tr>
+                    <td><strong>R</strong> + <strong>ROS</strong></td>
+                    <td>18</td>
+                    <td>0.065</td>
+                    <td>6.4%</td>
+                </tr>
+
+                <tr>
+                    <td><strong>PyTorch</strong> + <strong>Python</strong></td>
+                    <td>13</td>
+                    <td>0.118</td>
+                    <td>4.6%</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Julia</strong> + <strong>R</strong></td>
+                    <td>11</td>
+                    <td>0.039</td>
+                    <td>3.9%</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Python</strong> + <strong>ROS</strong></td>
+                    <td>8</td>
+                    <td>0.075</td>
+                    <td>2.8%</td>
+                </tr>
+
+                <tr>
+                    <td><strong>JAX</strong> + <strong>R</strong></td>
+                    <td>6</td>
+                    <td>0.022</td>
+                    <td>2.1%</td>
+                </tr>
+
+                <tr>
+                    <td><strong>R</strong> + <strong>TensorFlow</strong></td>
+                    <td>6</td>
+                    <td>0.022</td>
+                    <td>2.1%</td>
+                </tr>
+
+                <tr>
+                    <td><strong>PyTorch</strong> + <strong>ROS</strong></td>
+                    <td>6</td>
+                    <td>0.154</td>
+                    <td>2.1%</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Julia</strong> + <strong>Python</strong></td>
+                    <td>4</td>
+                    <td>0.039</td>
+                    <td>1.4%</td>
+                </tr>
+
+                <tr>
+                    <td><strong>JAX</strong> + <strong>Python</strong></td>
+                    <td>4</td>
+                    <td>0.041</td>
+                    <td>1.4%</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Python</strong> + <strong>TensorFlow</strong></td>
+                    <td>4</td>
+                    <td>0.041</td>
+                    <td>1.4%</td>
+                </tr>
+
+                <tr>
+                    <td><strong>R</strong> + <strong>ROS2</strong></td>
+                    <td>4</td>
+                    <td>0.014</td>
+                    <td>1.4%</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>Individual Tool Usage</h2>
+        <div class="chart-container">
+            <canvas id="toolChart"></canvas>
+        </div>
+    </div>
+    
+    <script>
+        const toolData = {
+
+            labels: ["R", "Python", "MATLAB", "PyTorch", "ROS", "Julia", "JAX", "TensorFlow", "ROS2", "Java", "JavaScript", "C++"],
+            datasets: [{
+                label: 'Number of Papers',
+                data: [279, 96, 55, 27, 18, 11, 6, 6, 4, 3, 3, 1],
+                backgroundColor: [
+                    '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
+                    '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf',
+                    '#aec7e8', '#ffbb78'
+                ],
+                borderColor: [
+                    '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
+                    '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf',
+                    '#aec7e8', '#ffbb78'
+                ],
+                borderWidth: 1
+            }]
+        };
+        
+        new Chart(document.getElementById('toolChart'), {
+            type: 'bar',
+            data: toolData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Tool Usage Frequency'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Number of Papers'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Programming Language / Tool'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

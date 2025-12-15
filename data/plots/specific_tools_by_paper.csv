@@ -1,0 +1,191 @@
+Paper,Tools,Tool Count,Repositories
+00012022program,Django,1,6
+annicchiarico2024bayesian,AIF,1,1
+annicchiarico2025active,AIF + ROS,2,2
+annicchiarico2025active2,AIF + ROS,2,2
+anonymous2024reviewer,AIF,1,1
+anonymous2024reviewer2,AIF,1,1
+anonymous2024reviewer3,AIF,1,2
+anonymous2025reviewer,AIF,1,2
+anonymous2025reviewer2,AIF,1,2
+athernodateactive,AIF + ROS,2,1
+baioumy2020active,AIF + Gazebo + Unity,3,1
+baioumy2022unbiased,AIF,1,1
+baioumy2022unbiased2,AIF,1,1
+bazargani2025brain,PyTorch + SciPy,2,1
+bazargani2025brain2,PyTorch + SciPy,2,1
+beckenbauer2025orchestrator,OpenAI Gym,1,1
+beckenbauer2025orchestrator2,OpenAI Gym,1,1
+bellingrath2024emergence,ROS,1,1
+carl2024active,pymdp,1,1
+casamayorpujol2025distributed,AIF + pymdp,2,3
+casnici2025bioinspired,PyTorch,1,1
+cha2025abc3,scikit-learn,1,1
+chait2024elife,AIF,1,1
+chait2025elife,AIF,1,2
+champion2021branching,AIF + OpenAI Gym,2,5
+champion2021branching3,OpenAI Gym,1,2
+champion2022branching,AIF + OpenAI Gym,2,5
+champion2022multimodal,OpenAI Gym,1,4
+champion2023deconstructing,OpenAI Gym,1,8
+champion2023deconstructing2,AIF + OpenAI Gym,2,8
+chen2025effective,JAX + NumPy + PyTorch,3,1
+costa2024probabilistic,Flux.jl,1,2
+danilenka2024adaptive,PyTorch + pymdp,2,1
+danilenka2024adaptive2,AIF + PyTorch + pymdp,3,1
+eckert2023active,AIF + OpenAI Gym + SciPy + pymdp,4,1
+esaki2024dynamical,AIF + MuJoCo + OpenAI Gym,3,3
+fallah2023active,TensorFlow,1,1
+fallah2023active2,TensorFlow,1,1
+figueira2025comprehensive,Flux.jl,1,8
+fisher2025active,AIF,1,1
+fishernodateactive,AIF,1,1
+fountas2020deep,MuJoCo + OpenAI Gym,2,3
+friston2024federated,AIF,1,1
+füllsack2023predicting,Unity,1,1
+gijsen2022active,AIF + SciPy + Unity + scikit-learn,4,3
+glybovets2025morphonas,OpenAI Gym,1,1
+hashimoto2025toward,ROS,1,1
+heins2023collective,AIF + JAX,2,1
+heins2025axiom,AIF + MuJoCo,2,2
+hesp2020deeply,AIF,1,1
+hodson2023sophisticated,AIF,1,1
+hoeffelen2021deep,OpenAI Gym,1,2
+hoeffelen2021deep2,OpenAI Gym,1,2
+horii2021active,Keras,1,1
+huang2025aline,PyTorch + Unity + scikit-learn,3,6
+igari2024selection,AIF + OpenAI Gym,2,1
+khan2024surprise,AIF + pymdp,2,1
+khan2024surprise2,AIF + pymdp,2,1
+khan2024surprise3,AIF + pymdp,2,1
+kidera2025evaluation,AIF + JAX + NumPy + pymdp,4,1
+kiefer2022capsule,PyTorch,1,3
+kiefer2022efficient,AIF + pymdp,2,1
+kiefer2023relative,pymdp,1,1
+kim2025emergence,AIF,1,1
+kim2025emergence2,AIF + PyTorch,2,1
+koudahl2021epistemics,OpenAI Gym,1,1
+koudahl2023realising,pymdp,1,1
+koudahl2023realising2,pymdp,1,1
+laar2019simulating,OpenAI Gym,1,1
+lapkovskis2025benchmarking,Stable-Baselines3,1,2
+li2023return,Unity + pymdp,2,1
+li2024computational,Unity,1,1
+loaizaganem2019deep,TensorFlow,1,1
+maele2023bridging,pymdp,1,1
+malekzadeh2022active,OpenAI Gym + PyBullet,2,1
+malekzadeh2024active,OpenAI Gym + PyBullet,2,1
+marghi2022active,AIF + Unity,2,1
+markovic2021empirical,AIF + JAX + Jupyter + NumPy + OpenAI Gym,5,2
+marković2021metacontrol,AIF,1,1
+matsumoto2020goaldirected,AIF,1,1
+matsumoto2025active,AIF,1,1
+matsumoto2025active2,AIF,1,1
+mazzaglia2021contrastive,AIF + OpenAI Gym,2,1
+meo2021adaptation,PyTorch + ROS,2,1
+meo2021multimodal,PyTorch + ROS,2,1
+meo2021nmultimodal,Gazebo + PyTorch + ROS,3,1
+meo2023adaptation,PyTorch + ROS + scikit-learn,3,1
+millidge2021applications,AIF + Flux.jl + OpenAI Gym + PyTorch,4,6
+millidge2022successor,pymdp,1,1
+misic2025active,AIF + Gazebo + PyTorch + ROS,4,1
+mišić2025active,AIF + Gazebo + PyTorch + ROS,4,1
+nasr2018comprehensive,PyTorch,1,1
+neacsu2022structure,AIF,1,1
+noel2021online,OpenAI Gym,1,1
+novicky2023robotic,AIF + Jupyter + pymdp,3,1
+novicky2024bistable,AIF,1,1
+nuijten2024reactive,OpenAI Gym + pymdp,2,3
+olesennodatephi,AIF + pymdp,2,1
+oostrum2024concise,AIF + pymdp,2,1
+oostrum2024concise2,AIF + pymdp,2,1
+paul2023efficient,AIF,1,1
+paul2023efficient2,AIF,1,1
+paul2024predictive,AIF,1,1
+paul2024predictive2,AIF + OpenAI Gym,2,1
+paul2025simulating,OpenAI Gym + scikit-learn,2,1
+paul2025simulating2,AIF + OpenAI Gym + scikit-learn,3,1
+peltre2023local,Flux.jl,1,1
+peltre2023local2,Flux.jl,1,1
+perez2025cognitive,SciPy,1,1
+pezzato2019novel,AIF,1,2
+pezzato2020active,ROS + pymdp,2,1
+pezzato2023active,Gazebo + ROS + pymdp,3,1
+piolopez2016active,ROS,1,1
+piolopez2022active,AIF,1,1
+piolopez2023scaling,AIF + Flux.jl + SciPy,3,1
+pitliyanodatemodel,AIF + pymdp,2,1
+possati2025markov,Unity,1,2
+prakki2024active,AIF,1,2
+prakki2024active2,AIF,1,2
+prakki2024demonstrating,AIF,1,1
+prakki2024demonstrating2,AIF,1,1
+priorelli2023flexible,AIF,1,1
+priorelli2025dynamic2,AIF,1,1
+pujol2025distributed,pymdp,1,3
+ramstead2020neural,AIF,1,1
+ramstead2021neural,AIF,1,0
+ramírezruiz2022complex,OpenAI Gym,1,1
+rood2020deep,Unity,1,1
+safa2023active,OpenAI Gym,1,1
+safa2023active2,OpenAI Gym,1,1
+safa2024active,OpenAI Gym,1,1
+sahu2021rethinking,PyTorch + SciPy,2,2
+sajid2019active,AIF + OpenAI Gym,2,1
+sajid2021exploration,OpenAI Gym,1,3
+sedlak2023equilibrium,pymdp,1,2
+sedlak2024adaptive,OpenCV + pymdp,2,2
+sedlak2024equilibrium,pymdp,1,2
+sedlak2025multidimensional,OpenCV + pymdp,2,2
+sergeantperthuis2023influence,AIF + Unity,2,1
+sheikhbahaee2021dream,OpenAI Gym + PyBullet,2,2
+shin2021prior,OpenAI Gym,1,1
+smith2021stepbystep,AIF + pymdp,2,4
+smith2022active,AIF,1,1
+souza2022parallel,PyTorch + scikit-learn,2,2
+spisak2025selforthogonalizing,AIF + Flux.jl + Matplotlib + NumPy + SciPy + Seaborn + scikit-learn,7,1
+spisák2025selforthogonalizing,AIF + Flux.jl + Matplotlib + NumPy + SciPy + Seaborn + scikit-learn,7,1
+stetter2020learning,OpenAI Gym + PyTorch,2,1
+takahashi2025testing,Flux.jl + JAX,2,1
+tang2025is,scikit-learn,1,1
+taniguchi2022active,ROS,1,1
+tinguy2022home,OpenAI Gym,1,1
+tinguy2023inferring,OpenAI Gym,1,1
+tinguy2023learning,AIF + OpenAI Gym,2,1
+tinguy2023learning2,AIF + OpenAI Gym,2,1
+tinguy2023spatial,OpenAI Gym,1,1
+tinguy2024exploring,AIF + OpenAI Gym,2,1
+tinguy2024exploring2,AIF + OpenAI Gym,2,1
+tinguy2024learning,AIF + OpenAI Gym + pymdp,3,1
+tinguy2024spatial,OpenAI Gym,1,1
+tinguy2025navigation,AIF + Gazebo + ROS2,3,2
+tinguy2025navigation2,AIF + Gazebo + ROS2,3,2
+tinguy2025zeroshot,AIF + Gazebo + ROS + ROS2,4,2
+tinguy2025zeroshot2,AIF + Gazebo + ROS + ROS2,4,2
+tinker2024intrinsic,PyBullet + PyTorch,2,1
+tinker2024intrinsic2,PyBullet + PyTorch,2,1
+torresan2025prior,AIF + pymdp,2,1
+torzoni2025active,Keras + TensorFlow + pymdp,3,2
+torzoni2025active2,Keras + MATLAB Toolbox + TensorFlow + pymdp,4,1
+ueltzhöffer2017deep,AIF + MuJoCo + OpenAI Gym,3,1
+vargas2023selfregulation,AIF + ROS + SciPy,3,1
+vijayaraghavan2024development,AIF,1,1
+vyas2025towards,JAX + TensorFlow + pymdp,3,1
+wang2023active,PyTorch + scikit-learn,2,9
+wauthier2022model,AIF + OpenAI Gym,2,1
+wei2023learning,AIF + PyTorch,2,1
+wei2024value,pymdp,1,1
+wei2024value2,pymdp,1,1
+wei2025learning,AIF + PyTorch,2,1
+yang2025endogenous,AIF,1,1
+yeganeh2024active,AIF,1,1
+yeganeh2024active2,AIF,1,1
+yoon2024individual,AIF,1,1
+z2024hostmicrobiome,Flux.jl + Jupyter + Matplotlib + NumPy + Pandas + SciPy + Seaborn + ggplot2 + scikit-learn,9,1
+zeidman2025spm30,Flux.jl,1,1
+zhang2024author,AIF,1,2
+zhang2024neural,AIF,1,2
+zhang2025neural,AIF,1,2
+zhang2025neural2,AIF,1,2
+zhong2018afaprednet,PyTorch,1,1
+çatal2020learning2,AIF + OpenAI Gym + PyTorch + Stable-Baselines3,4,1

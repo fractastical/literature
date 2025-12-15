@@ -1,0 +1,27 @@
+Tool,Count,Percentage
+AIF,101,53.16%
+OpenAI Gym,48,25.26%
+pymdp,37,19.47%
+PyTorch,27,14.21%
+ROS,18,9.47%
+scikit-learn,12,6.32%
+SciPy,11,5.79%
+Flux.jl,11,5.79%
+Unity,10,5.26%
+Gazebo,9,4.74%
+JAX,6,3.16%
+NumPy,6,3.16%
+TensorFlow,6,3.16%
+PyBullet,5,2.63%
+MuJoCo,4,2.11%
+ROS2,4,2.11%
+Keras,3,1.58%
+Jupyter,3,1.58%
+Matplotlib,3,1.58%
+Seaborn,3,1.58%
+Stable-Baselines3,2,1.05%
+OpenCV,2,1.05%
+Django,1,0.53%
+MATLAB Toolbox,1,0.53%
+Pandas,1,0.53%
+ggplot2,1,0.53%
